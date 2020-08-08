@@ -1,53 +1,143 @@
-import React, {useRef} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  FlatList,
+} from 'react-native';
 import {connect} from 'react-redux';
 import Header from '../../Components/Header/Header';
 import {mainColor} from '../../configs/global';
 import BookCard from '../../Components/BookCard/BookCard';
+import GenreCard from '../../Components/GenreCard/GenreCard';
+import AuthorCard from '../../Components/AuthorCard/AuthorCard';
 import Carousel from 'react-native-anchor-carousel';
+import {
+  getBooksQuery,
+  getLatestBooksQuery,
+  getGenresQuery,
+  getAuthorsQuery,
+} from '../../queries/queries';
+import {useQuery} from '@apollo/client';
 const {width, height} = Dimensions.get('window');
-
-let data = [
-  {
-    cover:
-      'https://i.pinimg.com/originals/a3/2c/c5/a32cc5fb7003e627bf36d3b5b538fe2e.png',
-    name: 'Origin',
-  },
-  {
-    cover:
-      'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1534070871l/85266._SY475_.jpg',
-    name: 'Davinci Code',
-  },
-  {
-    cover:
-      'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1448579273l/27993335._SY475_.jpg',
-    name: 'المنجم',
-  },
-];
 
 function renderItem({item}) {
   return <BookCard book={item} />;
 }
 
+function renderLatestBook({item}) {
+  return (
+    <View style={styles.bookItem}>
+      <BookCard book={item} key={item.id} />
+    </View>
+  );
+}
+
+function renderGenreItem({item}) {
+  return (
+    <View style={styles.bookItem}>
+      <GenreCard genre={item} />
+    </View>
+  );
+}
+
+function renderAuthorCard({item}) {
+  return (
+    <View style={styles.bookItem}>
+      <AuthorCard author={item} />
+    </View>
+  );
+}
+
 function Home(props) {
+  const [books, setBooks] = useState([]);
+  const [latestBooks, setLatestBooks] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [authors, setAuthors] = useState([]);
+
+  useQuery(getBooksQuery, {
+    onCompleted: (data) => {
+      console.log('Data : ', data);
+      setBooks(data.books);
+    },
+    onError: (err) => {
+      console.log('Get Books Err : ', err);
+    },
+  });
+
+  useQuery(getAuthorsQuery, {
+    onCompleted: (data) => {
+      console.log('Data : ', data);
+      setAuthors(data.authors);
+    },
+    onError: (err) => {
+      console.log('Get Authors Err : ', err);
+    },
+  });
+
+  useQuery(getLatestBooksQuery, {
+    onCompleted: (data) => {
+      console.log('Data : ', data);
+      setLatestBooks(data.books);
+    },
+    onError: (err) => {
+      console.log('Get Latest Books Err : ', err);
+    },
+  });
+
+  useQuery(getGenresQuery, {
+    onCompleted: (data) => {
+      console.log('Data : ', data);
+      setGenres(data.genres);
+    },
+    onError: (err) => {
+      console.log('Get Genres Err : ', err);
+    },
+  });
+
   return (
     <View style={styles.container}>
       <Header />
-      <View style={styles.roundedBG} />
-      <View style={styles.content}>
-        <Carousel
-          style={styles.carousel}
-          data={data}
-          renderItem={renderItem}
-          itemWidth={200}
-          containerWidth={width}
-          separatorWidth={-10}
-          // ref={carouselRef}
-          initialIndex={1}
-          //pagingEnable={false}
-          //minScrollDistance={20}
-        />
-      </View>
+      <ScrollView>
+        <View style={styles.roundedBG} />
+        <View style={styles.topContent}>
+          {books.length > 0 ? (
+            <Carousel
+              style={styles.carousel}
+              data={books}
+              renderItem={renderItem}
+              itemWidth={200}
+              containerWidth={width}
+              separatorWidth={-10}
+              // ref={carouselRef}
+              initialIndex={1}
+              //pagingEnable={false}
+              //minScrollDistance={20}
+            />
+          ) : (
+            <ActivityIndicator color={mainColor} size="large" />
+          )}
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sideHeader}>New Releases</Text>
+          <FlatList
+            data={latestBooks}
+            horizontal
+            renderItem={renderLatestBook}
+          />
+        </View>
+        <View style={styles.genreCont}>
+          <FlatList data={genres} horizontal renderItem={renderGenreItem} />
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sideHeader}>Top Authors</Text>
+          <FlatList data={authors} horizontal renderItem={renderAuthorCard} />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -56,7 +146,7 @@ const styles = StyleSheet.create({
   container: {
     height: 0.9 * height,
   },
-  content: {
+  topContent: {
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -72,7 +162,24 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 0.45 * width,
   },
   carousel: {
-    marginVertical: 0.1 * height,
+    marginTop: 0.1 * height,
+    marginBottom: 0.03 * height,
+  },
+  section: {
+    paddingHorizontal: 0.03 * width,
+    marginVertical: 0.03 * height,
+  },
+  sideHeader: {
+    color: mainColor,
+    fontSize: 0.06 * width,
+    fontFamily: 'Cairo-SemiBold',
+    marginBottom: 0.03 * height,
+  },
+  bookItem: {
+    marginHorizontal: 0.02 * width,
+  },
+  genreCont: {
+    marginVertical: 0.03 * height,
   },
 });
 

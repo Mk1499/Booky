@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {mainColor, textColor, width, height} from '../../configs/global';
 
-export default function BookCard(props) {
+export default function SmallBookCard(props) {
   return (
     <TouchableOpacity activeOpacity={0.2} style={styles.container}>
       <Image
@@ -35,6 +35,5 @@ const styles = StyleSheet.create({
     color: mainColor,
     marginTop: 0.02 * height,
     fontFamily: 'Cairo-SemiBold',
-    // fontWeight: 'bold',
   },
 });

@@ -51,6 +51,12 @@
 		68D4FA1BC79641138C24F4D3 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 903FC8E32D46483D87A5F1A7 /* Octicons.ttf */; };
 		1919B36A9FA5407FB09D3FC0 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA409DAAE2714A77A623F414 /* SimpleLineIcons.ttf */; };
 		BEF448A544FB4611BD587CC6 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAA6CE991AD343679EEB3C27 /* Zocial.ttf */; };
+		7C53D988D68E455D82F327B2 /* Cairo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5EEEBDE2E06494186451055 /* Cairo-Black.ttf */; };
+		85C28B2F0C8D4FC7BEBFD6E7 /* Cairo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3B3ABC1E04240FFB0E38592 /* Cairo-Bold.ttf */; };
+		E55FC92F742B4D2F818CCA78 /* Cairo-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAFD7D53F09E4CDDB4943F08 /* Cairo-ExtraLight.ttf */; };
+		FB07166D9A644BFD9B0C5544 /* Cairo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C7CD3107C1C4A7AA2E0C0AF /* Cairo-Light.ttf */; };
+		748F5A7DF5A74A648CA06774 /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A57589EE22949FFA9495EE2 /* Cairo-SemiBold.ttf */; };
+		99E87AAFFD7E4759BB6B34B2 /* Cairo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1548A2ABE2A46E497BA9D04 /* Cairo.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +127,12 @@
 		903FC8E32D46483D87A5F1A7 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		DA409DAAE2714A77A623F414 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		DAA6CE991AD343679EEB3C27 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E5EEEBDE2E06494186451055 /* Cairo-Black.ttf */ = {isa = PBXFileReference; name = "Cairo-Black.ttf"; path = "../assets/fonts/Cairo-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E3B3ABC1E04240FFB0E38592 /* Cairo-Bold.ttf */ = {isa = PBXFileReference; name = "Cairo-Bold.ttf"; path = "../assets/fonts/Cairo-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DAFD7D53F09E4CDDB4943F08 /* Cairo-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Cairo-ExtraLight.ttf"; path = "../assets/fonts/Cairo-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6C7CD3107C1C4A7AA2E0C0AF /* Cairo-Light.ttf */ = {isa = PBXFileReference; name = "Cairo-Light.ttf"; path = "../assets/fonts/Cairo-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3A57589EE22949FFA9495EE2 /* Cairo-SemiBold.ttf */ = {isa = PBXFileReference; name = "Cairo-SemiBold.ttf"; path = "../assets/fonts/Cairo-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D1548A2ABE2A46E497BA9D04 /* Cairo.ttf */ = {isa = PBXFileReference; name = "Cairo.ttf"; path = "../assets/fonts/Cairo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +278,12 @@
 				903FC8E32D46483D87A5F1A7 /* Octicons.ttf */,
 				DA409DAAE2714A77A623F414 /* SimpleLineIcons.ttf */,
 				DAA6CE991AD343679EEB3C27 /* Zocial.ttf */,
+				E5EEEBDE2E06494186451055 /* Cairo-Black.ttf */,
+				E3B3ABC1E04240FFB0E38592 /* Cairo-Bold.ttf */,
+				DAFD7D53F09E4CDDB4943F08 /* Cairo-ExtraLight.ttf */,
+				6C7CD3107C1C4A7AA2E0C0AF /* Cairo-Light.ttf */,
+				3A57589EE22949FFA9495EE2 /* Cairo-SemiBold.ttf */,
+				D1548A2ABE2A46E497BA9D04 /* Cairo.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -444,6 +462,12 @@
 				68D4FA1BC79641138C24F4D3 /* Octicons.ttf in Resources */,
 				1919B36A9FA5407FB09D3FC0 /* SimpleLineIcons.ttf in Resources */,
 				BEF448A544FB4611BD587CC6 /* Zocial.ttf in Resources */,
+				7C53D988D68E455D82F327B2 /* Cairo-Black.ttf in Resources */,
+				85C28B2F0C8D4FC7BEBFD6E7 /* Cairo-Bold.ttf in Resources */,
+				E55FC92F742B4D2F818CCA78 /* Cairo-ExtraLight.ttf in Resources */,
+				FB07166D9A644BFD9B0C5544 /* Cairo-Light.ttf in Resources */,
+				748F5A7DF5A74A648CA06774 /* Cairo-SemiBold.ttf in Resources */,
+				99E87AAFFD7E4759BB6B34B2 /* Cairo.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

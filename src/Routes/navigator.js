@@ -90,7 +90,11 @@ const mainBtm = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({tintColor}) => {
           return (
-            <Icon name="search" style={{color: tintColor, fontSize: 20}} />
+            <Icon
+              name="search"
+              type="Feather"
+              style={{color: tintColor, fontSize: 20}}
+            />
           );
         },
         headerTitle: 'Your Library',
