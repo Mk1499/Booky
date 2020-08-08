@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -14,6 +14,7 @@ import {mainColor} from '../../configs/global';
 import BookCard from '../../Components/BookCard/BookCard';
 import GenreCard from '../../Components/GenreCard/GenreCard';
 import AuthorCard from '../../Components/AuthorCard/AuthorCard';
+import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import Carousel from 'react-native-anchor-carousel';
 import {
   getBooksQuery,
@@ -24,76 +25,90 @@ import {
 import {useQuery} from '@apollo/client';
 const {width, height} = Dimensions.get('window');
 
-function renderItem({item}) {
-  return <BookCard book={item} />;
-}
-
-function renderLatestBook({item}) {
-  return (
-    <View style={styles.bookItem}>
-      <BookCard book={item} key={item.id} />
-    </View>
-  );
-}
-
-function renderGenreItem({item}) {
-  return (
-    <View style={styles.bookItem}>
-      <GenreCard genre={item} />
-    </View>
-  );
-}
-
-function renderAuthorCard({item}) {
-  return (
-    <View style={styles.bookItem}>
-      <AuthorCard author={item} />
-    </View>
-  );
-}
-
 function Home(props) {
+  function gotoBookScreen(bookID) {
+    props.navigation.navigate('BookDetails', {
+      bookID,
+    });
+  }
+
+  function renderItem({item}) {
+    return <BookCard book={item} navigate={() => gotoBookScreen(item.id)} />;
+  }
+
+  function renderLatestBook({item}) {
+    return (
+      <View style={styles.bookItem}>
+        <SmallBookCard
+          book={item}
+          key={item.id}
+          navigate={() => gotoBookScreen(item.id)}
+        />
+      </View>
+    );
+  }
+
+  function renderGenreItem({item}) {
+    return (
+      <View style={styles.bookItem}>
+        <GenreCard genre={item} />
+      </View>
+    );
+  }
+
+  function renderAuthorCard({item}) {
+    return (
+      <View style={styles.bookItem}>
+        <AuthorCard author={item} />
+      </View>
+    );
+  }
+
   const [books, setBooks] = useState([]);
   const [latestBooks, setLatestBooks] = useState([]);
   const [genres, setGenres] = useState([]);
   const [authors, setAuthors] = useState([]);
 
+  useEffect(() => {
+    console.log('Home Props : ', props);
+  }, []);
+
   useQuery(getBooksQuery, {
-    onCompleted: (data) => {
+    onCompleted: data => {
       console.log('Data : ', data);
       setBooks(data.books);
     },
-    onError: (err) => {
+    onError: err => {
       console.log('Get Books Err : ', err);
     },
   });
 
   useQuery(getAuthorsQuery, {
-    onCompleted: (data) => {
+    onCompleted: data => {
       console.log('Data : ', data);
       setAuthors(data.authors);
     },
-    onError: (err) => {
+    onError: err => {
       console.log('Get Authors Err : ', err);
     },
   });
 
   useQuery(getLatestBooksQuery, {
-    onCompleted: (data) => {
+    onCompleted: data => {
       console.log('Data : ', data);
       setLatestBooks(data.books);
     },
-    onError: (err) => {
+    onError: err => {
       console.log('Get Latest Books Err : ', err);
     },
   });
 
   useQuery(getGenresQuery, {
-    onCompleted: (data) => {
+    onCompleted: data => {
       console.log('Data : ', data);
       setGenres(data.genres);
     },
-    onError: (err) => {
+    onError: err => {
       console.log('Get Genres Err : ', err);
     },
   });
@@ -183,7 +198,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.auth.user,
 });
 

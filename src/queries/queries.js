@@ -52,6 +52,26 @@ export const getLatestBooksQuery = gql`
   }
 `;
 
+export const getBookDetails = gql`
+  query($id: ID!) {
+    book(id: $id) {
+      id
+      name
+      posterURL
+      rate
+      description
+      author {
+        id
+        name
+      }
+      genre {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const addBookMutation = gql`
   mutation($name: String!, $genre: String!, $authorID: ID!) {
     addBook(name: $name, genre: $genre, authorID: $authorID) {

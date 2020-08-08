@@ -1,10 +1,14 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {mainColor, textColor, width, height} from '../../configs/global';
+import {connect} from 'react-redux';
 
-export default function BookCard(props) {
+function BookCard(props) {
   return (
-    <TouchableOpacity activeOpacity={0.2} style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      style={styles.container}
+      onPress={props.navigate}>
       <Image
         source={
           props.book.posterURL
@@ -38,3 +42,7 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
   },
 });
+
+const mapStateToProps = state => ({});
+
+export default connect(mapStateToProps, {})(BookCard);

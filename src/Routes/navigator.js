@@ -10,6 +10,7 @@ import SignUp from '../Screens/SignUp/SignUp';
 import Library from '../Screens/Library/Library';
 import Profile from '../Screens/Profile/Profile';
 import Search from '../Screens/Search/Search';
+import BookDetails from '../Screens/BookDetails/BookDetails';
 
 import {Icon} from 'native-base';
 // const {width} = Dimensions.get('window');
@@ -19,6 +20,13 @@ import {Icon} from 'native-base';
 const HomeStack = createStackNavigator({
   Home: {
     screen: Home,
+    navigationOptions: () => ({
+      headerTitle: null,
+      header: null,
+    }),
+  },
+  BookDetails: {
+    screen: BookDetails,
     navigationOptions: () => ({
       headerTitle: null,
       header: null,

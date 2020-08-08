@@ -6,7 +6,11 @@ import {Icon} from 'native-base';
 export default function Header() {
   return (
     <View style={styles.container}>
-      <Icon style={styles.appIcon} name="book" type="Octicons" />
+      <Icon
+        style={styles.appIcon}
+        name="book-open-page-variant"
+        type="MaterialCommunityIcons"
+      />
       <Text style={styles.appName}>BoOkY</Text>
     </View>
   );

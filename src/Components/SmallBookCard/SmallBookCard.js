@@ -4,7 +4,7 @@ import {mainColor, textColor, width, height} from '../../configs/global';
 
 export default function SmallBookCard(props) {
   return (
-    <TouchableOpacity activeOpacity={0.2} style={styles.container}>
+    <TouchableOpacity activeOpacity={0.2} style={styles.container} onPress={props.navigate}>
       <Image
         source={
           props.book.posterURL
