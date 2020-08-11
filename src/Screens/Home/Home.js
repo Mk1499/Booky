@@ -32,6 +32,18 @@ function Home(props) {
     });
   }
 
+  function gotoGenreScreen(genreID) {
+    props.navigation.navigate('Genre', {
+      genreID,
+    });
+  }
+
+  function gotoAuthorScreen(author) {
+    props.navigation.navigate('AuthorProfile', {
+      author,
+    });
+  }
+
   function renderItem({item}) {
     return <BookCard book={item} navigate={() => gotoBookScreen(item.id)} />;
   }
@@ -51,7 +63,7 @@ function Home(props) {
   function renderGenreItem({item}) {
     return (
       <View style={styles.bookItem}>
-        <GenreCard genre={item} />
+        <GenreCard genre={item} navigation={() => gotoGenreScreen(item.id)} />
       </View>
     );
   }
@@ -59,7 +71,10 @@ function Home(props) {
   function renderAuthorCard({item}) {
     return (
       <View style={styles.bookItem}>
-        <AuthorCard author={item} />
+        <AuthorCard
+          author={item}
+          navigation={() => gotoAuthorScreen(item)}
+        />
       </View>
     );
   }

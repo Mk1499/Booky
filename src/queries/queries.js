@@ -41,6 +41,7 @@ export const getLatestBooksQuery = gql`
     books(limit: -5) {
       id
       name
+      rate
       genre {
         name
       }
@@ -67,6 +68,47 @@ export const getBookDetails = gql`
       genre {
         id
         name
+      }
+      relatedBooks {
+        id
+        name
+        posterURL
+        rate
+      }
+    }
+  }
+`;
+export const getAuthorDetails = gql`
+  query($id: ID!) {
+    author(id: $id) {
+      id
+      name
+      birthDate
+      avatarURL
+      age
+      bio
+      books {
+        name
+        id
+        posterURL
+        rate
+      }
+    }
+  }
+`;
+export const getGenreDetails = gql`
+  query($id: ID!) {
+    genre(id: $id) {
+      name
+      photoURL
+      books {
+        name
+        id
+        posterURL
+        rate
+        author {
+          name
+        }
       }
     }
   }

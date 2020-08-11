@@ -11,6 +11,8 @@ import Library from '../Screens/Library/Library';
 import Profile from '../Screens/Profile/Profile';
 import Search from '../Screens/Search/Search';
 import BookDetails from '../Screens/BookDetails/BookDetails';
+import Genre from '../Screens/Genre/GenreScreen';
+import AuthorProfile from '../Screens/AuthorProfile/AuthorProfile';
 
 import {Icon} from 'native-base';
 // const {width} = Dimensions.get('window');
@@ -27,6 +29,20 @@ const HomeStack = createStackNavigator({
   },
   BookDetails: {
     screen: BookDetails,
+    navigationOptions: () => ({
+      headerTitle: null,
+      header: null,
+    }),
+  },
+  Genre: {
+    screen: Genre,
+    navigationOptions: () => ({
+      headerTitle: null,
+      header: null,
+    }),
+  },
+  AuthorProfile: {
+    screen: AuthorProfile,
     navigationOptions: () => ({
       headerTitle: null,
       header: null,

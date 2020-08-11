@@ -1,5 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+  RefreshControl,
+} from 'react-native';
 import {
   width,
   height,
@@ -9,31 +17,74 @@ import {
 } from '../../configs/global';
 import SubHeader from '../../Components/SubHeader/SubHeader';
 import BookActions from '../../Components/BookActions/BookActions';
+import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import {useQuery} from '@apollo/client';
 import {getBookDetails} from '../../queries/queries';
 
 export default function BookDetails(props) {
-  function goBack() {
-    props.navigation.goBack();
-  }
-
   const [book, setBook] = useState({});
+  const [refreshing, setRefreshing] = React.useState(false);
+
   let bookID = props.navigation.state.params.bookID;
-  useQuery(getBookDetails, {
+  const {refetch} = useQuery(getBookDetails, {
     variables: {id: bookID},
     onCompleted: data => {
       console.log('Book Data : ', data, bookID);
       setBook(data.book);
+      setRefreshing(false);
     },
     onError: err => {
       console.log('Getting a book details Error : ', err);
     },
+    notifyOnNetworkStatusChange: true,
   });
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    refetch();
+  }, []);
+
+  function goBack() {
+    props.navigation.goBack();
+  }
+
+  function gotoBookScreen(bookID) {
+    props.navigation.push('BookDetails', {
+      bookID,
+    });
+  }
+
+  function renderRelBooks({item}) {
+    if (item.id !== book.id)
+      return (
+        <View style={styles.bookItem}>
+          <SmallBookCard
+            book={item}
+            key={item.id}
+            navigate={() => gotoBookScreen(item.id)}
+          />
+        </View>
+      );
+    else return null;
+  }
+
+  function gotoAuthorScreen(author) {
+    props.navigation.navigate('AuthorProfile', {
+      author,
+    });
+  }
+
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.firstHalf}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
+      <View style={styles.headCont}>
         <SubHeader goBack={goBack} />
+      </View>
+      <View style={styles.firstHalf}>
         <View style={styles.coverView}>
           <Image
             source={
@@ -46,13 +97,19 @@ export default function BookDetails(props) {
           />
         </View>
         <Text style={styles.bookName}>{book.name}</Text>
-        <Text style={styles.authorName}>
+        <Text
+          style={styles.authorName}
+          onPress={() => {
+            if (book.author) {
+              gotoAuthorScreen(book.author);
+            }
+          }}>
           {book.author ? book.author.name : ''}
         </Text>
         <View style={styles.bookData}>
           <View>
             <Text style={styles.head}>Rating</Text>
-            <Text style={styles.data}>{book.rate || 0}</Text>
+            <Text style={styles.data}>{book.rate || 0} / 5</Text>
           </View>
           <View>
             <Text style={styles.head}>Pages</Text>
@@ -66,10 +123,29 @@ export default function BookDetails(props) {
             <Text style={styles.head}>Reads</Text>
             <Text style={styles.data}>{book.reads || 0}</Text>
           </View>
+          <View>
+            <Text style={styles.head}>Release Year</Text>
+            <Text style={styles.data}>{book.releaseYear || 2020}</Text>
+          </View>
         </View>
       </View>
       <View style={styles.bookActionCont}>
         <BookActions />
+      </View>
+      <View style={styles.secHalf}>
+        <View style={styles.section}>
+          <Text style={styles.desc}>{book.description}</Text>
+        </View>
+        {book.relatedBooks && book.relatedBooks.length > 1 ? (
+          <View style={styles.section}>
+            <Text style={styles.sideHeader}>Related Books</Text>
+            <FlatList
+              data={book.relatedBooks}
+              renderItem={renderRelBooks}
+              horizontal
+            />
+          </View>
+        ) : null}
       </View>
     </ScrollView>
   );
@@ -77,6 +153,9 @@ export default function BookDetails(props) {
 
 const styles = StyleSheet.create({
   container: {},
+  headCont: {
+    backgroundColor: mainColor,
+  },
   firstHalf: {
     height: 0.7 * height,
     backgroundColor: mainColor,
@@ -91,7 +170,7 @@ const styles = StyleSheet.create({
   coverView: {
     elevation: 20,
     borderRadius: 20,
-
+    marginTop: -0.1 * height,
     backgroundColor: mainColor,
   },
   bookName: {
@@ -127,5 +206,23 @@ const styles = StyleSheet.create({
     color: textColor,
     alignSelf: 'center',
     fontSize: 0.04 * width,
+  },
+  secHalf: {},
+  section: {
+    marginVertical: 0.03 * height,
+    paddingHorizontal: 0.05 * width,
+  },
+  desc: {
+    fontFamily: 'Cairo',
+    textAlign: 'center',
+  },
+  bookItem: {
+    marginHorizontal: 0.02 * width,
+  },
+  sideHeader: {
+    color: mainColor,
+    fontSize: 0.06 * width,
+    fontFamily: 'Cairo-SemiBold',
+    marginBottom: 0.03 * height,
   },
 });

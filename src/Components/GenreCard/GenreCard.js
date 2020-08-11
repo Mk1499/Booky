@@ -4,7 +4,7 @@ import {width, height, textColor} from '../../configs/global';
 
 export default function GenreCard(props) {
   return (
-    <TouchableOpacity activeOpacity={0.2}>
+    <TouchableOpacity activeOpacity={0.2} onPress={props.navigation}>
       <View style={styles.container}>
         <Image
           source={

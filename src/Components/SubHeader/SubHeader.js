@@ -29,10 +29,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     height: 0.1 * height,
     width,
-    position: 'absolute',
+    // position: 'absolute',
     top: 0,
     paddingHorizontal: 0.03 * width,
     flexDirection: 'row',
+    // backgroundColor:"red"
   },
   icon: {
     color: textColor,

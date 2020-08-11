@@ -1,14 +1,16 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {width, height, mainColor} from '../../configs/global';
 export default function AuthorCard(props) {
   return (
-    <View style={styles.container}>
-      <Image style={styles.Img} source={{uri: props.author.avatarURL}} />
-      <Text numberOfLines={1} ellipsizeMode="tail" style={styles.authorName}>
-        {props.author.name}
-      </Text>
-    </View>
+    <TouchableOpacity activeOpacity={0.2} onPress={props.navigation}>
+      <View style={styles.container}>
+        <Image style={styles.Img} source={{uri: props.author.avatarURL}} />
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.authorName}>
+          {props.author.name}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 
