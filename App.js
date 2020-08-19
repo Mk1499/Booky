@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar} from 'react-native';
 import AppNavigation from './src/Routes/navigator';
 import NavigationService from './src/Routes/NavigationServices';
@@ -7,6 +7,7 @@ import {Provider} from 'react-redux';
 import store from './src/store';
 import {baseURL} from './src/configs/global';
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
+import haSDK from 'react-native-ha-interface';
 
 const client = new ApolloClient({
   uri: baseURL,
@@ -14,6 +15,20 @@ const client = new ApolloClient({
 });
 
 const App = () => {
+  function haOnEvent() {
+    const eventObj = {
+      testString: 'StrContent',
+      testInt: 20,
+      testDouble: 2.2,
+      testBoolean: false,
+    };
+    haSDK.onEvent('newTestEvent', eventObj);
+  }
+
+  useEffect(() => {
+    haOnEvent();
+  });
+
   return (
     <Provider store={store}>
       <StatusBar backgroundColor={mainColor} />
