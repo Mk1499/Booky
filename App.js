@@ -16,13 +16,15 @@ const client = new ApolloClient({
 
 const App = () => {
   function haOnEvent() {
+    // alert("ddd")
+    
     const eventObj = {
       testString: 'StrContent',
       testInt: 20,
       testDouble: 2.2,
       testBoolean: false,
     };
-    haSDK.onEvent('newTestEvent', eventObj);
+    haSDK.onEvent(haSDK.STARTAPP, eventObj);
   }
 
   useEffect(() => {
