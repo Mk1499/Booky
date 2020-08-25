@@ -7,6 +7,7 @@ import {mainColor, bgColor} from '../configs/global';
 
 import Home from '../Screens/Home/Home';
 import SignUp from '../Screens/SignUp/SignUp';
+import Login from '../Screens/Login/Login';
 import Library from '../Screens/Library/Library';
 import Profile from '../Screens/Profile/Profile';
 import Search from '../Screens/Search/Search';
@@ -171,12 +172,12 @@ const main = createStackNavigator({
   //       header: null,
   //     },
   //   },
-  //   Login: {
-  //     screen: Login,
-  //     navigationOptions: {
-  //       header: null,
-  //     },
-  //   },
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        header: null,
+      },
+    },
   //   SignUp: {
   //     screen: SignUp,
   //     navigationOptions: {
