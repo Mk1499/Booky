@@ -5,7 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  AsyncStorage,
+  FlatList,
   ScrollView,
   Dimensions,
   RefreshControl,
@@ -19,26 +19,21 @@ import Carousel from 'react-native-snap-carousel';
 const {width: Width, height: Height} = Dimensions.get('window');
 import {logout, updateUserImg, getUserDetails} from '../../actions/auth';
 import DocumentPicker from 'react-native-document-picker';
+import {client} from '../../queries/queryClient';
+import {getFavBooksQuery} from '../../queries/book';
+import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 
 class userProfile extends Component {
   constructor(props) {
     super(props);
     console.log('User Info2 : ', this.props.userData);
     this.state = {
-      darkMode: true,
-      loadList: this.props.loadList,
-      moviesList: [],
-      seriesList: [],
       userImg:
         this.props.userData.photo ||
         'https://provisionhealthcare.com/wp-content/uploads/2018/11/user-avatar.jpg',
+      favBooks: null,
     };
   }
-
-  componentDidMount = async () => {
-    let {userID, getUserDetails} = this.props;
-    getUserDetails(userID);
-  };
 
   static getDerivedStateFromProps(props, state) {
     console.log('new props : ', props, state);
@@ -49,22 +44,49 @@ class userProfile extends Component {
     }
   }
 
-  renderSmallMovie = (movie, index) => {
-    console.log('Mov : ', movie);
-
-    return (
-      <TouchableOpacity
-        onPress={() => this.gotoMovieScreen(movie.item)}
-        key={movie.item.id}
-        activeOpacity={1}>
-        {/* <SmallMovie movie={movie.item} /> */}
-      </TouchableOpacity>
-    );
+  componentDidMount = async () => {
+    let {userID, getUserDetails} = this.props;
+    getUserDetails(userID);
+    this.updateFavBooks();
   };
 
-  // Movie Pressed
-  gotoMovieScreen = movie => {
-    this.props.navigation.navigate('Movie', {movie});
+  updateFavBooks = async () => {
+    let {userID} = this.props;
+    await client
+      .query({
+        query: getFavBooksQuery,
+        variables: {
+          userID,
+        },
+        fetchPolicy:'no-cache'
+      })
+      .then(res => {
+        console.log('favBooksRes : ', res);
+        this.setState({
+          favBooks: res.data.favBooks,
+        });
+      })
+      .catch(err => {
+        console.log('Getting Fav Books error : ', err, userID);
+      });
+  };
+
+  renderFavBook = ({item}) => {
+    console.log('render item : ', item);
+    return (
+      <View style={styles.bookItem}>
+        <SmallBookCard
+          book={item.book}
+          key={item.book.id}
+          navigate={() => this.gotoBookScreen(item.book.id)}
+        />
+      </View>
+    );
+  };
+  gotoBookScreen = bookID => {
+    this.props.navigation.navigate('BookDetails', {
+      bookID,
+    });
   };
 
   updateImg = async () => {
@@ -112,19 +134,6 @@ class userProfile extends Component {
     }
   };
 
-  renderSmallSeries = (series, index) => {
-    // console.log("Mov : ", series);
-
-    return (
-      <TouchableOpacity
-        onPress={() => this.gotoSeriesScreen(series.item)}
-        key={series.item.id}
-        activeOpacity={1}>
-        {/* <SmallMovie movie={series.item} /> */}
-      </TouchableOpacity>
-    );
-  };
-
   render() {
     const {userData} = this.props;
     console.log('render user info: ', userData.fullname);
@@ -135,7 +144,7 @@ class userProfile extends Component {
         style={styles.container}
         refreshControl={
           <RefreshControl
-            onRefresh={this.props.getList}
+            onRefresh={this.updateFavBooks}
             refreshing={!this.props.loadList}
           />
         }>
@@ -178,17 +187,15 @@ class userProfile extends Component {
         </View>
 
         <View style={styles.sectionView}>
-          <Text style={styles.headLine}>Your Movies List </Text>
-          {this.props.moviesList.length > 0 && this.props.loadList ? (
+          <Text style={styles.headLine}>Your Favourite Book </Text>
+          {this.state.favBooks !== null ? (
             <Carousel
-              ref={c => {
-                this._carousel = c;
-              }}
-              data={this.props.moviesList}
-              renderItem={this.renderSmallMovie}
+              data={this.state.favBooks}
+              renderItem={this.renderFavBook}
               sliderWidth={0.9 * Width}
               itemWidth={0.5 * Width}
-              layout={'default'}
+              separatorWidth={-10}
+              initialIndex={2}
             />
           ) : this.props.loadList && this.props.moviesList.length == 0 ? (
             <Text style={styles.emptyMsg}>

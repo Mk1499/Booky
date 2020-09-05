@@ -12,6 +12,7 @@ import {
   AUTOLOGIN,
   REGISTERATION,
   SETUSERDATA,
+  UPDATEUSERIMG,
 } from '../actions/types';
 
 const auth = (state = INITIAL_STATE, action) => {
@@ -44,6 +45,11 @@ const auth = (state = INITIAL_STATE, action) => {
         userToken: '',
         userData: {},
         userID: '',
+      };
+    case UPDATEUSERIMG:
+      return {
+        ...state,
+        userData: {...state.userData, photo: action.payload},
       };
     default:
       return state;

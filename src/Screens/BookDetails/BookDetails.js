@@ -20,10 +20,26 @@ import BookActions from '../../Components/BookActions/BookActions';
 import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import {useQuery} from '@apollo/client';
 import {getBookDetails} from '../../queries/queries';
+import {connect} from 'react-redux';
+import {addBookToFav} from '../../actions/book';
+import {checkBookFavQuery} from '../../queries/book';
+import {
+  addBookToFavMutation,
+  removeBookFromFavMutation,
+} from '../../mutations/book';
+import {ApolloClient, InMemoryCache} from '@apollo/client';
+import {baseURL} from '../../configs/global';
 
-export default function BookDetails(props) {
+const client = new ApolloClient({
+  uri: baseURL,
+  cache: new InMemoryCache(),
+});
+
+function BookDetails(props) {
   const [book, setBook] = useState({});
   const [refreshing, setRefreshing] = React.useState(false);
+  const [favState, setFavState] = React.useState(false);
+  const [favID, setFavID] = React.useState('');
 
   let bookID = props.navigation.state.params.bookID;
   const {refetch} = useQuery(getBookDetails, {
@@ -39,6 +55,28 @@ export default function BookDetails(props) {
     notifyOnNetworkStatusChange: true,
   });
 
+  useEffect(() => {
+    client
+      .query({
+        query: checkBookFavQuery,
+        variables: {
+          userID: props.userID,
+          bookID: bookID,
+        },
+        fetchPolicy: 'no-cache',
+      })
+      .then(res => {
+        console.log('checking fav res : ', res);
+        let data = res.data;
+        if (data.checkBookFav) {
+          setFavState(true);
+          setFavID(data.checkBookFav.id);
+        }
+      })
+      .catch(err => {
+        console.log('checking fav state err : ', err);
+      });
+  });
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
 
@@ -75,6 +113,47 @@ export default function BookDetails(props) {
     });
   }
 
+  function addToFav() {
+    // props.addBookToFav(props.userID, book.id);
+    console.log(
+      'adding Book with id : ',
+      book.id,
+      ' for user with ID : ',
+      props.userID,
+    );
+    client
+      .mutate({
+        mutation: addBookToFavMutation,
+        variables: {
+          userID: props.userID,
+          bookID: book.id,
+        },
+      })
+      .then(res => {
+        console.log('book fav res : ', res);
+        setFavID(res.data.addBookFav.id);
+      })
+      .catch(err => {
+        console.log('add to fav error : ', err);
+      });
+  }
+
+  function removeFromFav() {
+    console.log('FAVID : ', favID);
+
+    client
+      .mutate({
+        mutation: removeBookFromFavMutation,
+        variables: {
+          id: favID,
+        },
+      })
+      .then(res => {})
+      .catch(err => {
+        console.log('remove from fav err : ', err);
+      });
+  }
+
   return (
     <ScrollView
       style={styles.container}
@@ -82,7 +161,11 @@ export default function BookDetails(props) {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
       <View style={styles.headCont}>
-        <SubHeader goBack={goBack} />
+        <SubHeader
+          state={favState}
+          goBack={goBack}
+          changeFav={favState ? removeFromFav : addToFav}
+        />
       </View>
       <View style={styles.firstHalf}>
         <View style={styles.coverView}>
@@ -226,3 +309,9 @@ const styles = StyleSheet.create({
     marginBottom: 0.03 * height,
   },
 });
+
+const mapStateToProps = state => ({
+  userID: state.auth.userID,
+});
+
+export default connect(mapStateToProps, {addBookToFav})(BookDetails);

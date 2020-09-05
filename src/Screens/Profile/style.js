@@ -82,7 +82,7 @@ export const styles = StyleSheet.create({
   headLine: {
     fontSize: 0.07 * width,
     color: mainColor,
-    fontFamily: 'Lato-Light',
+    fontFamily: 'Ubuntu',
     marginBottom: 0.06 * height,
   },
   sectionView: {

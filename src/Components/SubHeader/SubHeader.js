@@ -1,9 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Icon} from 'native-base';
 import {height, width, textColor} from '../../configs/global';
 
 export default function SubHeader(props) {
+  const [favState, setFavState] = useState(props.state);
+
+  function toggleFav() {
+    props.changeFav();
+    setFavState(!favState);
+  }
+  useEffect(() => {
+    console.log('FavState changed : ', props.state);
+    setFavState(props.state);
+  }, [props.state]);
+
   return (
     <View style={styles.container}>
       <Icon
@@ -14,9 +25,9 @@ export default function SubHeader(props) {
       />
       <Icon
         style={styles.icon}
-        name="hearto"
+        name={favState ? 'heart' : 'hearto'}
         type="AntDesign"
-        onPress={props.goBack}
+        onPress={toggleFav}
       />
     </View>
   );

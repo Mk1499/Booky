@@ -32,7 +32,7 @@ export default function SmallBookCard(props) {
       </Text>
       <View style={styles.bookRateView}>
         <Text style={styles.rateText}>{props.book.rate || 2.5} / 5</Text>
-        <Icon name="star" style={styles.rateIcon} />
+        <Icon name="star" type="Ionicons" style={styles.rateIcon} />
       </View>
     </TouchableOpacity>
   );

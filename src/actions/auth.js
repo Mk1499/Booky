@@ -1,5 +1,12 @@
 import Navigation from '../Routes/NavigationServices';
-import {LOGIN, LOGOUT, AUTOLOGIN, REGISTERATION, SETUSERDATA} from './types';
+import {
+  LOGIN,
+  LOGOUT,
+  AUTOLOGIN,
+  REGISTERATION,
+  SETUSERDATA,
+  UPDATEUSERIMG,
+} from './types';
 import {
   userLogin,
   userLogout,
@@ -184,6 +191,10 @@ export const updateUserImg = (id, photoURL) => async dispatch => {
     })
     .then(res => {
       console.log('updated user image res : ', res);
+      dispatch({
+        type: UPDATEUSERIMG,
+        payload: res.data.updateUserImage.photo,
+      });
     })
     .catch(err => {
       console.log('update user image err : ', err);
