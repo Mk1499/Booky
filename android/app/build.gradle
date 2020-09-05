@@ -129,12 +129,17 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    packagingOptions {
+    pickFirst '**/*.so'
+}
+
     defaultConfig {
         applicationId "com.booky"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -184,6 +189,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
+    implementation 'com.android.support:multidex:1.0.3'
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
@@ -210,6 +216,7 @@ dependencies {
         implementation jscFlavor
     }
     
+    compile 'com.facebook.fresco:animated-gif:1.+'
 
 }
 

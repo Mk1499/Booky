@@ -57,6 +57,12 @@
 		FB07166D9A644BFD9B0C5544 /* Cairo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C7CD3107C1C4A7AA2E0C0AF /* Cairo-Light.ttf */; };
 		748F5A7DF5A74A648CA06774 /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A57589EE22949FFA9495EE2 /* Cairo-SemiBold.ttf */; };
 		99E87AAFFD7E4759BB6B34B2 /* Cairo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1548A2ABE2A46E497BA9D04 /* Cairo.ttf */; };
+		5B5B73919F3343BE94170544 /* Grandstander-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 58C8549DCC7E48E69AE973EC /* Grandstander-ExtraLight.ttf */; };
+		89B0DBDB1E8E4548A7A5B0B1 /* Grandstander-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A230CD8DC5A845CDB73DB71D /* Grandstander-Regular.ttf */; };
+		B4F6A98CA4274A6AA4C6FA84 /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5391EA56AAC498BAD0CC61F /* Ubuntu-Italic.ttf */; };
+		018B80DF9AE649E3A3895ECA /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 51041B153277491B9FB2A0E5 /* Ubuntu-Light.ttf */; };
+		53175070205F43918037F7CC /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A8968BDA9262460F8C595BD4 /* Ubuntu-Medium.ttf */; };
+		FA61D68589CE4AD6BC8BADC2 /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E770BC74115408BB9289617 /* Ubuntu-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +139,12 @@
 		6C7CD3107C1C4A7AA2E0C0AF /* Cairo-Light.ttf */ = {isa = PBXFileReference; name = "Cairo-Light.ttf"; path = "../assets/fonts/Cairo-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		3A57589EE22949FFA9495EE2 /* Cairo-SemiBold.ttf */ = {isa = PBXFileReference; name = "Cairo-SemiBold.ttf"; path = "../assets/fonts/Cairo-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D1548A2ABE2A46E497BA9D04 /* Cairo.ttf */ = {isa = PBXFileReference; name = "Cairo.ttf"; path = "../assets/fonts/Cairo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		58C8549DCC7E48E69AE973EC /* Grandstander-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Grandstander-ExtraLight.ttf"; path = "../assets/fonts/Grandstander-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A230CD8DC5A845CDB73DB71D /* Grandstander-Regular.ttf */ = {isa = PBXFileReference; name = "Grandstander-Regular.ttf"; path = "../assets/fonts/Grandstander-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C5391EA56AAC498BAD0CC61F /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Italic.ttf"; path = "../assets/fonts/Ubuntu-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		51041B153277491B9FB2A0E5 /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Light.ttf"; path = "../assets/fonts/Ubuntu-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A8968BDA9262460F8C595BD4 /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Medium.ttf"; path = "../assets/fonts/Ubuntu-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5E770BC74115408BB9289617 /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Regular.ttf"; path = "../assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +296,12 @@
 				6C7CD3107C1C4A7AA2E0C0AF /* Cairo-Light.ttf */,
 				3A57589EE22949FFA9495EE2 /* Cairo-SemiBold.ttf */,
 				D1548A2ABE2A46E497BA9D04 /* Cairo.ttf */,
+				58C8549DCC7E48E69AE973EC /* Grandstander-ExtraLight.ttf */,
+				A230CD8DC5A845CDB73DB71D /* Grandstander-Regular.ttf */,
+				C5391EA56AAC498BAD0CC61F /* Ubuntu-Italic.ttf */,
+				51041B153277491B9FB2A0E5 /* Ubuntu-Light.ttf */,
+				A8968BDA9262460F8C595BD4 /* Ubuntu-Medium.ttf */,
+				5E770BC74115408BB9289617 /* Ubuntu-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -468,6 +486,12 @@
 				FB07166D9A644BFD9B0C5544 /* Cairo-Light.ttf in Resources */,
 				748F5A7DF5A74A648CA06774 /* Cairo-SemiBold.ttf in Resources */,
 				99E87AAFFD7E4759BB6B34B2 /* Cairo.ttf in Resources */,
+				5B5B73919F3343BE94170544 /* Grandstander-ExtraLight.ttf in Resources */,
+				89B0DBDB1E8E4548A7A5B0B1 /* Grandstander-Regular.ttf in Resources */,
+				B4F6A98CA4274A6AA4C6FA84 /* Ubuntu-Italic.ttf in Resources */,
+				018B80DF9AE649E3A3895ECA /* Ubuntu-Light.ttf in Resources */,
+				53175070205F43918037F7CC /* Ubuntu-Medium.ttf in Resources */,
+				FA61D68589CE4AD6BC8BADC2 /* Ubuntu-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

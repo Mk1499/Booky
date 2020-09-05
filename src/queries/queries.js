@@ -1,5 +1,59 @@
 import {gql} from '@apollo/client';
 
+// User
+export const getUserDetailsQuery = gql`
+  query($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      password
+      email
+      photo
+    }
+  }
+`;
+
+export const userLogin = gql`
+  mutation($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
+      id
+      name
+      email
+      photo
+    }
+  }
+`;
+
+export const userLogout = gql`
+  mutation($id: ID!) {
+    logoutUser(id: $id) {
+      name
+    }
+  }
+`;
+
+export const updateUserImgMutation = gql`
+  mutation($id: ID!, $photoURL: String!) {
+    updateUserImage(id: $id, photoURL: $photoURL) {
+      id
+      name
+      email
+      photo
+    }
+  }
+`;
+
+export const addUser = gql`
+  mutation($email: String!, $password: String!, $name: String!) {
+    addUser(email: $email, password: $password, name: $name, type: "normal") {
+      id
+      name
+      email
+    }
+  }
+`;
+
+// Author
 export const getAuthorsQuery = gql`
   query {
     authors {
@@ -10,6 +64,26 @@ export const getAuthorsQuery = gql`
   }
 `;
 
+export const getAuthorDetails = gql`
+  query($id: ID!) {
+    author(id: $id) {
+      id
+      name
+      birthDate
+      avatarURL
+      age
+      bio
+      books {
+        name
+        id
+        posterURL
+        rate
+      }
+    }
+  }
+`;
+
+// Book
 export const getBooksQuery = gql`
   query {
     books(limit: 5) {
@@ -25,13 +99,11 @@ export const getBooksQuery = gql`
     }
   }
 `;
-
-export const getGenresQuery = gql`
-  query {
-    genres {
-      id
+export const addBookMutation = gql`
+  mutation($name: String!, $genre: String!, $authorID: ID!) {
+    addBook(name: $name, genre: $genre, authorID: $authorID) {
       name
-      photoURL
+      id
     }
   }
 `;
@@ -78,21 +150,14 @@ export const getBookDetails = gql`
     }
   }
 `;
-export const getAuthorDetails = gql`
-  query($id: ID!) {
-    author(id: $id) {
+
+// Genres
+export const getGenresQuery = gql`
+  query {
+    genres {
       id
       name
-      birthDate
-      avatarURL
-      age
-      bio
-      books {
-        name
-        id
-        posterURL
-        rate
-      }
+      photoURL
     }
   }
 `;
@@ -110,15 +175,6 @@ export const getGenreDetails = gql`
           name
         }
       }
-    }
-  }
-`;
-
-export const addBookMutation = gql`
-  mutation($name: String!, $genre: String!, $authorID: ID!) {
-    addBook(name: $name, genre: $genre, authorID: $authorID) {
-      name
-      id
     }
   }
 `;

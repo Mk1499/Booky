@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   Animated,
 } from 'react-native';
-import {Icon, Left, Right} from 'native-base';
+import {Icon, Right} from 'native-base';
 import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import SubHeader from '../../Components/SubHeader/SubHeader';
 
@@ -25,10 +25,11 @@ import {
 import {styles, animation, animatedHeight} from './style';
 import {getAuthorDetails} from '../../queries/queries';
 import {useQuery} from '@apollo/client';
-
+import {updateUserImg} from '../../actions/auth';
+import {connect} from 'react-redux';
 const {width, height} = Dimensions.get('screen');
 
-export default function ActorPrfile(props) {
+function ActorPrfile(props) {
   let authorID = props.navigation.state.params.author.id;
   let avatarURL = props.navigation.state.params.author.avatarURL;
   let name = props.navigation.state.params.author.name;
@@ -125,7 +126,7 @@ export default function ActorPrfile(props) {
       />
       <Animated.View style={[styles.mainView, animatedHeight]}>
         <View style={{flexDirection: 'row'}}>
-          <View style={{width:0.8*width}}>
+          <View style={{width: 0.8 * width}}>
             <Text style={styles.actorName}>{author.name}</Text>
             {/* <Text style={styles.note}>{this.state.known_for_department}</Text> */}
           </View>
@@ -199,3 +200,7 @@ export default function ActorPrfile(props) {
     </View>
   );
 }
+
+const mapStateToProps = state => ({});
+
+export default connect(mapStateToProps, {updateUserImg})(ActorPrfile);

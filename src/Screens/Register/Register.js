@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
+  TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
   Image,
@@ -11,12 +12,12 @@ import {
 import Header from '../../Components/Header/Header';
 import {width, height, mainColor} from '../../configs/global';
 import Button from '../../Components/Button/Button';
-import {login, checkAutoLogin} from '../../actions/auth';
-import {content} from 'react-redux';
-import connect from 'react-redux/lib/connect/connect';
+import {connect} from 'react-redux';
+import {signUp} from '../../actions/auth';
 
-function Login(props) {
+function Register(props) {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [processing, setProcessing] = useState(false);
 
@@ -25,10 +26,10 @@ function Login(props) {
     return expression.test(String(e).toLowerCase());
   }
 
-
-
   function submitForm() {
-    if (!checkMail(email)) {
+    if (!username) {
+      alert('Please Insert your Password');
+    } else if (!checkMail(email)) {
       alert('Please a vaild email Email');
     } else if (!password) {
       alert('Please Insert your Password');
@@ -52,6 +53,14 @@ function Login(props) {
         <KeyboardAvoidingView behavior="position">
           <TextInput
             style={[styles.input]}
+            placeholder="Username"
+            // keyboardType="email-address"
+            onChangeText={username => setUsername(username)}
+          />
+        </KeyboardAvoidingView>
+        <KeyboardAvoidingView behavior="position">
+          <TextInput
+            style={[styles.input]}
             placeholder="Email"
             keyboardType="email-address"
             onChangeText={email => setEmail(email)}
@@ -66,18 +75,18 @@ function Login(props) {
           />
         </KeyboardAvoidingView>
         <Button
-          text="Login"
+          text="Register"
           processing={processing}
-          action={() => props.login(email, password)}
+          action={() => props.signUp(username, email, password)}
         />
         <View style={styles.signUpLinkView}>
-          <Text style={styles.text}>Don't Have Account ? </Text>
+          <Text style={styles.text}> Already have an Account ? </Text>
           <Text
             onPress={() => {
-              props.navigation.navigate('SignUp');
+              props.navigation.pop();
             }}
             style={styles.textLink}>
-            SignUp Now
+            SignIn Now
           </Text>
         </View>
       </ScrollView>
@@ -126,4 +135,4 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, {login, checkAutoLogin})(Login);
+export default connect(mapStateToProps, {signUp})(Register);

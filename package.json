@@ -17,7 +17,11 @@
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-anchor-carousel": "^3.1.2",
+    "react-native-document-picker": "^3.5.4",
     "react-native-gesture-handler": "^1.7.0",
+    "react-native-ha-interface": "./libs/react-native-ha-interface",
+    "react-native-i18n": "^2.0.15",
+    "react-native-pdf": "^6.2.0",
     "react-native-reanimated": "^1.10.1",
     "react-native-safe-area-context": "^3.1.1",
     "react-native-screens": "^2.9.0",
@@ -30,9 +34,7 @@
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "typescript": "^3.9.7",
-    "react-native-ha-interface": "./libs/react-native-ha-interface"
-
+    "typescript": "^3.9.7"
   },
   "devDependencies": {
     "@babel/core": "^7.11.0",

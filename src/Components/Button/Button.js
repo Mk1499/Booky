@@ -15,8 +15,9 @@ export default function Button(props) {
       backgroundColor: mainColor,
       width: 0.8 * width,
       height: 0.1 * height,
-      borderRadius: 20,
+      borderRadius: 10,
       justifyContent: 'center',
+      elevation:3
     },
     content: {
       width: '100%',

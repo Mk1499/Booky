@@ -1,17 +1,19 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {mainColor, height, textColor} from '../../configs/global';
+import {View, Text, StyleSheet, Image} from 'react-native';
+import {mainColor, height, textColor,width} from '../../configs/global';
 import {Icon} from 'native-base';
+import logoWhite from '../../../assets/images/logoWhite.png';
 
 export default function Header() {
   return (
     <View style={styles.container}>
-      <Icon
+      {/* <Icon
         style={styles.appIcon}
         name="book-open-page-variant"
         type="MaterialCommunityIcons"
-      />
-      <Text style={styles.appName}>BoOkY</Text>
+      /> */}
+      <Image source={logoWhite} style={styles.logoImg} resizeMode="contain" />
+      <Text style={styles.appName}>oOkY</Text>
     </View>
   );
 }
@@ -35,4 +37,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     color: textColor,
   },
+  logoImg:{
+    width: 0.1*width,
+    height:"70%"
+  }
 });

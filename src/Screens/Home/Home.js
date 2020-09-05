@@ -7,6 +7,7 @@ import {
   ScrollView,
   Text,
   FlatList,
+  Image,
 } from 'react-native';
 import {connect} from 'react-redux';
 import Header from '../../Components/Header/Header';
@@ -71,10 +72,7 @@ function Home(props) {
   function renderAuthorCard({item}) {
     return (
       <View style={styles.bookItem}>
-        <AuthorCard
-          author={item}
-          navigation={() => gotoAuthorScreen(item)}
-        />
+        <AuthorCard author={item} navigation={() => gotoAuthorScreen(item)} />
       </View>
     );
   }
@@ -131,43 +129,56 @@ function Home(props) {
   return (
     <View style={styles.container}>
       <Header />
-      <ScrollView>
-        <View style={styles.roundedBG} />
-        <View style={styles.topContent}>
-          {books.length > 0 ? (
-            <Carousel
-              style={styles.carousel}
-              data={books}
-              renderItem={renderItem}
-              itemWidth={200}
-              containerWidth={width}
-              separatorWidth={-10}
-              // ref={carouselRef}
-              initialIndex={1}
-              //pagingEnable={false}
-              //minScrollDistance={20}
+      {books.length &&
+      latestBooks.length &&
+      latestBooks.length &&
+      authors.length ? (
+        <ScrollView>
+          <View style={styles.roundedBG} />
+          <View style={styles.topContent}>
+            {books.length > 0 ? (
+              <Carousel
+                style={styles.carousel}
+                data={books}
+                renderItem={renderItem}
+                itemWidth={200}
+                containerWidth={width}
+                separatorWidth={-10}
+                // ref={carouselRef}
+                initialIndex={1}
+                //pagingEnable={false}
+                //minScrollDistance={20}
+              />
+            ) : (
+              <ActivityIndicator color={mainColor} size="large" />
+            )}
+          </View>
+          <View style={styles.section}>
+            <Text style={styles.sideHeader}>New Releases</Text>
+            <FlatList
+              data={latestBooks}
+              horizontal
+              renderItem={renderLatestBook}
             />
-          ) : (
-            <ActivityIndicator color={mainColor} size="large" />
-          )}
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.sideHeader}>New Releases</Text>
-          <FlatList
-            data={latestBooks}
-            horizontal
-            renderItem={renderLatestBook}
+          </View>
+          <View style={styles.genreCont}>
+            <FlatList data={genres} horizontal renderItem={renderGenreItem} />
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sideHeader}>Top Authors</Text>
+            <FlatList data={authors} horizontal renderItem={renderAuthorCard} />
+          </View>
+        </ScrollView>
+      ) : (
+        <View style={styles.loadContainer}>
+          <Image
+            source={require('../../../assets/images/logoAnimated.gif')}
+            style={styles.loadImg}
+            resizeMode={"contain"}
           />
         </View>
-        <View style={styles.genreCont}>
-          <FlatList data={genres} horizontal renderItem={renderGenreItem} />
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sideHeader}>Top Authors</Text>
-          <FlatList data={authors} horizontal renderItem={renderAuthorCard} />
-        </View>
-      </ScrollView>
+      )}
     </View>
   );
 }
@@ -210,6 +221,16 @@ const styles = StyleSheet.create({
   },
   genreCont: {
     marginVertical: 0.03 * height,
+  },
+  loadContainer: {
+    width,
+    height: 0.8 * height,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loadImg: {
+    width: 0.2 * width,
+    height: 0.2 * height,
   },
 });
 

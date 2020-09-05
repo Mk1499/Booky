@@ -80,6 +80,12 @@
 		<string>Cairo-Light.ttf</string>
 		<string>Cairo-SemiBold.ttf</string>
 		<string>Cairo.ttf</string>
+		<string>Grandstander-ExtraLight.ttf</string>
+		<string>Grandstander-Regular.ttf</string>
+		<string>Ubuntu-Italic.ttf</string>
+		<string>Ubuntu-Light.ttf</string>
+		<string>Ubuntu-Medium.ttf</string>
+		<string>Ubuntu-Regular.ttf</string>
 	</array>
 </dict>
 </plist>

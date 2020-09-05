@@ -6,7 +6,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {mainColor, bgColor} from '../configs/global';
 
 import Home from '../Screens/Home/Home';
-import SignUp from '../Screens/SignUp/SignUp';
+import SignUp from '../Screens/Register/Register';
 import Login from '../Screens/Login/Login';
 import Library from '../Screens/Library/Library';
 import Profile from '../Screens/Profile/Profile';
@@ -14,6 +14,7 @@ import Search from '../Screens/Search/Search';
 import BookDetails from '../Screens/BookDetails/BookDetails';
 import Genre from '../Screens/Genre/GenreScreen';
 import AuthorProfile from '../Screens/AuthorProfile/AuthorProfile';
+import SplashScreen from '../Screens/SplashScreen/SplashScreen';
 
 import {Icon} from 'native-base';
 // const {width} = Dimensions.get('window');
@@ -166,24 +167,24 @@ const mainBtm = createBottomTabNavigator(
 );
 
 const main = createStackNavigator({
-  //   Splash: {
-  //     screen: Splash,
-  //     navigationOptions: {
-  //       header: null,
-  //     },
-  //   },
-    Login: {
-      screen: Login,
-      navigationOptions: {
-        header: null,
-      },
+  Splash: {
+    screen: SplashScreen,
+    navigationOptions: {
+      header: null,
     },
-  //   SignUp: {
-  //     screen: SignUp,
-  //     navigationOptions: {
-  //       header: null,
-  //     },
-  //   },
+  },
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  SignUp: {
+    screen: SignUp,
+    navigationOptions: {
+      header: null,
+    },
+  },
   Home: {
     screen: mainBtm,
     navigationOptions: {
