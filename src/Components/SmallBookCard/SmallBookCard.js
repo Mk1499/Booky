@@ -4,9 +4,9 @@ import {mainColor, textColor, width, height} from '../../configs/global';
 import {Icon} from 'native-base';
 
 export default function SmallBookCard(props) {
-  useEffect(() => {
-    console.log('Small Book Props : ', props);
-  });
+  // useEffect(() => {
+  //   console.log('Small Book Props : ', props);
+  // });
 
   return (
     <TouchableOpacity

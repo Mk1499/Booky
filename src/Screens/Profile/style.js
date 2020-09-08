@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   headLine: {
-    fontSize: 0.07 * width,
+    fontSize: 0.055 * width,
     color: mainColor,
     fontFamily: 'Ubuntu',
     marginBottom: 0.06 * height,
@@ -95,5 +95,9 @@ export const styles = StyleSheet.create({
     color: textColor,
     fontFamily: 'Lato-Light',
     fontSize: 0.05 * width,
+  },
+  carousel: {
+    // marginTop: 0.1 * height,
+    // marginBottom: 0.03 * height,
   },
 });

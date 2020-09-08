@@ -160,6 +160,9 @@ function BookDetails(props) {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
+      {book.posterURL ? (
+        <Image source={{uri: book.posterURL}} style={styles.backgroundImg} />
+      ) : null}
       <View style={styles.headCont}>
         <SubHeader
           state={favState}
@@ -237,11 +240,11 @@ function BookDetails(props) {
 const styles = StyleSheet.create({
   container: {},
   headCont: {
-    backgroundColor: mainColor,
+    backgroundColor: 'rgba(254,44,84,0.8)',
   },
   firstHalf: {
-    height: 0.7 * height,
-    backgroundColor: mainColor,
+    height: 0.6 * height,
+    backgroundColor: 'rgba(254,44,84,0.8)',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -276,7 +279,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: 0.9 * width,
     paddingHorizontal: 0.05 * width,
-    marginVertical: 0.03 * height,
+    marginTop: 0.03 * height,
   },
   head: {
     fontFamily: 'Cairo',
@@ -307,6 +310,15 @@ const styles = StyleSheet.create({
     fontSize: 0.06 * width,
     fontFamily: 'Cairo-SemiBold',
     marginBottom: 0.03 * height,
+  },
+  backgroundImg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 0,
+    width,
+    height: 0.7 * height,
+    opacity: 0.8,
   },
 });
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -24,7 +24,13 @@ import {
 } from '../../configs/global';
 import {styles, animation, animatedHeight} from './style';
 import {getAuthorDetails} from '../../queries/queries';
+import {checkAuthorFavQuery} from '../../queries/author';
+import {
+  addAuthorToFavMutation,
+  removeAuthorToFavMutation,
+} from '../../mutations/author';
 import {useQuery} from '@apollo/client';
+import {client} from '../../queries/queryClient';
 import {updateUserImg} from '../../actions/auth';
 import {connect} from 'react-redux';
 const {width, height} = Dimensions.get('screen');
@@ -45,6 +51,8 @@ function ActorPrfile(props) {
   const [scrollable, setScrollable] = useState(false);
   const [scrollableDown, setScrollableDown] = useState(false);
   const [scrollableUp, setScrollableUp] = useState(true);
+  const [favState, setFavState] = useState(false);
+  const [favID, setFavID] = React.useState('');
 
   function goBack() {
     props.navigation.goBack();
@@ -54,8 +62,7 @@ function ActorPrfile(props) {
       bookID,
     });
   }
-
-  const {refetch} = useQuery(getAuthorDetails, {
+  useQuery(getAuthorDetails, {
     variables: {id: authorID},
     onCompleted: data => {
       console.log('Author Data : ', data, authorID);
@@ -67,7 +74,7 @@ function ActorPrfile(props) {
     notifyOnNetworkStatusChange: true,
   });
 
-  function moveDetails() {
+  function auhtorDetails() {
     // move up
     if (scrollableUp) {
       setScrollableDown(true);
@@ -109,9 +116,71 @@ function ActorPrfile(props) {
     );
   }
 
+  useEffect(() => {
+    client
+      .query({
+        query: checkAuthorFavQuery,
+        variables: {
+          userID: props.userID,
+          authorID: author.id,
+        },
+        fetchPolicy: 'no-cache',
+      })
+      .then(res => {
+        console.log('checking author fav res  : ', res);
+        if (res.data.checkAuthorFav !== null) {
+          setFavState(true);
+          setFavID(res.data.checkAuthorFav.id);
+        }
+      })
+      .catch(err => {
+        console.log('checking author fav err : ', err);
+      });
+  }, []);
+
+  function addToFav() {
+    console.log('Author Data : ', author);
+    client
+      .mutate({
+        mutation: addAuthorToFavMutation,
+        variables: {
+          userID: props.userID,
+          authorID: author.id,
+        },
+      })
+      .then(res => {
+        console.log('author fav res : ', res);
+
+        setFavID(res.data.addFavAuthor.id);
+      })
+      .catch(err => {
+        console.log('add to fav error : ', err);
+      });
+  }
+
+  function removeFromFav() {
+    console.log('FAVID : ', favID);
+
+    client
+      .mutate({
+        mutation: removeAuthorToFavMutation,
+        variables: {
+          id: favID,
+        },
+      })
+      .then(res => {})
+      .catch(err => {
+        console.log('remove author from fav err : ', err);
+      });
+  }
+
   return (
     <View>
-      <SubHeader goBack={goBack} />
+      <SubHeader
+        goBack={goBack}
+        state={favState}
+        changeFav={favState ? removeFromFav : addToFav}
+      />
 
       <Image
         style={{
@@ -131,7 +200,7 @@ function ActorPrfile(props) {
             {/* <Text style={styles.note}>{this.state.known_for_department}</Text> */}
           </View>
           <Right>
-            <TouchableOpacity style={styles.upDownBtn} onPress={moveDetails}>
+            <TouchableOpacity style={styles.upDownBtn} onPress={auhtorDetails}>
               <Icon
                 name={moreIconName}
                 type="AntDesign"
@@ -201,6 +270,8 @@ function ActorPrfile(props) {
   );
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  userID: state.auth.userID,
+});
 
 export default connect(mapStateToProps, {updateUserImg})(ActorPrfile);

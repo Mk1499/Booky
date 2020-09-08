@@ -7,3 +7,11 @@ export const addAuthorToFavMutation = gql`
     }
   }
 `;
+
+export const removeAuthorToFavMutation = gql`
+  mutation($id: ID!) {
+    removeAuthorFav(id: $id) {
+      id
+    }
+  }
+`;

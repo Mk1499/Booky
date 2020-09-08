@@ -21,7 +21,9 @@ import {logout, updateUserImg, getUserDetails} from '../../actions/auth';
 import DocumentPicker from 'react-native-document-picker';
 import {client} from '../../queries/queryClient';
 import {getFavBooksQuery} from '../../queries/book';
+import {getFavAuthorsQuery} from '../../queries/author';
 import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
+import AuthorCard from '../../Components/AuthorCard/AuthorCard';
 
 class userProfile extends Component {
   constructor(props) {
@@ -32,6 +34,7 @@ class userProfile extends Component {
         this.props.userData.photo ||
         'https://provisionhealthcare.com/wp-content/uploads/2018/11/user-avatar.jpg',
       favBooks: null,
+      favAuthors: null,
     };
   }
 
@@ -41,6 +44,8 @@ class userProfile extends Component {
       return {
         userImg: props.userData.photo,
       };
+    } else {
+      return null;
     }
   }
 
@@ -48,6 +53,7 @@ class userProfile extends Component {
     let {userID, getUserDetails} = this.props;
     getUserDetails(userID);
     this.updateFavBooks();
+    this.updateFavAuthors();
   };
 
   updateFavBooks = async () => {
@@ -58,7 +64,7 @@ class userProfile extends Component {
         variables: {
           userID,
         },
-        fetchPolicy:'no-cache'
+        fetchPolicy: 'no-cache',
       })
       .then(res => {
         console.log('favBooksRes : ', res);
@@ -71,8 +77,45 @@ class userProfile extends Component {
       });
   };
 
-  renderFavBook = ({item}) => {
+  updateFavAuthors = async () => {
+    let {userID} = this.props;
+    await client
+      .query({
+        query: getFavAuthorsQuery,
+        variables: {
+          userID,
+        },
+        fetchPolicy: 'no-cache',
+      })
+      .then(res => {
+        console.log('favAuthorsRes : ', res);
+        this.setState({
+          favAuthors: res.data.favAuthors,
+        });
+      })
+      .catch(err => {
+        console.log('Getting Fav Authors error : ', err, userID);
+      });
+  };
+
+  gotoAuthorScreen = author => {
+    this.props.navigation.navigate('AuthorProfile', {
+      author,
+    });
+  };
+  renderAuthorCard = ({item}) => {
     console.log('render item : ', item);
+    return (
+      <View style={styles.bookItem}>
+        <AuthorCard
+          author={item.author}
+          navigation={() => this.gotoAuthorScreen(item.author)}
+        />
+      </View>
+    );
+  };
+
+  renderFavBook = ({item}) => {
     return (
       <View style={styles.bookItem}>
         <SmallBookCard
@@ -144,7 +187,10 @@ class userProfile extends Component {
         style={styles.container}
         refreshControl={
           <RefreshControl
-            onRefresh={this.updateFavBooks}
+            onRefresh={() => {
+              this.updateFavBooks();
+              this.updateFavAuthors();
+            }}
             refreshing={!this.props.loadList}
           />
         }>
@@ -187,19 +233,21 @@ class userProfile extends Component {
         </View>
 
         <View style={styles.sectionView}>
-          <Text style={styles.headLine}>Your Favourite Book </Text>
+          <Text style={styles.headLine}>Your Favourite Books </Text>
           {this.state.favBooks !== null ? (
             <Carousel
+              autoplay
+              firstItem={1}
+              autoplayInterval={500}
               data={this.state.favBooks}
               renderItem={this.renderFavBook}
-              sliderWidth={0.9 * Width}
-              itemWidth={0.5 * Width}
+              sliderWidth={Width}
+              itemWidth={200}
               separatorWidth={-10}
-              initialIndex={2}
             />
           ) : this.props.loadList && this.props.moviesList.length == 0 ? (
             <Text style={styles.emptyMsg}>
-              Sorry but You didn't add any Movies
+              Sorry but You didn't add any Book in Your Favourite List
             </Text>
           ) : (
             <View style={styles.nowPlayingMovies}>
@@ -208,21 +256,22 @@ class userProfile extends Component {
           )}
         </View>
         <View style={styles.sectionView}>
-          <Text style={styles.headLine}>Your Series List </Text>
-          {this.props.seriesList.length > 0 && this.props.loadList ? (
+          <Text style={styles.headLine}>Your Favourite Authors </Text>
+          {this.state.favAuthors !== null &&
+          this.state.favAuthors.length > 0 ? (
             <Carousel
-              ref={c => {
-                this._carousel = c;
-              }}
-              data={this.props.seriesList}
-              renderItem={this.renderSmallSeries}
-              sliderWidth={0.9 * Width}
-              itemWidth={0.5 * Width}
-              layout={'default'}
+              data={this.state.favAuthors}
+              renderItem={this.renderAuthorCard}
+              sliderWidth={Width}
+              itemWidth={100}
+              // layout={'default'}
+              autoplay
+              firstItem={1}
             />
-          ) : this.props.loadList && this.props.seriesList.length == 0 ? (
+          ) : this.state.favAuthors !== null &&
+            this.state.favAuthors.length == 0 ? (
             <Text style={styles.emptyMsg}>
-              Sorry but You didn't add any Movies
+              Sorry but You didn't add any Author in Your Favourite List
             </Text>
           ) : (
             <View style={styles.nowPlayingMovies}>
