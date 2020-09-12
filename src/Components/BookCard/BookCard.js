@@ -20,7 +20,9 @@ function BookCard(props) {
         style={styles.bookCover}
         resizeMode="cover"
       />
-      <Text style={styles.bookName}>{props.book.name}</Text>
+      <Text style={styles.bookName} numberOfLines={1} ellipsizeMode="tail">
+        {props.book.name}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -39,6 +41,9 @@ const styles = StyleSheet.create({
     color: mainColor,
     marginTop: 0.02 * height,
     fontFamily: 'Cairo-SemiBold',
+    textAlign: 'center',
+    width: 0.35 * width,
+
     // fontWeight: 'bold',
   },
 });

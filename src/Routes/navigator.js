@@ -15,6 +15,7 @@ import BookDetails from '../Screens/BookDetails/BookDetails';
 import Genre from '../Screens/Genre/GenreScreen';
 import AuthorProfile from '../Screens/AuthorProfile/AuthorProfile';
 import SplashScreen from '../Screens/SplashScreen/SplashScreen';
+import PDF from '../Screens/PDF/PDF';
 
 import {Icon} from 'native-base';
 // const {width} = Dimensions.get('window');
@@ -31,6 +32,13 @@ const HomeStack = createStackNavigator({
   },
   BookDetails: {
     screen: BookDetails,
+    navigationOptions: () => ({
+      headerTitle: null,
+      header: null,
+    }),
+  },
+  PDF: {
+    screen: PDF,
     navigationOptions: () => ({
       headerTitle: null,
       header: null,

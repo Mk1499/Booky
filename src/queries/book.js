@@ -23,3 +23,13 @@ export const getFavBooksQuery = gql`
     }
   }
 `;
+
+export const checkBookRead = gql`
+  query($userID: String!, $bookID: String!) {
+    checkBookRead(userID: $userID, bookID: $bookID) {
+      id
+      lastPage
+      time
+    }
+  }
+`;

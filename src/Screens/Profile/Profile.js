@@ -238,7 +238,6 @@ class userProfile extends Component {
             <Carousel
               autoplay
               firstItem={1}
-              autoplayInterval={500}
               data={this.state.favBooks}
               renderItem={this.renderFavBook}
               sliderWidth={Width}

@@ -93,6 +93,7 @@ export const getBooksQuery = gql`
         name
       }
       posterURL
+      readURL
       author {
         name
       }
@@ -131,6 +132,7 @@ export const getBookDetails = gql`
       id
       name
       posterURL
+      readURL
       rate
       description
       author {
@@ -150,6 +152,7 @@ export const getBookDetails = gql`
     }
   }
 `;
+
 
 // Genres
 export const getGenresQuery = gql`

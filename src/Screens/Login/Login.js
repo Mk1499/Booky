@@ -16,8 +16,8 @@ import {content} from 'react-redux';
 import connect from 'react-redux/lib/connect/connect';
 
 function Login(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('Khaled@mail.com');
+  const [password, setPassword] = useState('123456789');
   const [processing, setProcessing] = useState(false);
 
   function checkMail(e) {

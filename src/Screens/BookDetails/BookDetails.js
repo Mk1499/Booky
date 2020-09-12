@@ -216,7 +216,7 @@ function BookDetails(props) {
         </View>
       </View>
       <View style={styles.bookActionCont}>
-        <BookActions />
+        <BookActions book={book} navigation={props.navigation} />
       </View>
       <View style={styles.secHalf}>
         <View style={styles.section}>
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     fontSize: 0.06 * width,
   },
   authorName: {
-    fontFamily: 'Cairo',
+    fontFamily: 'Cairo-Bold',
     color: subColor,
     fontSize: 0.035 * width,
   },

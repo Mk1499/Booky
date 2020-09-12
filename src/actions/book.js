@@ -5,6 +5,7 @@ import {
   removeBookFromFavMutation,
 } from '../mutations/book';
 import {baseURL} from '../configs/global';
+import {SETBOOKREAD} from '../actions/types';
 
 const client = new ApolloClient({
   uri: baseURL,
@@ -27,4 +28,12 @@ export const addBookToFav = (userID, bookID) => async dispatch => {
     .catch(err => {
       console.log('add to fav error : ', err);
     });
+};
+
+export const setCurrentRead = readData =>  dispatch => {
+  console.log("Read Data action : ", readData);
+  dispatch({
+    type: SETBOOKREAD,
+    payload: readData,
+  });
 };

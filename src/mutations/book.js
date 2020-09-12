@@ -16,3 +16,20 @@ export const removeBookFromFavMutation = gql`
   }
 `;
 
+export const addBookReadMutation = gql`
+  mutation($userID: String!, $bookID: String!, $lastPage: Int!) {
+    addBookRead(userID: $userID, bookID: $bookID, lastPage: $lastPage) {
+      id
+      user {
+        id
+        name
+      }
+      book {
+        id
+        name
+      }
+      lastPage
+      time
+    }
+  }
+`;
