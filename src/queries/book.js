@@ -33,3 +33,24 @@ export const checkBookRead = gql`
     }
   }
 `;
+
+export const searchQuery = gql`
+  query($q: String!) {
+    search(query: $q) {
+      books {
+        id
+        name
+        rate
+        posterURL
+        author {
+          id
+          name
+        }
+      }
+      authors {
+        id
+        name
+      }
+    }
+  }
+`;
