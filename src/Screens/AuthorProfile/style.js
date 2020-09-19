@@ -44,6 +44,7 @@ export const styles = StyleSheet.create({
     borderRadius: 0.5 * 0.125 * width,
     alignItems: 'center',
     justifyContent: 'center',
+    borderColor:mainColor
   },
   sectionTitle: {
     fontSize: 0.05 * width,

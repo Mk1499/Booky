@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, View, Text, StyleSheet} from 'react-native';
+import {Image, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {height, width, mainColor} from '../../configs/global';
 import {Icon} from 'native-base';
 
@@ -24,19 +24,26 @@ export default class CardImageExample extends Component {
             <Icon style={[styles.icon]} name="star" type="Entypo" />
             <Text style={styles.itemText}>{this.props.data.rate} / 5</Text>
           </View>
-          <View style={[styles.item, styles.midItem]}>
-            <Icon
-              style={[styles.icon]}
-              name="user-circle-o"
-              type="FontAwesome"
-            />
-            <Text
-              style={[styles.itemText, {}]}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-              {this.props.data.author && this.props.data.author.name}
-            </Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate('AuthorProfile', {
+                author: this.props.data.author,
+              });
+            }}>
+            <View style={[styles.item, styles.midItem]}>
+              <Icon
+                style={[styles.icon]}
+                name="user-circle-o"
+                type="FontAwesome"
+              />
+              <Text
+                style={[styles.itemText, {}]}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {this.props.data.author && this.props.data.author.name}
+              </Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.item}>
             <Icon
               style={[styles.icon]}
@@ -72,6 +79,7 @@ const styles = StyleSheet.create({
   },
   bookName: {
     color: mainColor,
+    fontFamily: 'Cairo',
   },
   body: {
     height: '55%',

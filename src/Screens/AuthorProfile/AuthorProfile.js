@@ -235,9 +235,9 @@ function ActorPrfile(props) {
               <View style={styles.iconView}>
                 <Icon name="trending-up" style={{color: mainColor}} />
               </View>
-              {/* <Text style={styles.iconText}>
-                {this.state.popularity || 'N/A'}
-              </Text> */}
+              <Text style={styles.iconText}>
+                {author.popularity || 'N/A'}
+              </Text>
             </View>
             <View style={styles.iconMainView}>
               <View style={styles.iconView}>

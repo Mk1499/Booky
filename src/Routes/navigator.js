@@ -70,8 +70,22 @@ const LibraryStack = createStackNavigator({
   },
 });
 const ProfileStack = createStackNavigator({
-  Library: {
+  Profile: {
     screen: Profile,
+    navigationOptions: () => ({
+      headerTitle: null,
+      header: null,
+    }),
+  },
+  BookDetails: {
+    screen: BookDetails,
+    navigationOptions: () => ({
+      headerTitle: null,
+      header: null,
+    }),
+  },
+  AuthorProfile: {
+    screen: AuthorProfile,
     navigationOptions: () => ({
       headerTitle: null,
       header: null,
@@ -81,6 +95,20 @@ const ProfileStack = createStackNavigator({
 const SearchStack = createStackNavigator({
   Library: {
     screen: Search,
+    navigationOptions: () => ({
+      headerTitle: null,
+      header: null,
+    }),
+  },
+  BookDetails: {
+    screen: BookDetails,
+    navigationOptions: () => ({
+      headerTitle: null,
+      header: null,
+    }),
+  },
+  AuthorProfile: {
+    screen: AuthorProfile,
     navigationOptions: () => ({
       headerTitle: null,
       header: null,

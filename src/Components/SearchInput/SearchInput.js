@@ -27,7 +27,6 @@ export default class SearchInput extends Component {
               this.setState({
                 qText: '',
               });
-              this.inputRef.value = '';
             }}>
             <Icon name="clear" type="MaterialIcons" style={styles.icon} />
           </TouchableOpacity>
