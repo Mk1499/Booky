@@ -40,11 +40,10 @@ export const styles = StyleSheet.create({
     width: 0.125 * width,
     height: 0.125 * width,
     borderWidth: 2,
-    borderColor: '#333',
     borderRadius: 0.5 * 0.125 * width,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor:mainColor
+    borderColor: mainColor,
   },
   sectionTitle: {
     fontSize: 0.05 * width,
@@ -75,7 +74,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Cairo-SemiBold',
     color: subColor,
     alignSelf: 'center',
-    marginLeft:0.06 * width
+    marginLeft: 0.06 * width,
   },
   bookItem: {
     marginHorizontal: 0.03 * width,

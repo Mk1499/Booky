@@ -36,7 +36,7 @@ function BookActions(props) {
         });
       })
       .catch(err => {
-        console.log('ehcecking book read Err : ', err);
+        console.log('cecking book read Err : ', err);
       });
   }
   return (
@@ -47,7 +47,9 @@ function BookActions(props) {
         <Text style={styles.text}>Read Book Now</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.Btn, styles.rightBtn]}>
+      <TouchableOpacity
+        style={[styles.Btn, styles.rightBtn]}
+        onPress={() => props.viewModal()}>
         <Icon name="md-library-outline" type="Ionicons" style={styles.icon} />
         <Text style={styles.text}>Add To Library</Text>
       </TouchableOpacity>

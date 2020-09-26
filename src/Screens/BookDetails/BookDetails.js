@@ -8,6 +8,7 @@ import {
   FlatList,
   RefreshControl,
 } from 'react-native';
+import ShelfsModal from '../../Components/ShelfsModal/ShelfsModal';
 import {
   width,
   height,
@@ -40,7 +41,7 @@ function BookDetails(props) {
   const [refreshing, setRefreshing] = React.useState(false);
   const [favState, setFavState] = React.useState(false);
   const [favID, setFavID] = React.useState('');
-
+  const [modalVisiable, setModalVisiable] = React.useState(false);
   let bookID = props.navigation.state.params.bookID;
   const {refetch} = useQuery(getBookDetails, {
     variables: {id: bookID},
@@ -216,7 +217,14 @@ function BookDetails(props) {
         </View>
       </View>
       <View style={styles.bookActionCont}>
-        <BookActions book={book} navigation={props.navigation} />
+        <BookActions
+          book={book}
+          navigation={props.navigation}
+          viewModal={() => {
+            // alert('called');
+            setModalVisiable(true);
+          }}
+        />
       </View>
       <View style={styles.secHalf}>
         <View style={styles.section}>
@@ -233,6 +241,10 @@ function BookDetails(props) {
           </View>
         ) : null}
       </View>
+      <ShelfsModal
+        visible={modalVisiable}
+        hideModal={() => setModalVisiable(false)}
+      />
     </ScrollView>
   );
 }

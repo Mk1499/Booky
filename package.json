@@ -23,6 +23,8 @@
     "react-native-gesture-handler": "^1.7.0",
     "react-native-ha-interface": "./libs/react-native-ha-interface",
     "react-native-i18n": "^2.0.15",
+    "react-native-modal": "^11.5.6",
+    "react-native-modals": "^0.19.9",
     "react-native-pdf": "^6.2.0",
     "react-native-reanimated": "^1.10.1",
     "react-native-safe-area-context": "^3.1.1",
