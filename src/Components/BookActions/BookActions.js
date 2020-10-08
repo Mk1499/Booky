@@ -47,12 +47,12 @@ function BookActions(props) {
         <Text style={styles.text}>Read Book Now</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[styles.Btn, styles.rightBtn]}
         onPress={() => props.viewModal()}>
         <Icon name="md-library-outline" type="Ionicons" style={styles.icon} />
         <Text style={styles.text}>Add To Library</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   Btn: {
-    width: 0.4 * width,
+    // width: 0.4 * width,
+    width:"100%",
     flexDirection: 'row',
     borderColor: '#fff',
     backgroundColor: '#201f2c',
@@ -75,13 +76,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   rightBtn: {
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
+    // borderTopRightRadius: 20,
+    // borderBottomRightRadius: 20,
     borderLeftWidth: 1,
   },
   leftBtn: {
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
+    borderRadius:20
+    // borderTopLeftRadius: 20,
+    // borderBottomLeftRadius: 20,
   },
   text: {
     fontFamily: 'Cairo',

@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import {mainColor, textColor, bgColor} from '../../configs/global';
+import {mainColor, textColor, bgColor, subColor} from '../../configs/global';
 
 const {width, height} = Dimensions.get('window');
 
@@ -92,9 +92,9 @@ export const styles = StyleSheet.create({
   },
   emptyMsg: {
     textAlign: 'center',
-    color: textColor,
+    color: subColor,
     fontFamily: 'Lato-Light',
-    fontSize: 0.05 * width,
+    fontSize: 0.035 * width,
   },
   carousel: {
     // marginTop: 0.1 * height,

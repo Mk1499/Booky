@@ -6,6 +6,7 @@ import {
   REGISTERATION,
   SETUSERDATA,
   UPDATEUSERIMG,
+  LOGINLOADING,
 } from './types';
 import {
   userLogin,
@@ -82,6 +83,13 @@ export const signUp = (name, email, password) => async dispatch => {
       title: 'All fields must be filled',
     });
   }
+};
+
+export const loginLoading = () => dispatch => {
+  dispatch({
+    type: LOGINLOADING,
+    payload: true,
+  });
 };
 
 export const login = (email, password) => async dispatch => {

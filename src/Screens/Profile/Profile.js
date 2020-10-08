@@ -234,7 +234,7 @@ class userProfile extends Component {
 
         <View style={styles.sectionView}>
           <Text style={styles.headLine}>Your Favourite Books </Text>
-          {this.state.favBooks !== null ? (
+          {this.state.favBooks !== null && this.state.favBooks.length > 0 ? (
             <Carousel
               autoplay
               firstItem={1}

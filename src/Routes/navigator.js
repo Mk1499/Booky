@@ -133,20 +133,20 @@ const mainBtm = createBottomTabNavigator(
         headerTitle: 'Movies',
       },
     },
-    Library: {
-      screen: LibraryStack,
-      navigationOptions: {
-        tabBarIcon: ({tintColor}) => {
-          return (
-            <Icon
-              name="library-outline"
-              style={{color: tintColor, fontSize: 20}}
-            />
-          );
-        },
-        headerTitle: 'Your Library',
-      },
-    },
+    // Library: {
+    //   screen: LibraryStack,
+    //   navigationOptions: {
+    //     tabBarIcon: ({tintColor}) => {
+    //       return (
+    //         <Icon
+    //           name="library-outline"
+    //           style={{color: tintColor, fontSize: 20}}
+    //         />
+    //       );
+    //     },
+    //     headerTitle: 'Your Library',
+    //   },
+    // },
     Search: {
       screen: SearchStack,
       navigationOptions: {

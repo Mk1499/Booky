@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   log: '',
   userID: '',
-  loginLoading: false,
+  loginLoading: true,
   userData: {},
   signUpLoading: false,
   loading: false,
@@ -13,6 +13,7 @@ import {
   REGISTERATION,
   SETUSERDATA,
   UPDATEUSERIMG,
+  LOGINLOADING,
 } from '../actions/types';
 
 const auth = (state = INITIAL_STATE, action) => {
@@ -22,11 +23,18 @@ const auth = (state = INITIAL_STATE, action) => {
         ...state,
         userData: action.payload,
         userID: action.payload.id,
+        loginLoading: false,
+      };
+    case LOGINLOADING:
+      return {
+        ...state,
+        loginLoading: true,
       };
     case AUTOLOGIN:
       return {
         ...state,
         userID: action.payload,
+        loginLoading: false,
       };
     case SETUSERDATA:
       return {
@@ -38,6 +46,7 @@ const auth = (state = INITIAL_STATE, action) => {
         ...state,
         userData: action.payload,
         userID: action.payload.id,
+        loginLoading: false,
       };
     case LOGOUT:
       return {
