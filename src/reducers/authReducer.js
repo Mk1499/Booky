@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   log: '',
   userID: '',
-  loginLoading: true,
+  loginLoading: false,
   userData: {},
   signUpLoading: false,
   loading: false,
@@ -28,7 +28,7 @@ const auth = (state = INITIAL_STATE, action) => {
     case LOGINLOADING:
       return {
         ...state,
-        loginLoading: true,
+        loginLoading: action.payload,
       };
     case AUTOLOGIN:
       return {

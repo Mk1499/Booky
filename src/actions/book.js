@@ -12,7 +12,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export const addBookToFav = (userID, bookID) => async dispatch => {
+export const addBookToFav = (userID, bookID) => async (dispatch) => {
   console.log('adding Book with id : ', bookID, ' for user with ID : ', userID);
   await client
     .mutate({
@@ -22,16 +22,16 @@ export const addBookToFav = (userID, bookID) => async dispatch => {
         bookID,
       },
     })
-    .then(res => {
+    .then((res) => {
       console.log('book fav res : ', res);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log('add to fav error : ', err);
     });
 };
 
-export const setCurrentRead = readData =>  dispatch => {
-  console.log("Read Data action : ", readData);
+export const setCurrentRead = (readData) => (dispatch) => {
+  console.log('Read Data action : ', readData);
   dispatch({
     type: SETBOOKREAD,
     payload: readData,

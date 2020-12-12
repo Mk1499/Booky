@@ -66,13 +66,13 @@ class userProfile extends Component {
         },
         fetchPolicy: 'no-cache',
       })
-      .then(res => {
+      .then((res) => {
         console.log('favBooksRes : ', res);
         this.setState({
           favBooks: res.data.favBooks,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Getting Fav Books error : ', err, userID);
       });
   };
@@ -87,18 +87,18 @@ class userProfile extends Component {
         },
         fetchPolicy: 'no-cache',
       })
-      .then(res => {
+      .then((res) => {
         console.log('favAuthorsRes : ', res);
         this.setState({
           favAuthors: res.data.favAuthors,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Getting Fav Authors error : ', err, userID);
       });
   };
 
-  gotoAuthorScreen = author => {
+  gotoAuthorScreen = (author) => {
     this.props.navigation.navigate('AuthorProfile', {
       author,
     });
@@ -116,17 +116,18 @@ class userProfile extends Component {
   };
 
   renderFavBook = ({item}) => {
-    return (
-      <View style={styles.bookItem}>
-        <SmallBookCard
-          book={item.book}
-          key={item.book.id}
-          navigate={() => this.gotoBookScreen(item.book.id)}
-        />
-      </View>
-    );
+    if (item.book)
+      return (
+        <View style={styles.bookItem}>
+          <SmallBookCard
+            book={item.book}
+            key={item.book.id}
+            navigate={() => this.gotoBookScreen(item.book.id)}
+          />
+        </View>
+      );
   };
-  gotoBookScreen = bookID => {
+  gotoBookScreen = (bookID) => {
     this.props.navigation.navigate('BookDetails', {
       bookID,
     });
@@ -160,14 +161,14 @@ class userProfile extends Component {
         },
         body: formData,
       })
-        .then(res => {
+        .then((res) => {
           return res.json();
         })
-        .then(res => {
+        .then((res) => {
           console.log('Image res : ', res);
           updateUserImg(userData.id, res.url);
         })
-        .catch(err => console.log('upload err: ', err));
+        .catch((err) => console.log('upload err: ', err));
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         // User cancelled the picker, exit any dialogs or menus and move on
@@ -283,7 +284,7 @@ class userProfile extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userData: state.auth.userData,
   userID: state.auth.userID,
   moviesList: state.wlist ? state.wlist.movieWL : [],

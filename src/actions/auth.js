@@ -30,7 +30,7 @@ function checkMail(e) {
   return expression.test(String(e).toLowerCase());
 }
 
-export const signUp = (name, email, password) => async dispatch => {
+export const signUp = (name, email, password) => async (dispatch) => {
   console.log('user Data : ', name);
   if (name && email && password) {
     await client
@@ -41,7 +41,7 @@ export const signUp = (name, email, password) => async dispatch => {
           password,
         },
       })
-      .then(async res => {
+      .then(async (res) => {
         if (res.data.loginUser) {
           throw 'Sorry but this email Registered before';
         } else {
@@ -54,7 +54,7 @@ export const signUp = (name, email, password) => async dispatch => {
                 password,
               },
             })
-            .then(res => {
+            .then((res) => {
               console.log('Reg RES : ', res);
               let userData = {};
               userData.email = res.data.addUser.email;
@@ -67,12 +67,12 @@ export const signUp = (name, email, password) => async dispatch => {
               });
               Navigation.replace('Home');
             })
-            .catch(err => {
+            .catch((err) => {
               console.log('Reg Error : ', err);
             });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Logout Err : ', err);
         RNToasty.Error({
           title: err,
@@ -85,22 +85,30 @@ export const signUp = (name, email, password) => async dispatch => {
   }
 };
 
-export const loginLoading = () => dispatch => {
+export const loginLoading = () => (dispatch) => {
   dispatch({
     type: LOGINLOADING,
     payload: true,
   });
 };
 
-export const login = (email, password) => async dispatch => {
+export const login = (email, password) => async (dispatch) => {
   try {
     if (!checkMail(email)) {
       RNToasty.Error({
         title: 'Please Enter a Vaild Email',
       });
+      dispatch({
+        type: LOGINLOADING,
+        payload: false,
+      });
     } else if (!password) {
       RNToasty.Error({
         title: 'Please Enter a Vaild Password',
+      });
+      dispatch({
+        type: LOGINLOADING,
+        payload: false,
       });
     } else {
       // props.navigation.navigate('Home');
@@ -113,7 +121,7 @@ export const login = (email, password) => async dispatch => {
             password,
           },
         })
-        .then(res => {
+        .then((res) => {
           console.log('Login Data : ', res);
           if (res.data.loginUser !== null) {
             let userData = {};
@@ -133,9 +141,13 @@ export const login = (email, password) => async dispatch => {
             RNToasty.Error({
               title: 'Wrong Email or Password',
             });
+            dispatch({
+              type: LOGINLOADING,
+              payload: false,
+            });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log('ERR : ', err);
         });
     }
@@ -144,7 +156,7 @@ export const login = (email, password) => async dispatch => {
   }
 };
 
-export const logout = userID => async dispatch => {
+export const logout = (userID) => async (dispatch) => {
   console.log('User ID : ', userID);
   await client
     .mutate({
@@ -153,7 +165,7 @@ export const logout = userID => async dispatch => {
         id: userID,
       },
     })
-    .then(async res => {
+    .then(async (res) => {
       console.log('Logout Res : ', res);
       if (true) {
         AsyncStorage.setItem('userID', '');
@@ -167,12 +179,12 @@ export const logout = userID => async dispatch => {
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.log('Logout Error : ', err);
     });
 };
 
-export const checkAutoLogin = () => async dispatch => {
+export const checkAutoLogin = () => async (dispatch) => {
   // let userData = await AsyncStorage.getItem('userData');
   let userID = await AsyncStorage.getItem('userID');
 
@@ -188,7 +200,7 @@ export const checkAutoLogin = () => async dispatch => {
   }
 };
 
-export const updateUserImg = (id, photoURL) => async dispatch => {
+export const updateUserImg = (id, photoURL) => async (dispatch) => {
   client
     .mutate({
       mutation: updateUserImgMutation,
@@ -197,19 +209,19 @@ export const updateUserImg = (id, photoURL) => async dispatch => {
         photoURL,
       },
     })
-    .then(res => {
+    .then((res) => {
       console.log('updated user image res : ', res);
       dispatch({
         type: UPDATEUSERIMG,
         payload: res.data.updateUserImage.photo,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log('update user image err : ', err);
     });
 };
 
-export const getUserDetails = id => async dispatch => {
+export const getUserDetails = (id) => async (dispatch) => {
   client
     .query({
       query: getUserDetailsQuery,
@@ -217,14 +229,14 @@ export const getUserDetails = id => async dispatch => {
         id,
       },
     })
-    .then(res => {
+    .then((res) => {
       console.log('User Info11 : ', res);
       dispatch({
         type: SETUSERDATA,
         payload: res.data.user,
       });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log('getting user info err : ', err);
     });
 };
