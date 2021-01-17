@@ -46,7 +46,7 @@ function BookDetails(props) {
   const {refetch} = useQuery(getBookDetails, {
     variables: {id: bookID},
     onCompleted: data => {
-      console.log('Book Data : ', data, bookID);
+      // console.log('Book Data : ', data, bookID);
       setBook(data.book);
       setRefreshing(false);
     },
@@ -67,7 +67,7 @@ function BookDetails(props) {
         fetchPolicy: 'no-cache',
       })
       .then(res => {
-        console.log('checking fav res : ', res);
+        // console.log('checking fav res : ', res);
         let data = res.data;
         if (data.checkBookFav) {
           setFavState(true);
@@ -116,12 +116,12 @@ function BookDetails(props) {
 
   function addToFav() {
     // props.addBookToFav(props.userID, book.id);
-    console.log(
-      'adding Book with id : ',
-      book.id,
-      ' for user with ID : ',
-      props.userID,
-    );
+    // console.log(
+    //   'adding Book with id : ',
+    //   book.id,
+    //   ' for user with ID : ',
+    //   props.userID,
+    // );
     client
       .mutate({
         mutation: addBookToFavMutation,
@@ -131,7 +131,7 @@ function BookDetails(props) {
         },
       })
       .then(res => {
-        console.log('book fav res : ', res);
+        // console.log('book fav res : ', res);
         setFavID(res.data.addBookFav.id);
       })
       .catch(err => {
@@ -140,7 +140,7 @@ function BookDetails(props) {
   }
 
   function removeFromFav() {
-    console.log('FAVID : ', favID);
+    // console.log('FAVID : ', favID);
 
     client
       .mutate({

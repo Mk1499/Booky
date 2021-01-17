@@ -11,6 +11,6 @@ export const addAuthorToFav = (userID, authorID) => async dispatch => {
       },
     })
     .then(res => {
-      console.log('Fav');
+      // console.log('Fav');
     });
 };

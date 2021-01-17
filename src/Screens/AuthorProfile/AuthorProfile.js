@@ -40,7 +40,7 @@ function ActorPrfile(props) {
   let avatarURL = props.navigation.state.params.author.avatarURL;
   let name = props.navigation.state.params.author.name;
 
-  console.log('Author Props : ', authorID);
+  // console.log('Author Props : ', authorID);
 
   const [author, setAuthor] = useState({
     id: authorID,
@@ -65,7 +65,7 @@ function ActorPrfile(props) {
   useQuery(getAuthorDetails, {
     variables: {id: authorID},
     onCompleted: data => {
-      console.log('Author Data : ', data, authorID);
+      // console.log('Author Data : ', data, authorID);
       setAuthor(data.author);
     },
     onError: err => {
@@ -102,7 +102,7 @@ function ActorPrfile(props) {
   }
 
   function renderWork({item}, type) {
-    console.log('Book :', item);
+    // console.log('Book :', item);
 
     return (
       <TouchableOpacity
@@ -127,7 +127,7 @@ function ActorPrfile(props) {
         fetchPolicy: 'no-cache',
       })
       .then(res => {
-        console.log('checking author fav res  : ', res);
+        // console.log('checking author fav res  : ', res);
         if (res.data.checkAuthorFav !== null) {
           setFavState(true);
           setFavID(res.data.checkAuthorFav.id);
@@ -139,7 +139,7 @@ function ActorPrfile(props) {
   }, []);
 
   function addToFav() {
-    console.log('Author Data : ', author);
+    // console.log('Author Data : ', author);
     client
       .mutate({
         mutation: addAuthorToFavMutation,
@@ -149,7 +149,7 @@ function ActorPrfile(props) {
         },
       })
       .then(res => {
-        console.log('author fav res : ', res);
+        // console.log('author fav res : ', res);
 
         setFavID(res.data.addFavAuthor.id);
       })
@@ -159,7 +159,7 @@ function ActorPrfile(props) {
   }
 
   function removeFromFav() {
-    console.log('FAVID : ', favID);
+    // console.log('FAVID : ', favID);
 
     client
       .mutate({

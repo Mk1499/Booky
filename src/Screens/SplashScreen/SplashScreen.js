@@ -5,7 +5,7 @@ import {checkAutoLogin} from '../../actions/auth';
 
 class SplashScreen extends Component {
   componentDidMount = async () => {
-    console.log("Called from splash screen");
+    // console.log("Called from splash screen");
    try{
 
      this.props.checkAutoLogin();

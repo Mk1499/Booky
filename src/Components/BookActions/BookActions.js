@@ -19,7 +19,7 @@ function BookActions(props) {
         fetchPolicy: 'no-cache',
       })
       .then(res => {
-        console.log('checking book read res : ', res.data);
+        // console.log('checking book read res : ', res.data);
         let lastPage = 1;
         if (res.data.checkBookRead.length) {
           lastPage = res.data.checkBookRead[0].lastPage;

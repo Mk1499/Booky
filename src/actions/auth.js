@@ -32,7 +32,7 @@ function checkMail(e) {
 }
 
 export const signUp = (name, email, password) => async (dispatch) => {
-  console.log('user Data : ', name);
+  // console.log('user Data : ', name);
   if (name && email && password) {
     await client
       .mutate({
@@ -56,7 +56,7 @@ export const signUp = (name, email, password) => async (dispatch) => {
               },
             })
             .then((res) => {
-              console.log('Reg RES : ', res);
+              // console.log('Reg RES : ', res);
               let userData = {};
               userData.email = res.data.addUser.email;
               userData.name = res.data.addUser.name;
@@ -113,7 +113,7 @@ export const login = (email, password) => async (dispatch) => {
       });
     } else {
       // props.navigation.navigate('Home');
-      console.log('Use Query');
+      // console.log('Use Query');
       await client
         .mutate({
           mutation: userLogin,
@@ -123,7 +123,7 @@ export const login = (email, password) => async (dispatch) => {
           },
         })
         .then((res) => {
-          console.log('Login Data : ', res);
+          // console.log('Login Data : ', res);
           if (res.data.loginUser !== null) {
             let userData = {};
             userData['name'] = res.data.loginUser.name;
@@ -158,7 +158,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = (userID) => async (dispatch) => {
-  console.log('User ID : ', userID);
+  // console.log('User ID : ', userID);
   await client
     .mutate({
       mutation: userLogout,
@@ -167,7 +167,7 @@ export const logout = (userID) => async (dispatch) => {
       },
     })
     .then(async (res) => {
-      console.log('Logout Res : ', res);
+      // console.log('Logout Res : ', res);
       if (true) {
         AsyncStorage.setItem('userID', '');
         dispatch({
@@ -187,9 +187,9 @@ export const logout = (userID) => async (dispatch) => {
 
 export const checkAutoLogin = () => async (dispatch) => {
   // let userData = await AsyncStorage.getItem('userData');
-  console.log('Checking...');
+  // console.log('Checking...');
   let userID = await AsyncStorage.getItem('userID');
-  console.log('No User id : ', userID);
+  // console.log('No User id : ', userID);
   
   if (userID) {
     // userData = JSON.parse(userData);
@@ -213,7 +213,7 @@ export const updateUserImg = (id, photoURL) => async (dispatch) => {
       },
     })
     .then((res) => {
-      console.log('updated user image res : ', res);
+      // console.log('updated user image res : ', res);
       dispatch({
         type: UPDATEUSERIMG,
         payload: res.data.updateUserImage.photo,
@@ -233,7 +233,7 @@ export const getUserDetails = (id) => async (dispatch) => {
       },
     })
     .then((res) => {
-      console.log('User Info11 : ', res);
+      // console.log('User Info11 : ', res);
       dispatch({
         type: SETUSERDATA,
         payload: res.data.user,

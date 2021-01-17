@@ -7,6 +7,8 @@ import {Provider} from 'react-redux';
 import store from './src/store';
 import {baseURL} from './src/configs/global';
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
+import {requestUserPermission,backgroundMsgs, forgroundMsgd} from './src/Services/firebaseMessaging';
+import messaging from '@react-native-firebase/messaging';
 
 const client = new ApolloClient({
   uri: baseURL,
@@ -16,7 +18,7 @@ const client = new ApolloClient({
 const App = () => {
   function haOnEvent() {
     // alert("ddd")
-    
+
     const eventObj = {
       testString: 'StrContent',
       testInt: 20,
@@ -29,12 +31,25 @@ const App = () => {
     haOnEvent();
   });
 
+ 
+
+  // async function requestUserPermission() {
+  //   const authStatus = await messaging().requestPermission();
+  //   const enabled =
+  //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+  //     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+  //   if (enabled) {
+  //     console.log('Authorization status:', authStatus);
+  //   }
+  // }
+
   return (
     <Provider store={store}>
       <StatusBar backgroundColor={mainColor} />
       <ApolloProvider client={client}>
         <AppNavigation
-          ref={navigatorRef => {
+          ref={(navigatorRef) => {
             NavigationService.setTopLevelNavigator(navigatorRef);
           }}
         />

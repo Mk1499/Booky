@@ -13,7 +13,7 @@ const client = new ApolloClient({
 });
 
 export const addBookToFav = (userID, bookID) => async (dispatch) => {
-  console.log('adding Book with id : ', bookID, ' for user with ID : ', userID);
+  // console.log('adding Book with id : ', bookID, ' for user with ID : ', userID);
   await client
     .mutate({
       mutation: addBookToFavMutation,
@@ -23,7 +23,7 @@ export const addBookToFav = (userID, bookID) => async (dispatch) => {
       },
     })
     .then((res) => {
-      console.log('book fav res : ', res);
+      // console.log('book fav res : ', res);
     })
     .catch((err) => {
       console.log('add to fav error : ', err);
@@ -31,7 +31,7 @@ export const addBookToFav = (userID, bookID) => async (dispatch) => {
 };
 
 export const setCurrentRead = (readData) => (dispatch) => {
-  console.log('Read Data action : ', readData);
+  // console.log('Read Data action : ', readData);
   dispatch({
     type: SETBOOKREAD,
     payload: readData,

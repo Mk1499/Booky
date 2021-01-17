@@ -1,4 +1,4 @@
-package com.booky;
+package com.scorpion.booky;
 
 import android.app.Application;
 import android.content.Context;
@@ -12,6 +12,7 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.oblador.vectoricons.VectorIconsPackage;
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -28,7 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
-          // packages.add(new VectorIconsPackage());
+          // packages.add(new ReactNativeFirebaseAppPackage());
           return packages;
         }
 

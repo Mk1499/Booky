@@ -1,4 +1,4 @@
-package com.booky;
+package com.scorpion.booky;
 
 import com.facebook.react.ReactActivity;
 

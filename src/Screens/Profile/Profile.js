@@ -28,7 +28,7 @@ import AuthorCard from '../../Components/AuthorCard/AuthorCard';
 class userProfile extends Component {
   constructor(props) {
     super(props);
-    console.log('User Info2 : ', this.props.userData);
+    // console.log('User Info2 : ', this.props.userData);
     this.state = {
       userImg:
         this.props.userData.photo ||
@@ -39,7 +39,7 @@ class userProfile extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    console.log('new props : ', props, state);
+    // console.log('new props : ', props, state);
     if (props.userData.photo && props.userData.photo !== state.userImg) {
       return {
         userImg: props.userData.photo,
@@ -67,7 +67,7 @@ class userProfile extends Component {
         fetchPolicy: 'no-cache',
       })
       .then((res) => {
-        console.log('favBooksRes : ', res);
+        // console.log('favBooksRes : ', res);
         this.setState({
           favBooks: res.data.favBooks,
         });
@@ -88,7 +88,7 @@ class userProfile extends Component {
         fetchPolicy: 'no-cache',
       })
       .then((res) => {
-        console.log('favAuthorsRes : ', res);
+        // console.log('favAuthorsRes : ', res);
         this.setState({
           favAuthors: res.data.favAuthors,
         });
@@ -104,7 +104,7 @@ class userProfile extends Component {
     });
   };
   renderAuthorCard = ({item}) => {
-    console.log('render item : ', item);
+    // console.log('render item : ', item);
     return (
       <View style={styles.bookItem}>
         <AuthorCard
@@ -140,15 +140,15 @@ class userProfile extends Component {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.images],
       });
-      console.log(
-        res.uri,
-        res.type, // mime type
-        res.name,
-        res.size,
-      );
+      // console.log(
+      //   res.uri,
+      //   res.type, // mime type
+      //   res.name,
+      //   res.size,
+      // );
 
       formData.append('new-image', res);
-      console.log('FD : ', formData);
+      // console.log('FD : ', formData);
 
       this.setState({
         userImg: res.uri,
@@ -165,7 +165,7 @@ class userProfile extends Component {
           return res.json();
         })
         .then((res) => {
-          console.log('Image res : ', res);
+          // console.log('Image res : ', res);
           updateUserImg(userData.id, res.url);
         })
         .catch((err) => console.log('upload err: ', err));
@@ -180,8 +180,8 @@ class userProfile extends Component {
 
   render() {
     const {userData} = this.props;
-    console.log('render user info: ', userData.fullname);
-    console.log(this.props.loadList, this.props.moviesList);
+    // console.log('render user info: ', userData.fullname);
+    // console.log(this.props.loadList, this.props.moviesList);
 
     return (
       <ScrollView

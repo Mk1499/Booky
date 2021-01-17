@@ -35,7 +35,7 @@ export default class Search extends Component {
   }
 
   search = async query => {
-    console.log('Q : ', query);
+    // console.log('Q : ', query);
     if (query) {
       this.setState({
         searching: true,
@@ -50,7 +50,7 @@ export default class Search extends Component {
           },
         })
         .then(res => {
-          console.log('Serch Res  : ', res.data);
+          // console.log('Serch Res  : ', res.data);
           this.setState({
             searching: false,
             bookResult: res.data.search.books,

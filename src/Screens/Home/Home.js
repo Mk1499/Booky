@@ -25,6 +25,7 @@ import {
   getAuthorsQuery,
 } from '../../queries/queries';
 import {useQuery} from '@apollo/client';
+import { backgroundMsgs, forgroundMsgs, requestUserPermission } from '../../Services/firebaseMessaging';
 
 const {width, height} = Dimensions.get('window');
 
@@ -85,12 +86,14 @@ function Home(props) {
   const [authors, setAuthors] = useState([]);
 
   useEffect(() => {
-    console.log('Home Props : ', props);
+    requestUserPermission();
+    backgroundMsgs();
+    forgroundMsgs();
   }, []);
 
   useQuery(getBooksQuery, {
     onCompleted: (data) => {
-      console.log('Data : ', data);
+      // console.log('Data : ', data);
       setBooks(data.books);
     },
     onError: (err) => {
@@ -100,7 +103,7 @@ function Home(props) {
 
   useQuery(getAuthorsQuery, {
     onCompleted: (data) => {
-      console.log('Data : ', data);
+      // console.log('Data : ', data);
       setAuthors(data.authors);
     },
     onError: (err) => {
@@ -110,7 +113,7 @@ function Home(props) {
 
   useQuery(getLatestBooksQuery, {
     onCompleted: (data) => {
-      console.log('Data : ', data);
+      // console.log('Data : ', data);
       setLatestBooks(data.books);
     },
     onError: (err) => {
@@ -120,7 +123,7 @@ function Home(props) {
 
   useQuery(getGenresQuery, {
     onCompleted: (data) => {
-      console.log('Data : ', data);
+      // console.log('Data : ', data);
       setGenres(data.genres);
     },
     onError: (err) => {

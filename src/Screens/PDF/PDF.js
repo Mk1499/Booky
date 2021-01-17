@@ -44,7 +44,7 @@ class PDFSCR extends Component {
     };
 
     this.props.setCurrentRead(newReadData);
-    console.log('exit with page : ', newReadData);
+    // console.log('exit with page : ', newReadData);
 
     client
       .mutate({
@@ -89,13 +89,13 @@ class PDFSCR extends Component {
               'https://books-library.online/files/download-pdf-ebooks.org-1536784094Fw1T2.pdf',
           }}
           onLoadComplete={(numberOfPages, filePath) => {
-            console.log(`number of pages: ${numberOfPages}`);
+            // console.log(`number of pages: ${numberOfPages}`);
             this.setState({
               noOfPages: numberOfPages,
             });
           }}
           onPageChanged={(page, numberOfPages) => {
-            console.log(`current page: ${page}`);
+            // console.log(`current page: ${page}`);
             this.setState({
               currentPage: page,
             });
