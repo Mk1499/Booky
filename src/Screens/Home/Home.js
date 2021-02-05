@@ -25,7 +25,11 @@ import {
   getAuthorsQuery,
 } from '../../queries/queries';
 import {useQuery} from '@apollo/client';
-import { backgroundMsgs, forgroundMsgs, requestUserPermission } from '../../Services/firebaseMessaging';
+import {
+  backgroundMsgs,
+  forgroundMsgs,
+  requestUserPermission,
+} from '../../Services/firebaseMessaging';
 
 const {width, height} = Dimensions.get('window');
 
@@ -34,6 +38,9 @@ function Home(props) {
     props.navigation.navigate('BookDetails', {
       bookID,
     });
+  }
+  function gotoAddBookScreen() {
+    props.navigation.navigate('AddBook');
   }
 
   function gotoGenreScreen(genreID) {
@@ -185,7 +192,7 @@ function Home(props) {
         </View>
       )}
       <View style={styles.addBtn}>
-        <AddBookBtn />
+        <AddBookBtn action={gotoAddBookScreen} />
       </View>
     </View>
   );
@@ -241,10 +248,10 @@ const styles = StyleSheet.create({
     height: 0.2 * height,
   },
   addBtn: {
-    position:'absolute',
-    zIndex:10,
+    position: 'absolute',
+    zIndex: 10,
     bottom: 0.05 * height,
-    right: 0.07 * width
+    right: 0.07 * width,
   },
 });
 

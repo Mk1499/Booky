@@ -17,6 +17,7 @@
     "@react-native-community/progress-view": "^1.1.1",
     "@react-native-firebase/app": "^10.4.0",
     "@react-native-firebase/messaging": "^10.4.1",
+    "@types/react-native": "^0.63.46",
     "graphql": "^15.3.0",
     "native-base": "^2.13.13",
     "react": "16.13.1",
