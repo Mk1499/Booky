@@ -31,6 +31,9 @@ import {
   requestUserPermission,
 } from '../../Services/firebaseMessaging';
 
+import {setAuthors as setAuthorsAction} from '../../actions/author';
+import {setGenres as setGenresAction} from '../../actions/genre';
+
 const {width, height} = Dimensions.get('window');
 
 function Home(props) {
@@ -98,6 +101,14 @@ function Home(props) {
     forgroundMsgs();
   }, []);
 
+  useEffect(() => {
+    props.setAuthorsAction(authors);
+  }, [authors]);
+
+  useEffect(() => {
+    props.setGenresAction(genres);
+  }, [genres]);
+
   useQuery(getBooksQuery, {
     onCompleted: (data) => {
       // console.log('Data : ', data);
@@ -120,7 +131,7 @@ function Home(props) {
 
   useQuery(getLatestBooksQuery, {
     onCompleted: (data) => {
-      // console.log('Data : ', data);
+      console.log('Data : ', data);
       setLatestBooks(data.books);
     },
     onError: (err) => {
@@ -130,7 +141,7 @@ function Home(props) {
 
   useQuery(getGenresQuery, {
     onCompleted: (data) => {
-      // console.log('Data : ', data);
+      console.log('Genres : ', data);
       setGenres(data.genres);
     },
     onError: (err) => {
@@ -259,4 +270,6 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, {})(Home);
+export default connect(mapStateToProps, {setAuthorsAction, setGenresAction})(
+  Home,
+);

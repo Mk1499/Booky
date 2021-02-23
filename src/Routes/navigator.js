@@ -16,7 +16,7 @@ import Genre from '../Screens/Genre/GenreScreen';
 import AuthorProfile from '../Screens/AuthorProfile/AuthorProfile';
 import SplashScreen from '../Screens/SplashScreen/SplashScreen';
 import PDF from '../Screens/PDF/PDF';
-import AddBook from '../Screens/AddBook/AddBook'
+import AddBook from '../Screens/AddBook/AddBook';
 
 import {Icon} from 'native-base';
 // const {width} = Dimensions.get('window');

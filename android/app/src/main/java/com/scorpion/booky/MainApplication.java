@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.oblador.vectoricons.VectorIconsPackage;
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
+// import com.reactnativecommunity.picker.RNCPickerPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

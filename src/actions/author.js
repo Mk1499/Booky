@@ -1,7 +1,9 @@
 import {client} from '../queries/queryClient';
 import {addAuthorToFavMutation} from '../mutations/author';
 
-export const addAuthorToFav = (userID, authorID) => async dispatch => {
+import {SETAUTHORS} from './types';
+
+export const addAuthorToFav = (userID, authorID) => async (dispatch) => {
   await client
     .mutate({
       mutation: addAuthorToFavMutation,
@@ -10,7 +12,15 @@ export const addAuthorToFav = (userID, authorID) => async dispatch => {
         authorID,
       },
     })
-    .then(res => {
+    .then((res) => {
       // console.log('Fav');
     });
+};
+
+export const setAuthors = (authors) => async (dispatch) => {
+  console.log('set authors action Called : ', authors);
+  dispatch({
+    type: SETAUTHORS,
+    payload: authors,
+  });
 };

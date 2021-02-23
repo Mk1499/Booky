@@ -2,8 +2,8 @@ import {SETUSERDATA, SETBOOKREAD} from '../actions/types';
 
 const INITIAL_STATE = {
   currentReadData: {
-      book:{},
-      lastPage:1
+    book: {},
+    lastPage: 1,
   },
 };
 

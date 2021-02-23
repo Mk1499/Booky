@@ -9,3 +9,9 @@ export const LOGINLOADING = 'LOGINLOADING';
 
 // Book
 export const SETBOOKREAD = 'SETBOOKREAD';
+
+// Author
+export const SETAUTHORS = 'SETAUTHORS';
+
+// Genre
+export const SETGENRES = 'SETGENRES';
