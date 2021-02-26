@@ -1,16 +1,16 @@
 import {SETGENRES} from '../actions/types';
 
-const intialState = {
+const INITIAL_STATE = {
   genres: [],
 };
 
-const genre = (state = intialState, action) => {
+const genre = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SETGENRES:
       console.log('Set Genres : ', action.payload);
       return {
         ...state,
-        genres: action.payload,
+        genres: action.payload ? action.payload : state.genres,
       };
 
     default:

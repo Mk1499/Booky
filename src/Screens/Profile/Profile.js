@@ -5,18 +5,16 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  FlatList,
   ScrollView,
-  Dimensions,
   RefreshControl,
+  Permission,
 } from 'react-native';
 import {styles} from './style';
 import {connect} from 'react-redux';
-import {Icon, Left, Radio, Right, Item, CardItem} from 'native-base';
+import {Icon, Left, Right} from 'native-base';
 import {customBaseUrl} from '../../configs/global';
-import {mainColor, textColor, bgColor} from '../../configs/global';
+import {mainColor, width} from '../../configs/global';
 import Carousel from 'react-native-snap-carousel';
-const {width: Width, height: Height} = Dimensions.get('window');
 import {logout, updateUserImg, getUserDetails} from '../../actions/auth';
 import DocumentPicker from 'react-native-document-picker';
 import {client} from '../../queries/queryClient';
@@ -24,23 +22,31 @@ import {getFavBooksQuery} from '../../queries/book';
 import {getFavAuthorsQuery} from '../../queries/author';
 import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import AuthorCard from '../../Components/AuthorCard/AuthorCard';
+import storage from '@react-native-firebase/storage';
+import {utils} from '@react-native-firebase/app';
+import RNFetchBlob from 'rn-fetch-blob';
+import RNFS from 'react-native-fs';
 
 class userProfile extends Component {
   constructor(props) {
     super(props);
-    // console.log('User Info2 : ', this.props.userData);
     this.state = {
       userImg:
-        this.props.userData.photo ||
         'https://provisionhealthcare.com/wp-content/uploads/2018/11/user-avatar.jpg',
       favBooks: null,
       favAuthors: null,
+      imgUpdated: false,
     };
   }
 
   static getDerivedStateFromProps(props, state) {
     // console.log('new props : ', props, state);
-    if (props.userData.photo && props.userData.photo !== state.userImg) {
+    if (
+      props.userData.photo &&
+      props.userData.photo !== state.userImg &&
+      !state.imgUpdated
+    ) {
+      console.log('Img Changed : ', props.userData.photo);
       return {
         userImg: props.userData.photo,
       };
@@ -50,8 +56,8 @@ class userProfile extends Component {
   }
 
   componentDidMount = async () => {
-    let {userID, getUserDetails} = this.props;
-    getUserDetails(userID);
+    let {userID} = this.props;
+    this.props.getUserDetails(userID);
     this.updateFavBooks();
     this.updateFavAuthors();
   };
@@ -67,7 +73,6 @@ class userProfile extends Component {
         fetchPolicy: 'no-cache',
       })
       .then((res) => {
-        // console.log('favBooksRes : ', res);
         this.setState({
           favBooks: res.data.favBooks,
         });
@@ -88,7 +93,6 @@ class userProfile extends Component {
         fetchPolicy: 'no-cache',
       })
       .then((res) => {
-        // console.log('favAuthorsRes : ', res);
         this.setState({
           favAuthors: res.data.favAuthors,
         });
@@ -104,7 +108,6 @@ class userProfile extends Component {
     });
   };
   renderAuthorCard = ({item}) => {
-    // console.log('render item : ', item);
     return (
       <View style={styles.bookItem}>
         <AuthorCard
@@ -137,38 +140,31 @@ class userProfile extends Component {
     let formData = new FormData();
     let {userData, updateUserImg} = this.props;
     try {
-      const res = await DocumentPicker.pick({
+      await DocumentPicker.pick({
         type: [DocumentPicker.types.images],
-      });
-      // console.log(
-      //   res.uri,
-      //   res.type, // mime type
-      //   res.name,
-      //   res.size,
-      // );
-
-      formData.append('new-image', res);
-      // console.log('FD : ', formData);
-
-      this.setState({
-        userImg: res.uri,
-      });
-      await fetch(`${customBaseUrl}/upload`, {
-        method: 'POST',
-        // mode: 'cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        body: formData,
       })
-        .then((res) => {
-          return res.json();
+        .then(async (res) => {
+          let reference = storage().ref();
+          this.setState({
+            userImg: res.uri,
+            imgUpdated: true,
+          });
+          const data = await RNFS.readFile(res.uri, 'base64');
+          let imgName = `${Math.random() * 10000}${res.name}.jpg`;
+          await reference
+            .child(`profilePics/ ${imgName}`)
+            .putString(data, 'base64')
+            .then(() => {
+              // console.log('URL : ', url + '/' + imgName);
+            })
+            .catch((err) => {
+              console.log("Can't upload : ", err);
+            });
         })
-        .then((res) => {
-          // console.log('Image res : ', res);
-          updateUserImg(userData.id, res.url);
-        })
-        .catch((err) => console.log('upload err: ', err));
+        .catch((err) => {
+          console.log('upload Err : ', err);
+          throw err;
+        });
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         // User cancelled the picker, exit any dialogs or menus and move on
@@ -216,16 +212,7 @@ class userProfile extends Component {
               }}
               style={styles.profileImg}
             />
-            <Icon
-              name="edit"
-              type="FontAwesome5"
-              style={{
-                color: mainColor,
-                position: 'relative',
-                top: '-15%',
-                left: '70%',
-              }}
-            />
+            <Icon name="edit" type="FontAwesome5" style={styles.editIcon} />
           </TouchableOpacity>
           <Text style={styles.userName}>
             {' '}
@@ -241,7 +228,7 @@ class userProfile extends Component {
               firstItem={this.state.favBooks.length > 1 ? 1 : 0}
               data={this.state.favBooks}
               renderItem={this.renderFavBook}
-              sliderWidth={Width}
+              sliderWidth={width}
               itemWidth={200}
               separatorWidth={-10}
             />
@@ -262,7 +249,7 @@ class userProfile extends Component {
             <Carousel
               data={this.state.favAuthors}
               renderItem={this.renderAuthorCard}
-              sliderWidth={Width}
+              sliderWidth={width}
               itemWidth={100}
               // layout={'default'}
               // autoplay

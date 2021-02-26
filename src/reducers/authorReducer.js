@@ -10,10 +10,10 @@ const author = (state = INITIAL_STATE, action) => {
       console.log('Set Authors : ', action.payload);
       return {
         ...state,
-        authors: action.payload,
+        authors: action.payload ? action.payload : state.authors,
       };
     default:
-      return INITIAL_STATE;
+      return state;
   }
 };
 

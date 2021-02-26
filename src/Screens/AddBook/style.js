@@ -6,9 +6,11 @@ export const styles = StyleSheet.create({
     height,
   },
   content: {
-    height: '80%',
+    minHeight: '80%',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: '10%',
+    paddingBottom: 0.2 * height,
   },
   input: {
     borderRadius: 10,
@@ -20,6 +22,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Cairo',
     elevation: 2,
     shadowColor: mainColor,
+    color: mainColor,
   },
   logoImg: {
     width: 0.8 * width,

@@ -40,11 +40,13 @@ export const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 0.1 * height,
     backgroundColor: '#eee',
-    // marginBottom: 0.02 * height,
-    // marginTop:-0.2*height,
-    // borderWidth:10,
-    // borderColor:"#eee",
-    // zIndex:50
+  },
+
+  editIcon: {
+    color: mainColor,
+    position: 'relative',
+    top: '-15%',
+    left: '70%',
   },
   profileImgBtn: {
     width: 0.2 * height,
