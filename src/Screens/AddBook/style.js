@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {width, height, mainColor} from '../../configs/global';
+import {width, height, mainColor, bgColor} from '../../configs/global';
 
 export const styles = StyleSheet.create({
   container: {
@@ -23,6 +23,7 @@ export const styles = StyleSheet.create({
     elevation: 2,
     shadowColor: mainColor,
     color: mainColor,
+    backgroundColor: bgColor,
   },
   logoImg: {
     width: 0.8 * width,

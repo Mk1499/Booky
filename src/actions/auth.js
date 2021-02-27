@@ -20,7 +20,6 @@ import {ApolloClient, InMemoryCache} from '@apollo/client';
 import {baseURL} from '../configs/global';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const client = new ApolloClient({
   uri: baseURL,
   cache: new InMemoryCache(),
@@ -190,7 +189,7 @@ export const checkAutoLogin = () => async (dispatch) => {
   // console.log('Checking...');
   let userID = await AsyncStorage.getItem('userID');
   // console.log('No User id : ', userID);
-  
+
   if (userID) {
     // userData = JSON.parse(userData);
     dispatch({

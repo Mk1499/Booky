@@ -10,6 +10,9 @@ import {Textarea} from 'native-base';
 import {connect} from 'react-redux';
 import {styles} from './style';
 import {mainColor} from '../../configs/global';
+import {client} from '../../queries/queryClient';
+import {addBook} from '../../mutations/book';
+import {RNToasty} from 'react-native-toasty';
 
 class AddBook extends Component {
   static getDrivedStateFromProps(prevProps, nextProps) {
@@ -20,21 +23,27 @@ class AddBook extends Component {
     super(props);
     this.state = {
       name: '',
-      autherID: '',
+      authorID: '',
       ownerID: '',
       description: '',
       category: '',
+      coverURL: '',
       releaseDate: '',
       rate: 0,
       readURL: '',
       genreID: '',
       selectedAuthor: '',
       genres: [],
+      addingBook: false,
     };
   }
 
   componentDidMount() {
     console.log('Redux Authors : ', this.props.authors);
+    this.setState({
+      authorID: this.props.authors[0]?.id,
+      genreID: this.props.genres[0]?.id,
+    });
   }
 
   componentDidUpdate() {
@@ -50,13 +59,68 @@ class AddBook extends Component {
     }
   };
 
+  goBack() {
+    let {navigation} = this.props;
+    navigation.state.params.onGoBack();
+    navigation.goBack();
+  }
+
   changeGenre = (genre) => {
     console.log('Change Item : ', genre);
+
     if (genre && genre.id) {
       this.setState({
         genreID: genre.id,
       });
     }
+  };
+
+  addingBook = async () => {
+    let {name, authorID, genreID, readURL, coverURL, description} = this.state;
+    let {user} = this.props;
+    let book = {
+      name,
+      authorID,
+      genreID,
+      readURL,
+      coverURL,
+    };
+
+    console.log('Book Data : ', book);
+    this.setState({
+      addingBook: true,
+    });
+    await client
+      .mutate({
+        mutation: addBook,
+        variables: {
+          userID: user.id,
+          authorID,
+          name,
+          description,
+          readURL,
+          genreID,
+          coverURL,
+        },
+      })
+      .then((data) => {
+        console.log('Book Added Successfully : ', data);
+        this.goBack();
+        RNToasty.Success({
+          title: 'Your Book Added Successfully',
+        });
+      })
+      .catch((err) => {
+        console.log('Fail adding new book : ', JSON.stringify(err));
+        RNToasty.Error({
+          title: 'Fail adding your book',
+        });
+      })
+      .finally(() => {
+        this.setState({
+          addingBook: false,
+        });
+      });
   };
 
   render() {
@@ -75,23 +139,35 @@ class AddBook extends Component {
                 this.setState({name});
               }}
             />
-            <ImageSelector selectText="Upload Book PDF" selectType="pdf" />
+          </KeyboardAvoidingView>
+          <ImageSelector
+            selectText="Upload Book PDF"
+            selectType="pdf"
+            change={(readURL) => {
+              this.setState({readURL});
+            }}
+          />
 
-            <Picker
-              data={this.props.authors}
-              change={(item) => this.changeAuthor(item)}
-              label="Choose Author"
-            />
+          <Picker
+            data={this.props.authors}
+            change={(item) => this.changeAuthor(item)}
+            label="Choose Author"
+          />
 
-            <Picker
-              data={this.props.genres}
-              change={(item) => this.changeGenre(item)}
-              label="Choose Genre"
-            />
+          <Picker
+            data={this.props.genres}
+            change={(item) => this.changeGenre(item)}
+            label="Choose Genre"
+          />
 
-            <ImageSelector selectText="Upload Book Cover" selectType="image" />
-
-            {/* <KeyboardAvoidingView behavior="height"> */}
+          <ImageSelector
+            selectText="Upload Book Cover"
+            selectType="image"
+            change={(coverURL) => {
+              this.setState({coverURL});
+            }}
+          />
+          <KeyboardAvoidingView behavior="position">
             <Textarea
               style={[styles.input]}
               placeholder="Description"
@@ -106,11 +182,8 @@ class AddBook extends Component {
 
           <Button
             text="Add Book"
-            processing={this.props.processing}
-            // action={() => {
-            //   props.loginLoading();
-            //   props.login(email, password);
-            // }}
+            processing={this.state.addingBook}
+            action={() => this.addingBook()}
           />
         </ScrollView>
       </View>
@@ -121,6 +194,7 @@ class AddBook extends Component {
 const mapStateToProps = (state) => ({
   authors: state.author.authors,
   genres: state.genre.genres,
+  user: state.auth.userData,
 });
 
 export default connect(mapStateToProps, {})(AddBook);

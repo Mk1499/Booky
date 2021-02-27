@@ -8,6 +8,7 @@ import {
   Text,
   FlatList,
   Image,
+  RefreshControl,
 } from 'react-native';
 import {connect} from 'react-redux';
 import Header from '../../Components/Header/Header';
@@ -33,6 +34,7 @@ import {
 
 import {setAuthors as setAuthorsAction} from '../../actions/author';
 import {setGenres as setGenresAction} from '../../actions/genre';
+import {client} from '../../queries/queryClient';
 
 const {width, height} = Dimensions.get('window');
 
@@ -43,7 +45,9 @@ function Home(props) {
     });
   }
   function gotoAddBookScreen() {
-    props.navigation.navigate('AddBook');
+    props.navigation.navigate('AddBook', {
+      onGoBack: () => getData(),
+    });
   }
 
   function gotoGenreScreen(genreID) {
@@ -94,6 +98,57 @@ function Home(props) {
   const [latestBooks, setLatestBooks] = useState([]);
   const [genres, setGenres] = useState([]);
   const [authors, setAuthors] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  async function getData() {
+    setRefreshing(true);
+    await refreshBooks();
+    await refreshLatestBooks();
+    await refreshAuthors();
+    setRefreshing(false);
+  }
+
+  async function refreshBooks() {
+    await client
+      .query({
+        query: getBooksQuery,
+        fetchPolicy: 'no-cache',
+      })
+      .then(({data}) => {
+        setBooks(data.books);
+      })
+      .catch((err) => {
+        console.error('Getting Books Error : ', err);
+      });
+  }
+
+  async function refreshAuthors() {
+    await client
+      .query({
+        query: getAuthorsQuery,
+        fetchPolicy: 'no-cache',
+      })
+      .then(({data}) => {
+        setAuthors(data.authors);
+      })
+      .catch((err) => {
+        console.error('Getting Authors Error : ', err);
+      });
+  }
+
+  async function refreshLatestBooks() {
+    await client
+      .query({
+        query: getLatestBooksQuery,
+        fetchPolicy: 'no-cache',
+      })
+      .then(({data}) => {
+        setLatestBooks(data.books);
+      })
+      .catch((err) => {
+        console.error('Getting Latest Books Error : ', err);
+      });
+  }
 
   useEffect(() => {
     requestUserPermission();
@@ -111,17 +166,17 @@ function Home(props) {
 
   useQuery(getBooksQuery, {
     onCompleted: (data) => {
-      // console.log('Data : ', data);
       setBooks(data.books);
+      setRefreshing(false);
     },
     onError: (err) => {
       console.log('Get Books Err : ', err);
+      setRefreshing(false);
     },
   });
 
   useQuery(getAuthorsQuery, {
     onCompleted: (data) => {
-      // console.log('Data : ', data);
       setAuthors(data.authors);
     },
     onError: (err) => {
@@ -131,7 +186,6 @@ function Home(props) {
 
   useQuery(getLatestBooksQuery, {
     onCompleted: (data) => {
-      console.log('Data : ', data);
       setLatestBooks(data.books);
     },
     onError: (err) => {
@@ -141,7 +195,6 @@ function Home(props) {
 
   useQuery(getGenresQuery, {
     onCompleted: (data) => {
-      console.log('Genres : ', data);
       setGenres(data.genres);
     },
     onError: (err) => {
@@ -152,14 +205,20 @@ function Home(props) {
   return (
     <View style={styles.container}>
       <Header />
-      {books.length &&
-      latestBooks.length &&
-      latestBooks.length &&
-      authors.length ? (
-        <ScrollView>
+      {books?.length && latestBooks?.length && authors?.length ? (
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              onRefresh={() => {
+                getData();
+              }}
+              colors={[mainColor]}
+              refreshing={refreshing}
+            />
+          }>
           <View style={styles.roundedBG} />
           <View style={styles.topContent}>
-            {books.length > 0 ? (
+            {books?.length > 0 ? (
               <Carousel
                 style={styles.carousel}
                 data={books}

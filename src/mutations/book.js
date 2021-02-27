@@ -33,3 +33,28 @@ export const addBookReadMutation = gql`
     }
   }
 `;
+
+export const addBook = gql`
+  mutation(
+    $userID: ID!
+    $authorID: ID!
+    $name: String!
+    $description: String!
+    $readURL: String!
+    $genreID: String!
+    $coverURL: String!
+  ) {
+    addBook(
+      name: $name
+      authorID: $authorID
+      ownerID: $userID
+      description: $description
+      readURL: $readURL
+      genreID: $genreID
+      posterURL: $coverURL
+    ) {
+      id
+      name
+    }
+  }
+`;
