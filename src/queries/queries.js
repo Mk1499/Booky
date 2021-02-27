@@ -9,6 +9,16 @@ export const getUserDetailsQuery = gql`
       password
       email
       photo
+      reads {
+        id
+        time
+      }
+      addedBooks {
+        id
+        name
+        posterURL
+        rate
+      }
     }
   }
 `;
@@ -149,10 +159,13 @@ export const getBookDetails = gql`
         posterURL
         rate
       }
+      reads {
+        id
+        time
+      }
     }
   }
 `;
-
 
 // Genres
 export const getGenresQuery = gql`

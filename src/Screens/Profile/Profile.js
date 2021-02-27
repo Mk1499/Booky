@@ -211,6 +211,16 @@ class userProfile extends Component {
             {' '}
             {userData.name || userData.fullname}{' '}
           </Text>
+          <View style={styles.userSubData}>
+            <View style={styles.dataCont}>
+              <Text style={styles.dataHeader}>Reads</Text>
+              <Text style={styles.dataText}>{userData.reads?.length}</Text>
+            </View>
+            <View style={styles.dataCont}>
+              <Text style={styles.dataHeader}>Added Books</Text>
+              <Text style={styles.dataText}>{userData.addedBooks?.length}</Text>
+            </View>
+          </View>
         </View>
 
         <View style={styles.sectionView}>

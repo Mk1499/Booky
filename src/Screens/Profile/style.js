@@ -22,7 +22,8 @@ export const styles = StyleSheet.create({
     backgroundColor: bgColor,
     width: 0.9 * width,
     borderRadius: 20,
-    paddingVertical: 0.1 * height,
+    paddingTop: 0.1 * height,
+    paddingBottom: 0.05 * height,
     marginTop: -0.15 * height,
     shadowColor: '#000',
     shadowOffset: {
@@ -101,5 +102,26 @@ export const styles = StyleSheet.create({
   carousel: {
     // marginTop: 0.1 * height,
     // marginBottom: 0.03 * height,
+  },
+
+  userSubData: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-around',
+    marginTop: 0.05 * height,
+  },
+  dataCont: {
+    alignItems: 'center',
+  },
+  dataHeader: {
+    fontFamily: 'Cairo',
+    fontWeight: 'bold',
+    color: mainColor,
+    fontSize: 0.05 * width,
+  },
+  dataText: {
+    fontSize: 0.04 * width,
+    fontFamily: 'Cairo',
+    color: mainColor,
   },
 });

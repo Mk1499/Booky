@@ -45,12 +45,12 @@ function BookDetails(props) {
   let bookID = props.navigation.state.params.bookID;
   const {refetch} = useQuery(getBookDetails, {
     variables: {id: bookID},
-    onCompleted: data => {
+    onCompleted: (data) => {
       // console.log('Book Data : ', data, bookID);
       setBook(data.book);
       setRefreshing(false);
     },
-    onError: err => {
+    onError: (err) => {
       console.log('Getting a book details Error : ', err);
     },
     notifyOnNetworkStatusChange: true,
@@ -66,7 +66,7 @@ function BookDetails(props) {
         },
         fetchPolicy: 'no-cache',
       })
-      .then(res => {
+      .then((res) => {
         // console.log('checking fav res : ', res);
         let data = res.data;
         if (data.checkBookFav) {
@@ -74,7 +74,7 @@ function BookDetails(props) {
           setFavID(data.checkBookFav.id);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('checking fav state err : ', err);
       });
   });
@@ -130,11 +130,11 @@ function BookDetails(props) {
           bookID: book.id,
         },
       })
-      .then(res => {
+      .then((res) => {
         // console.log('book fav res : ', res);
         setFavID(res.data.addBookFav.id);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('add to fav error : ', err);
       });
   }
@@ -149,8 +149,8 @@ function BookDetails(props) {
           id: favID,
         },
       })
-      .then(res => {})
-      .catch(err => {
+      .then((res) => {})
+      .catch((err) => {
         console.log('remove from fav err : ', err);
       });
   }
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userID: state.auth.userID,
 });
 
