@@ -7,12 +7,10 @@ import {
   ActivityIndicator,
   ScrollView,
   RefreshControl,
-  Permission,
 } from 'react-native';
 import {styles} from './style';
 import {connect} from 'react-redux';
 import {Icon, Left, Right} from 'native-base';
-import {customBaseUrl} from '../../configs/global';
 import {mainColor, width} from '../../configs/global';
 import Carousel from 'react-native-snap-carousel';
 import {logout, updateUserImg, getUserDetails} from '../../actions/auth';
@@ -23,8 +21,6 @@ import {getFavAuthorsQuery} from '../../queries/author';
 import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import AuthorCard from '../../Components/AuthorCard/AuthorCard';
 import storage from '@react-native-firebase/storage';
-import {utils} from '@react-native-firebase/app';
-import RNFetchBlob from 'rn-fetch-blob';
 import RNFS from 'react-native-fs';
 
 class userProfile extends Component {
@@ -40,7 +36,6 @@ class userProfile extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    // console.log('new props : ', props, state);
     if (
       props.userData.photo &&
       props.userData.photo !== state.userImg &&
@@ -137,25 +132,26 @@ class userProfile extends Component {
   };
 
   updateImg = async () => {
-    let formData = new FormData();
+    // let formData = new FormData();
     let {userData, updateUserImg} = this.props;
     try {
       await DocumentPicker.pick({
         type: [DocumentPicker.types.images],
       })
         .then(async (res) => {
-          let reference = storage().ref();
+          let imgName = `${Math.random() * 10000}${res.name}`;
+          let reference = storage().ref(`profilePics/${imgName}`);
           this.setState({
             userImg: res.uri,
             imgUpdated: true,
           });
           const data = await RNFS.readFile(res.uri, 'base64');
-          let imgName = `${Math.random() * 10000}${res.name}.jpg`;
           await reference
-            .child(`profilePics/ ${imgName}`)
+            // .child(`profilePics/${imgName}`)
             .putString(data, 'base64')
-            .then(() => {
-              // console.log('URL : ', url + '/' + imgName);
+            .then(async () => {
+              let imgURL = await reference.getDownloadURL();
+              updateUserImg(userData.id, imgURL);
             })
             .catch((err) => {
               console.log("Can't upload : ", err);
@@ -176,9 +172,6 @@ class userProfile extends Component {
 
   render() {
     const {userData} = this.props;
-    // console.log('render user info: ', userData.fullname);
-    // console.log(this.props.loadList, this.props.moviesList);
-
     return (
       <ScrollView
         style={styles.container}
@@ -224,7 +217,6 @@ class userProfile extends Component {
           <Text style={styles.headLine}>Your Favourite Books </Text>
           {this.state.favBooks !== null && this.state.favBooks.length > 0 ? (
             <Carousel
-              // autoplay
               firstItem={this.state.favBooks.length > 1 ? 1 : 0}
               data={this.state.favBooks}
               renderItem={this.renderFavBook}
@@ -251,12 +243,10 @@ class userProfile extends Component {
               renderItem={this.renderAuthorCard}
               sliderWidth={width}
               itemWidth={100}
-              // layout={'default'}
-              // autoplay
               firstItem={this.state.favAuthors.length > 1 ? 1 : 0}
             />
           ) : this.state.favAuthors !== null &&
-            this.state.favAuthors.length == 0 ? (
+            this.state.favAuthors.length === 0 ? (
             <Text style={styles.emptyMsg}>
               Sorry but You didn't add any Author in Your Favourite List
             </Text>
