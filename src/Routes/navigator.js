@@ -28,42 +28,42 @@ const HomeStack = createStackNavigator({
     screen: Home,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
   AddBook: {
     screen: AddBook,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
   BookDetails: {
     screen: BookDetails,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
   PDF: {
     screen: PDF,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
   Genre: {
     screen: Genre,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
   AuthorProfile: {
     screen: AuthorProfile,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
 });
@@ -73,7 +73,7 @@ const LibraryStack = createStackNavigator({
     screen: Library,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
 });
@@ -82,21 +82,21 @@ const ProfileStack = createStackNavigator({
     screen: Profile,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
   BookDetails: {
     screen: BookDetails,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
   AuthorProfile: {
     screen: AuthorProfile,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
 });
@@ -105,21 +105,21 @@ const SearchStack = createStackNavigator({
     screen: Search,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
   BookDetails: {
     screen: BookDetails,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
   AuthorProfile: {
     screen: AuthorProfile,
     navigationOptions: () => ({
       headerTitle: null,
-      header: null,
+      headerShown: false,
     }),
   },
 });
@@ -214,30 +214,30 @@ const main = createStackNavigator({
   Splash: {
     screen: SplashScreen,
     navigationOptions: {
-      header: null,
+      headerShown: false,
     },
   },
   Login: {
     screen: Login,
     navigationOptions: {
-      header: null,
+      headerShown: false,
     },
   },
   SignUp: {
     screen: SignUp,
     navigationOptions: {
-      header: null,
+      headerShown: false,
     },
   },
   Home: {
     screen: mainBtm,
     navigationOptions: {
-      header: null,
+      headerShown: false,
     },
   },
 });
 
-// const screens = createStackNavigator({ main }, { defaultNavigationOptions: { header: null } })
+// const screens = createStackNavigator({ main }, { defaultNavigationOptions: { headerShown: false } })
 
 const AppNavigation = createAppContainer(main);
 export default AppNavigation;

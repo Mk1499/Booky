@@ -135,8 +135,8 @@ android {
         applicationId "com.scorpion.booky"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
         multiDexEnabled true
     }
     
@@ -186,11 +186,14 @@ android {
 }
 
 dependencies {
-    
+    implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation 'com.android.support:multidex:2.0.1'
     implementation platform('com.google.firebase:firebase-bom:26.3.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation project(path: ":@react-native-firebase_app")
+    implementation project(path: ":@react-native-firebase_messaging")
+    implementation project(path: ":@react-native-firebase_storage")
+
 
 //     compile(project(':react-native-device-info')) {compile(project(':react-native-device-info')) {
 //     exclude group: 'com.google.android.gms'

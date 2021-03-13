@@ -57,7 +57,8 @@ export default class ShelfsModal extends Component {
         <Modal
           isVisible={this.state.visible}
           onBackdropPress={this.props.hideModal}
-          onBackButtonPress={this.props.hideModal}>
+          onBackButtonPress={this.props.hideModal}
+          useNativeDriver={true}>
           <View style={styles.container}>
             <View style={styles.content}>
               <View style={styles.headerView}>
