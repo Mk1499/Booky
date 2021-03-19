@@ -235,7 +235,6 @@ class userProfile extends Component {
               sliderWidth={width}
               itemWidth={200}
               separatorWidth={-10}
-              
             />
           ) : this.props.loadList && this.props.moviesList.length == 0 ? (
             <Text style={styles.emptyMsg}>

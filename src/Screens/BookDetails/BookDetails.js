@@ -81,7 +81,6 @@ function BookDetails(props) {
   });
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-
     refetch();
   }, []);
 
@@ -116,13 +115,6 @@ function BookDetails(props) {
   }
 
   function addToFav() {
-    // props.addBookToFav(props.userID, book.id);
-    // console.log(
-    //   'adding Book with id : ',
-    //   book.id,
-    //   ' for user with ID : ',
-    //   props.userID,
-    // );
     client
       .mutate({
         mutation: addBookToFavMutation,
@@ -132,7 +124,6 @@ function BookDetails(props) {
         },
       })
       .then((res) => {
-        // console.log('book fav res : ', res);
         setFavID(res.data.addBookFav.id);
       })
       .catch((err) => {
@@ -141,8 +132,6 @@ function BookDetails(props) {
   }
 
   function removeFromFav() {
-    // console.log('FAVID : ', favID);
-
     client
       .mutate({
         mutation: removeBookFromFavMutation,
@@ -208,8 +197,8 @@ function BookDetails(props) {
             <Text style={styles.data}>{book.language || 'AR'}</Text>
           </View>
           <View>
-            <Text style={styles.head}>{I18n.t('pages')}</Text>
-            <Text style={styles.data}>{book.reads?.length || 0}</Text>
+            <Text style={styles.head}>{I18n.t('readsNum')}</Text>
+            <Text style={styles.data}>{book.reads?.length / 2 || 0}</Text>
           </View>
           <View>
             <Text style={styles.head}>{I18n.t('releaseYear')}</Text>

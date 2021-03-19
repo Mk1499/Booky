@@ -20,7 +20,6 @@ function BookActions(props) {
         fetchPolicy: 'no-cache',
       })
       .then((res) => {
-        // console.log('checking book read res : ', res.data);
         let lastPage = 1;
         if (res.data.checkBookRead.length) {
           lastPage = res.data.checkBookRead[0].lastPage;
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     flexDirection: 'row',
     backgroundColor: 'transparent',
-    elevation: 10,
+    elevation: 1,
   },
   Btn: {
     // width: 0.4 * width,

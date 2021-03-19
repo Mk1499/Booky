@@ -228,6 +228,7 @@ dependencies {
         implementation jscFlavor
     }
    compile project(':react-native-vector-icons') 
+   compile 'com.facebook.fresco:animated-gif:1.+'
 
 }
 
