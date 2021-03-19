@@ -1,19 +1,12 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   TouchableOpacity,
   Image,
   FlatList,
 } from 'react-native';
-import {
-  mainColor,
-  textColor,
-  subColor,
-  height,
-  width,
-} from '../../configs/global';
+import {height, width} from '../../configs/global';
 import Header from '../../Components/Header/Header';
 import SearchInput from '../../Components/SearchInput/SearchInput';
 import SearchCard from '../../Components/SearchCard/SearchCard';
@@ -34,7 +27,7 @@ export default class Search extends Component {
     };
   }
 
-  search = async query => {
+  search = async (query) => {
     // console.log('Q : ', query);
     if (query) {
       this.setState({
@@ -49,7 +42,7 @@ export default class Search extends Component {
             q: query,
           },
         })
-        .then(res => {
+        .then((res) => {
           // console.log('Serch Res  : ', res.data);
           this.setState({
             searching: false,
@@ -57,7 +50,7 @@ export default class Search extends Component {
             authorResult: res.data.search.authors,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({
             searching: false,
           });
@@ -84,7 +77,7 @@ export default class Search extends Component {
     return (
       <View>
         <Header />
-        <SearchInput searchFun={q => this.search(q)} />
+        <SearchInput searchFun={(q) => this.search(q)} />
         {this.state.searching ? (
           <View style={styles.loadContainer}>
             <Image

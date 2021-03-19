@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, I18nManager} from 'react-native';
 import {Icon} from 'native-base';
-import {height, width, textColor} from '../../configs/global';
+import {height, width, textColor, mainColor} from '../../configs/global';
+import I18n from '../../translate';
 
 export default function SubHeader(props) {
   const [favState, setFavState] = useState(props.state);
@@ -13,22 +14,32 @@ export default function SubHeader(props) {
   useEffect(() => {
     // console.log('FavState changed : ', props.state);
     setFavState(props.state);
+    console.log('Lang : ', I18nManager);
   }, [props.state]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: props.noHeart ? mainColor : 'transparent',
+        },
+      ]}>
       <Icon
-        style={styles.icon}
-        name="chevron-thin-left"
+        style={[styles.icon]}
+        name={I18nManager.isRTL ? 'chevron-thin-right' : 'chevron-thin-left'}
         type="Entypo"
         onPress={props.goBack}
       />
-      <Icon
-        style={styles.icon}
-        name={favState ? 'heart' : 'hearto'}
-        type="AntDesign"
-        onPress={toggleFav}
-      />
+      {props.title && <Text style={styles.title}>{props.title}</Text>}
+      {!props.noHeart && (
+        <Icon
+          style={[styles.icon]}
+          name={favState ? 'heart' : 'hearto'}
+          type="AntDesign"
+          onPress={toggleFav}
+        />
+      )}
     </View>
   );
 }
@@ -48,5 +59,13 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: textColor,
+  },
+  title: {
+    fontFamily: 'Cairo',
+    color: textColor,
+    fontSize: 0.06 * width,
+    textAlign: I18nManager.isRTL ? 'left' : 'right',
+    width: '90%',
+    // backgroundColor:'black'
   },
 });

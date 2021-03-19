@@ -1,9 +1,9 @@
 import React from 'react';
 import {createAppContainer} from 'react-navigation';
-// import {Dimensions} from 'react-native';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 import {mainColor, bgColor} from '../configs/global';
+import I18n from '../translate';
 
 import Home from '../Screens/Home/Home';
 import SignUp from '../Screens/Register/Register';
@@ -68,6 +68,8 @@ const HomeStack = createStackNavigator({
   },
 });
 
+
+
 const LibraryStack = createStackNavigator({
   Library: {
     screen: Library,
@@ -124,6 +126,52 @@ const SearchStack = createStackNavigator({
   },
 });
 
+
+
+HomeStack.navigationOptions = ({navigation}) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+  };
+};
+
+SearchStack.navigationOptions = ({navigation}) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+  };
+};
+
+ProfileStack.navigationOptions = ({navigation}) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+  };
+};
+
+// HomeStack.navigationOptions = ({navigation}) => {
+//   let tabBarVisible = true;
+//   if (navigation.state.index > 0) {
+//     tabBarVisible = false;
+//   }
+
+//   return {
+//     tabBarVisible,
+//   };
+// };
+
 const mainBtm = createBottomTabNavigator(
   {
     Explore: {
@@ -138,7 +186,8 @@ const mainBtm = createBottomTabNavigator(
             />
           );
         },
-        headerTitle: 'Movies',
+        headerTitle: '',
+        title: I18n.t('explore'),
       },
     },
     // Library: {
@@ -168,6 +217,7 @@ const mainBtm = createBottomTabNavigator(
           );
         },
         headerTitle: 'Your Library',
+        title: I18n.t('search'),
       },
     },
     Profile: {
@@ -183,6 +233,7 @@ const mainBtm = createBottomTabNavigator(
           );
         },
         headerTitle: 'Your Library',
+        title: I18n.t('profile'),
       },
     },
   },
@@ -191,6 +242,7 @@ const mainBtm = createBottomTabNavigator(
       activeTintColor: mainColor,
       labelStyle: {
         fontSize: 12,
+        fontFamily: 'Cairo',
       },
       inactiveTintColor: 'grey',
       style: {

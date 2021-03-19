@@ -12,7 +12,7 @@ import {styles} from './style';
 import {connect} from 'react-redux';
 import {Icon, Left, Right} from 'native-base';
 import {mainColor, width} from '../../configs/global';
-import Carousel from 'react-native-snap-carousel';
+// import Carousel from 'react-native-snap-carousel';
 import {logout, updateUserImg, getUserDetails} from '../../actions/auth';
 import DocumentPicker from 'react-native-document-picker';
 import {client} from '../../queries/queryClient';
@@ -22,6 +22,8 @@ import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import AuthorCard from '../../Components/AuthorCard/AuthorCard';
 import storage from '@react-native-firebase/storage';
 import RNFS from 'react-native-fs';
+import I18n from '../../translate';
+import Carousel from 'react-native-snap-carousel';
 
 class userProfile extends Component {
   constructor(props) {
@@ -205,7 +207,7 @@ class userProfile extends Component {
               }}
               style={styles.profileImg}
             />
-            <Icon name="edit" type="FontAwesome5" style={styles.editIcon} />
+            {/* <Icon name="edit" type="FontAwesome5" style={styles.editIcon} /> */}
           </TouchableOpacity>
           <Text style={styles.userName}>
             {' '}
@@ -213,18 +215,18 @@ class userProfile extends Component {
           </Text>
           <View style={styles.userSubData}>
             <View style={styles.dataCont}>
-              <Text style={styles.dataHeader}>Reads</Text>
+              <Text style={[styles.dataHeader]}>{I18n.t('readsNum')}</Text>
               <Text style={styles.dataText}>{userData.reads?.length}</Text>
             </View>
             <View style={styles.dataCont}>
-              <Text style={styles.dataHeader}>Added Books</Text>
+              <Text style={styles.dataHeader}>{I18n.t('addedBooks')}</Text>
               <Text style={styles.dataText}>{userData.addedBooks?.length}</Text>
             </View>
           </View>
         </View>
 
         <View style={styles.sectionView}>
-          <Text style={styles.headLine}>Your Favourite Books </Text>
+          <Text style={styles.headLine}>{I18n.t('yourFavBooks')} </Text>
           {this.state.favBooks !== null && this.state.favBooks.length > 0 ? (
             <Carousel
               firstItem={this.state.favBooks.length > 1 ? 1 : 0}
@@ -233,6 +235,7 @@ class userProfile extends Component {
               sliderWidth={width}
               itemWidth={200}
               separatorWidth={-10}
+              
             />
           ) : this.props.loadList && this.props.moviesList.length == 0 ? (
             <Text style={styles.emptyMsg}>
@@ -245,7 +248,7 @@ class userProfile extends Component {
           )}
         </View>
         <View style={styles.sectionView}>
-          <Text style={styles.headLine}>Your Favourite Authors </Text>
+          <Text style={styles.headLine}>{I18n.t('yourFavAuthors')} </Text>
           {this.state.favAuthors !== null &&
           this.state.favAuthors.length > 0 ? (
             <Carousel

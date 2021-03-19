@@ -4,6 +4,7 @@ import {width, height, mainColor, bgColor} from '../../configs/global';
 export const styles = StyleSheet.create({
   container: {
     height,
+    // backgroundColor: '#fff',
   },
   content: {
     minHeight: '80%',
@@ -13,17 +14,19 @@ export const styles = StyleSheet.create({
     paddingBottom: 0.2 * height,
   },
   input: {
-    borderRadius: 10,
+    borderRadius: 0,
     // borderColor: mainColor,
     // borderWidth: 1,
     width: 0.8 * width,
     marginVertical: 0.025 * height,
     paddingHorizontal: 0.05 * width,
     fontFamily: 'Cairo',
-    elevation: 2,
-    shadowColor: mainColor,
+    // elevation: 2,
+    // shadowColor: mainColor,
     color: mainColor,
     backgroundColor: bgColor,
+    borderBottomWidth: 1,
+    borderColor: mainColor,
   },
   logoImg: {
     width: 0.8 * width,

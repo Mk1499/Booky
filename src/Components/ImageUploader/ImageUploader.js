@@ -11,6 +11,7 @@ import {styles} from './style';
 import storage from '@react-native-firebase/storage';
 import RNFS from 'react-native-fs';
 import {mainColor} from '../../configs/global';
+import I18n from '../../translate';
 
 export default class ImageSelector extends Component {
   constructor(props) {
@@ -149,7 +150,7 @@ export default class ImageSelector extends Component {
                 this.selectPDF();
               }
             }}>
-            <Text style={styles.selectBtnText}>Select</Text>
+            <Text style={styles.selectBtnText}>{I18n.t('select')}</Text>
           </TouchableOpacity>
         </View>
       );
@@ -163,7 +164,7 @@ export default class ImageSelector extends Component {
           <TouchableOpacity
             style={styles.selectBtn}
             onPress={() => this.cancelUpload()}>
-            <Text style={styles.selectBtnText}>Cancel</Text>
+            <Text style={styles.selectBtnText}>{I18n.t('cancel')}</Text>
           </TouchableOpacity>
         </View>
       );

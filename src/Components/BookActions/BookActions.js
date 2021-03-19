@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {setCurrentRead} from '../../actions/book';
 import {client} from '../../queries/queryClient';
 import {checkBookRead} from '../../queries/book';
+import I18n from '../../translate';
 
 function BookActions(props) {
   async function readBook() {
@@ -18,7 +19,7 @@ function BookActions(props) {
         },
         fetchPolicy: 'no-cache',
       })
-      .then(res => {
+      .then((res) => {
         // console.log('checking book read res : ', res.data);
         let lastPage = 1;
         if (res.data.checkBookRead.length) {
@@ -35,7 +36,7 @@ function BookActions(props) {
           url: props.book.readURL,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('cecking book read Err : ', err);
       });
   }
@@ -44,7 +45,7 @@ function BookActions(props) {
       <TouchableOpacity style={[styles.Btn, styles.leftBtn]} onPress={readBook}>
         <Icon name="ios-reader-outline" type="Ionicons" style={styles.icon} />
 
-        <Text style={styles.text}>Read Book Now</Text>
+  <Text style={styles.text}>{I18n.t('readBook')}</Text>
       </TouchableOpacity>
 
       {/* <TouchableOpacity
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
   },
   Btn: {
     // width: 0.4 * width,
-    width:"100%",
+    width: '100%',
     flexDirection: 'row',
     borderColor: '#fff',
     backgroundColor: '#201f2c',
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1,
   },
   leftBtn: {
-    borderRadius:20
+    borderRadius: 20,
     // borderTopLeftRadius: 20,
     // borderBottomLeftRadius: 20,
   },
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userID: state.auth.userID,
 });
 

@@ -19,6 +19,7 @@ import {
   subColor,
   textColor,
 } from '../../configs/global';
+import I18n from '../../translate';
 
 import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 
@@ -35,13 +36,13 @@ export default function GenreScreen(props) {
     variables: {
       id: genreID,
     },
-    onCompleted: data => {
+    onCompleted: (data) => {
       // console.log('Genre Data : ', data);
 
       setRefreshing(false);
       setGenre(data.genre);
     },
-    onError: err => {
+    onError: (err) => {
       console.log('Props : ', props);
 
       // console.log('Getting a book details Error : ', err);
@@ -88,10 +89,15 @@ export default function GenreScreen(props) {
         {genre.books ? (
           <View style={styles.section}>
             <View style={styles.sectionHead}>
-              <Text style={styles.sideHead}>Trendy Books</Text>
+              <Text style={styles.sideHead}>{I18n.t('trendyBooks')}</Text>
               {/* <Text style={styles.seeMore}>See More > </Text> */}
             </View>
-            <FlatList data={genre.books} renderItem={renderBooks} horizontal />
+            <FlatList
+              data={genre.books}
+              renderItem={renderBooks}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            />
           </View>
         ) : null}
       </View>

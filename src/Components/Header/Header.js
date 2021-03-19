@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-import {mainColor, height, textColor,width} from '../../configs/global';
+import {View, Text, StyleSheet, Image, I18nManager} from 'react-native';
+import {mainColor, height, textColor, width} from '../../configs/global';
 import {Icon} from 'native-base';
 import logoWhite from '../../../assets/images/logoWhite.png';
 
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: mainColor,
     height: 0.08 * height,
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
     elevation: 20,
   },
   appName: {
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     color: textColor,
   },
-  logoImg:{
-    width: 0.1*width,
-    height:"70%"
-  }
+  logoImg: {
+    width: 0.1 * width,
+    height: '70%',
+  },
 });

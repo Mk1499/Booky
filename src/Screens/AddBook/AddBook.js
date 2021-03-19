@@ -13,6 +13,8 @@ import {mainColor} from '../../configs/global';
 import {client} from '../../queries/queryClient';
 import {addBook} from '../../mutations/book';
 import {RNToasty} from 'react-native-toasty';
+import I18n from '../../translate';
+import SubHeader from '../../Components/SubHeader/SubHeader';
 
 class AddBook extends Component {
   static getDrivedStateFromProps(prevProps, nextProps) {
@@ -107,13 +109,13 @@ class AddBook extends Component {
         console.log('Book Added Successfully : ', data);
         this.goBack();
         RNToasty.Success({
-          title: 'Your Book Added Successfully',
+          title: I18n.t('bookAdded'),
         });
       })
       .catch((err) => {
         console.log('Fail adding new book : ', JSON.stringify(err));
         RNToasty.Error({
-          title: 'Fail adding your book',
+          title: I18n.t('addBookFail'),
         });
       })
       .finally(() => {
@@ -126,14 +128,19 @@ class AddBook extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header />
+        {/* <Header /> */}
+        <SubHeader
+          noHeart={true}
+          title={I18n.t('addBook')}
+          goBack={() => this.goBack()}
+        />
         <ScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={styles.content}>
           <KeyboardAvoidingView behavior="position">
             <TextInput
               style={[styles.input]}
-              placeholder="Book Name"
+              placeholder={I18n.t('bookName')}
               keyboardType="default"
               onChangeText={(name) => {
                 this.setState({name});
@@ -141,7 +148,7 @@ class AddBook extends Component {
             />
           </KeyboardAvoidingView>
           <ImageSelector
-            selectText="Upload Book PDF"
+            selectText={I18n.t('uploadPDF')}
             selectType="pdf"
             change={(readURL) => {
               this.setState({readURL});
@@ -151,17 +158,17 @@ class AddBook extends Component {
           <Picker
             data={this.props.authors}
             change={(item) => this.changeAuthor(item)}
-            label="Choose Author"
+            label={I18n.t('author')}
           />
 
           <Picker
             data={this.props.genres}
             change={(item) => this.changeGenre(item)}
-            label="Choose Genre"
+            label={I18n.t('genre')}
           />
 
           <ImageSelector
-            selectText="Upload Book Cover"
+            selectText={I18n.t('uploadBookCover')}
             selectType="image"
             change={(coverURL) => {
               this.setState({coverURL});
@@ -170,7 +177,7 @@ class AddBook extends Component {
           <KeyboardAvoidingView behavior="position">
             <Textarea
               style={[styles.input]}
-              placeholder="Description"
+              placeholder={I18n.t('bookDesc')}
               keyboardType="default"
               placeholderTextColor={mainColor}
               rowSpan={4}
@@ -181,7 +188,7 @@ class AddBook extends Component {
           </KeyboardAvoidingView>
 
           <Button
-            text="Add Book"
+            text={I18n.t('addBook')}
             processing={this.state.addingBook}
             action={() => this.addingBook()}
           />

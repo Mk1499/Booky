@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
   },
   selectBtnText: {
     color: textColor,
+    fontFamily: 'Cairo',
   },
   imgPath: {
     width: '80%',

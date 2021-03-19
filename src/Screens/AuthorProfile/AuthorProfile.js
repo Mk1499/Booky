@@ -33,6 +33,8 @@ import {useQuery} from '@apollo/client';
 import {client} from '../../queries/queryClient';
 import {updateUserImg} from '../../actions/auth';
 import {connect} from 'react-redux';
+import I18n from '../../translate';
+
 const {width, height} = Dimensions.get('screen');
 
 function ActorPrfile(props) {
@@ -64,11 +66,11 @@ function ActorPrfile(props) {
   }
   useQuery(getAuthorDetails, {
     variables: {id: authorID},
-    onCompleted: data => {
+    onCompleted: (data) => {
       // console.log('Author Data : ', data, authorID);
       setAuthor(data.author);
     },
-    onError: err => {
+    onError: (err) => {
       console.log('Getting a Author details Error : ', err);
     },
     notifyOnNetworkStatusChange: true,
@@ -126,14 +128,14 @@ function ActorPrfile(props) {
         },
         fetchPolicy: 'no-cache',
       })
-      .then(res => {
+      .then((res) => {
         // console.log('checking author fav res  : ', res);
         if (res.data.checkAuthorFav !== null) {
           setFavState(true);
           setFavID(res.data.checkAuthorFav.id);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('checking author fav err : ', err);
       });
   }, []);
@@ -148,12 +150,12 @@ function ActorPrfile(props) {
           authorID: author.id,
         },
       })
-      .then(res => {
+      .then((res) => {
         // console.log('author fav res : ', res);
 
         setFavID(res.data.addFavAuthor.id);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('add to fav error : ', err);
       });
   }
@@ -168,8 +170,8 @@ function ActorPrfile(props) {
           id: favID,
         },
       })
-      .then(res => {})
-      .catch(err => {
+      .then((res) => {})
+      .catch((err) => {
         console.log('remove author from fav err : ', err);
       });
   }
@@ -213,7 +215,7 @@ function ActorPrfile(props) {
           scrollEnabled={scrollable}
           showsVerticalScrollIndicator={false}>
           <View style={{marginVertical: 0.05 * height}}>
-            <Text style={styles.sectionTitle}>Biography</Text>
+            <Text style={styles.sectionTitle}>{I18n.t('bio')}</Text>
             <Text
               numberOfLines={5}
               ellipsizeMode="tail"
@@ -222,11 +224,11 @@ function ActorPrfile(props) {
                 color: subColor,
                 fontFamily: 'Cairo',
               }}>
-              {author.bio || `Sorry There is available Bio for ${author.name}`}
+              {author.bio || `${I18n.t('noBio')}${author.name}`}
             </Text>
           </View>
 
-          <View
+          {/* <View
             style={{
               marginTop: 0.05 * height,
               flexDirection: 'row',
@@ -235,9 +237,7 @@ function ActorPrfile(props) {
               <View style={styles.iconView}>
                 <Icon name="trending-up" style={{color: mainColor}} />
               </View>
-              <Text style={styles.iconText}>
-                {author.popularity || 'N/A'}
-              </Text>
+              <Text style={styles.iconText}>{author.popularity || 'N/A'}</Text>
             </View>
             <View style={styles.iconMainView}>
               <View style={styles.iconView}>
@@ -249,17 +249,17 @@ function ActorPrfile(props) {
               </View>
               <Text style={styles.iconText}>{author.birthDate || 'N/A'}</Text>
             </View>
-          </View>
+          </View> */}
           {author.books ? (
             <View
               style={{
                 marginTop: 0.05 * height,
               }}>
-              <Text style={styles.sectionTitle}>Books</Text>
+              <Text style={styles.sectionTitle}>{I18n.t('books')}</Text>
               <FlatList
                 horizontal={true}
                 data={author.books}
-                renderItem={item => renderWork(item, 'Movie')}
+                renderItem={(item) => renderWork(item, 'Movie')}
                 showsHorizontalScrollIndicator={false}
               />
             </View>
@@ -270,7 +270,7 @@ function ActorPrfile(props) {
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   userID: state.auth.userID,
 });
 

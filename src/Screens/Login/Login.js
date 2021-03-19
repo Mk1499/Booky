@@ -8,12 +8,11 @@ import {
   KeyboardAvoidingView,
   Image,
 } from 'react-native';
-import Header from '../../Components/Header/Header';
-import {width, height, mainColor} from '../../configs/global';
+import {width, height, mainColor, bgColor} from '../../configs/global';
 import Button from '../../Components/Button/Button';
-import {login, checkAutoLogin , loginLoading} from '../../actions/auth';
-import {content} from 'react-redux';
+import {login, checkAutoLogin, loginLoading} from '../../actions/auth';
 import connect from 'react-redux/lib/connect/connect';
+import I18n from '../../translate';
 
 function Login(props) {
   const [email, setEmail] = useState('');
@@ -50,34 +49,35 @@ function Login(props) {
         <KeyboardAvoidingView behavior="position">
           <TextInput
             style={[styles.input]}
-            placeholder="Email"
+            placeholder={I18n.t('email')}
             keyboardType="email-address"
-            onChangeText={email => setEmail(email)}
+            onChangeText={(email) => setEmail(email)}
           />
         </KeyboardAvoidingView>
         <KeyboardAvoidingView behavior="position">
           <TextInput
             style={[styles.input, {marginBottom: 36}]}
             secureTextEntry
-            placeholder="Password"
-            onChangeText={password => setPassword(password)}
+            placeholder={I18n.t('password')}
+            onChangeText={(password) => setPassword(password)}
           />
         </KeyboardAvoidingView>
         <Button
-          text="Login"
+          text={I18n.t('login')}
           processing={props.processing}
           action={() => {
-            props.loginLoading(); 
-            props.login(email, password)}}
+            props.loginLoading();
+            props.login(email, password);
+          }}
         />
         <View style={styles.signUpLinkView}>
-          <Text style={styles.text}>Don't Have Account ? </Text>
+          <Text style={styles.text}>{I18n.t('notMember')} </Text>
           <Text
             onPress={() => {
               props.navigation.navigate('SignUp');
             }}
             style={styles.textLink}>
-            SignUp Now
+            {I18n.t('registerNow')}
           </Text>
         </View>
       </ScrollView>
@@ -88,6 +88,7 @@ function Login(props) {
 const styles = StyleSheet.create({
   container: {
     height,
+    backgroundColor: bgColor,
   },
   content: {
     height: '80%',
@@ -95,15 +96,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    borderRadius: 10,
+    borderRadius: 0,
     // borderColor: mainColor,
     // borderWidth: 1,
     width: 0.8 * width,
     marginVertical: 0.025 * height,
     paddingHorizontal: 0.05 * width,
     fontFamily: 'Cairo',
-    elevation: 2,
-    shadowColor: mainColor,
+    // elevation: 2,
+    // shadowColor: mainColor,
+    borderColor: mainColor,
+    borderBottomWidth: 1,
+    color: mainColor,
   },
   logoImg: {
     width: 0.8 * width,
@@ -124,8 +128,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   processing: state.auth.loginLoading,
 });
 
-export default connect(mapStateToProps, {login, checkAutoLogin , loginLoading})(Login);
+export default connect(mapStateToProps, {login, checkAutoLogin, loginLoading})(
+  Login,
+);

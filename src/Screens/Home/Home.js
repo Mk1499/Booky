@@ -9,6 +9,7 @@ import {
   FlatList,
   Image,
   RefreshControl,
+  I18nManager,
 } from 'react-native';
 import {connect} from 'react-redux';
 import Header from '../../Components/Header/Header';
@@ -18,7 +19,9 @@ import GenreCard from '../../Components/GenreCard/GenreCard';
 import AuthorCard from '../../Components/AuthorCard/AuthorCard';
 import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import AddBookBtn from '../../Components/AddBookBtn/AddBookBtn';
-import Carousel from 'react-native-anchor-carousel';
+// import Carousel from 'react-native-anchor-carousel';
+import Carousel from 'react-native-snap-carousel';
+
 import {
   getBooksQuery,
   getLatestBooksQuery,
@@ -35,6 +38,7 @@ import {
 import {setAuthors as setAuthorsAction} from '../../actions/author';
 import {setGenres as setGenresAction} from '../../actions/genre';
 import {client} from '../../queries/queryClient';
+import I18n from '../../translate';
 
 const {width, height} = Dimensions.get('window');
 
@@ -115,6 +119,7 @@ function Home(props) {
         fetchPolicy: 'no-cache',
       })
       .then(({data}) => {
+        console.log('Books : ', data.books);
         setBooks(data.books);
       })
       .catch((err) => {
@@ -220,23 +225,27 @@ function Home(props) {
           <View style={styles.topContent}>
             {books?.length > 0 ? (
               <Carousel
-                style={styles.carousel}
+                containerCustomStyle={styles.carousel}
                 data={books}
                 renderItem={renderItem}
                 itemWidth={200}
+                sliderWidth={width}
                 containerWidth={width}
                 separatorWidth={-10}
                 // ref={carouselRef}
                 initialIndex={1}
-                //pagingEnable={false}
-                //minScrollDistance={20}
+                autoplay={true}
+                autoplayInterval={1000}
+                enableMomentum={false}
+                lockScrollWhileSnapping={true}
+                loop={true}
               />
             ) : (
               <ActivityIndicator color={mainColor} size="large" />
             )}
           </View>
           <View style={styles.section}>
-            <Text style={styles.sideHeader}>New Releases</Text>
+            <Text style={styles.sideHeader}>{I18n.t('newReleases')}</Text>
             <FlatList
               data={latestBooks}
               horizontal
@@ -248,7 +257,7 @@ function Home(props) {
           </View>
 
           <View style={styles.section}>
-            <Text style={styles.sideHeader}>Top Authors</Text>
+            <Text style={styles.sideHeader}>{I18n.t('topAuthors')}</Text>
             <FlatList data={authors} horizontal renderItem={renderAuthorCard} />
           </View>
         </ScrollView>
@@ -290,6 +299,7 @@ const styles = StyleSheet.create({
   carousel: {
     marginTop: 0.1 * height,
     marginBottom: 0.03 * height,
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
   },
   section: {
     paddingHorizontal: 0.03 * width,

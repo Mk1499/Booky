@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View, Image, StyleSheet} from 'react-native';
 import {Icon} from 'native-base';
-import {width, height, mainColor,subColor} from '../../configs/global';
+import {width, height, mainColor, subColor} from '../../configs/global';
+import I18n from '../../translate';
 
 export default class SearchEmpty extends Component {
   render() {
@@ -14,9 +15,7 @@ export default class SearchEmpty extends Component {
           style={styles.icon}
         />
         <Text style={styles.text}>
-          {type === 0
-            ? 'You have No Search History'
-            : 'Sorry But There is no Books with name '}
+          {type === 0 ? I18n.t('noSearchHistory') : I18n.t('noResultsFor')}
           <Text style={styles.searchName}>{name}</Text>
         </Text>
       </View>
@@ -38,9 +37,9 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Cairo',
     color: mainColor,
-    marginTop:0.02*height
+    marginTop: 0.02 * height,
   },
-  searchName:{
-      color: subColor
-  }
+  searchName: {
+    color: subColor,
+  },
 });

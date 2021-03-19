@@ -10,10 +10,11 @@ import {
   Image,
 } from 'react-native';
 import Header from '../../Components/Header/Header';
-import {width, height, mainColor} from '../../configs/global';
+import {width, height, mainColor, bgColor} from '../../configs/global';
 import Button from '../../Components/Button/Button';
 import {connect} from 'react-redux';
 import {signUp} from '../../actions/auth';
+import I18n from '../../translate';
 
 function Register(props) {
   const [email, setEmail] = useState('');
@@ -53,40 +54,40 @@ function Register(props) {
         <KeyboardAvoidingView behavior="position">
           <TextInput
             style={[styles.input]}
-            placeholder="Username"
+            placeholder={I18n.t('username')}
             // keyboardType="email-address"
-            onChangeText={username => setUsername(username)}
+            onChangeText={(username) => setUsername(username)}
           />
         </KeyboardAvoidingView>
         <KeyboardAvoidingView behavior="position">
           <TextInput
             style={[styles.input]}
-            placeholder="Email"
+            placeholder={I18n.t('email')}
             keyboardType="email-address"
-            onChangeText={email => setEmail(email)}
+            onChangeText={(email) => setEmail(email)}
           />
         </KeyboardAvoidingView>
         <KeyboardAvoidingView behavior="position">
           <TextInput
             style={[styles.input, {marginBottom: 36}]}
             secureTextEntry
-            placeholder="Password"
-            onChangeText={password => setPassword(password)}
+            placeholder={I18n.t('password')}
+            onChangeText={(password) => setPassword(password)}
           />
         </KeyboardAvoidingView>
         <Button
-          text="Register"
+          text={I18n.t('register')}
           processing={processing}
           action={() => props.signUp(username, email, password)}
         />
         <View style={styles.signUpLinkView}>
-          <Text style={styles.text}> Already have an Account ? </Text>
+          <Text style={styles.text}>{I18n.t('alreadyMember')}</Text>
           <Text
             onPress={() => {
               props.navigation.pop();
             }}
             style={styles.textLink}>
-            SignIn Now
+            {I18n.t('signinNow')}
           </Text>
         </View>
       </ScrollView>
@@ -97,6 +98,7 @@ function Register(props) {
 const styles = StyleSheet.create({
   container: {
     height,
+    backgroundColor: bgColor,
   },
   content: {
     height: '80%',
@@ -104,15 +106,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    borderRadius: 10,
+    borderRadius: 0,
     // borderColor: mainColor,
     // borderWidth: 1,
     width: 0.8 * width,
     marginVertical: 0.025 * height,
     paddingHorizontal: 0.05 * width,
     fontFamily: 'Cairo',
-    elevation: 2,
-    shadowColor: mainColor,
+    borderColor: mainColor,
+    borderBottomWidth: 1,
+    color: mainColor,
   },
   logoImg: {
     width: 0.8 * width,
@@ -133,6 +136,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps, {signUp})(Register);

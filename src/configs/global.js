@@ -1,6 +1,6 @@
 import {Dimensions} from 'react-native';
 
-export const bgColor = '#eee';
+export const bgColor = '#fff';
 export const mainColor = '#fe2c54';
 // export const mainColor = '#daaa63';
 export const customBaseUrl = 'https://scorpionuploader.herokuapp.com';

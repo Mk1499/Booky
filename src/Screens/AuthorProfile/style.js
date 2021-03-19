@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
-    height: 0.83 * height,
+    height,
     color: subColor,
   },
 

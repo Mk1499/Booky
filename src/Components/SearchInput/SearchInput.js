@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {mainColor, width, height} from '../../configs/global';
 import {Icon} from 'native-base';
+import I18n from '../../translate';
 
 export default class SearchInput extends Component {
   constructor(props) {
@@ -32,9 +33,9 @@ export default class SearchInput extends Component {
           </TouchableOpacity>
         ) : null}
         <TextInput
-          placeholder={'Enter Book or Author Name Here'}
+          placeholder={I18n.t('searchPlaceholder')}
           style={styles.input}
-          onChangeText={t => {
+          onChangeText={(t) => {
             this.setState({qText: t});
           }}
           onSubmitEditing={() => {

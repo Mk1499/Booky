@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     width,
     height,
     backgroundColor: bgColor,
+    fontFamily: 'Cairo',
   },
   topView: {
     height: 0.4 * height,
@@ -63,7 +64,7 @@ export const styles = StyleSheet.create({
     color: mainColor,
     // fontWeight:'bold',
     fontSize: 0.06 * width,
-    fontFamily: 'Ubuntu-Regular',
+    fontFamily: 'Cairo',
   },
   logoutIcon: {
     color: bgColor,
@@ -85,7 +86,7 @@ export const styles = StyleSheet.create({
   headLine: {
     fontSize: 0.055 * width,
     color: mainColor,
-    fontFamily: 'Ubuntu',
+    fontFamily: 'Cairo',
     marginBottom: 0.06 * height,
   },
   sectionView: {
@@ -96,7 +97,7 @@ export const styles = StyleSheet.create({
   emptyMsg: {
     textAlign: 'center',
     color: subColor,
-    fontFamily: 'Lato-Light',
+    fontFamily: 'Cairo',
     fontSize: 0.035 * width,
   },
   carousel: {
@@ -112,12 +113,13 @@ export const styles = StyleSheet.create({
   },
   dataCont: {
     alignItems: 'center',
+    fontFamily: 'Cairo',
   },
   dataHeader: {
+    // fontWeight: 'bold',
     fontFamily: 'Cairo',
-    fontWeight: 'bold',
     color: mainColor,
-    fontSize: 0.05 * width,
+    fontSize: 0.04 * width,
   },
   dataText: {
     fontSize: 0.04 * width,

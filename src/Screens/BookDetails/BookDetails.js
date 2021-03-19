@@ -30,6 +30,7 @@ import {
 } from '../../mutations/book';
 import {ApolloClient, InMemoryCache} from '@apollo/client';
 import {baseURL} from '../../configs/global';
+import I18n from '../../translate';
 
 const client = new ApolloClient({
   uri: baseURL,
@@ -195,23 +196,23 @@ function BookDetails(props) {
         </Text>
         <View style={styles.bookData}>
           <View>
-            <Text style={styles.head}>Rating</Text>
+            <Text style={styles.head}>{I18n.t('rate')}</Text>
             <Text style={styles.data}>{book.rate || 0} / 5</Text>
           </View>
           <View>
-            <Text style={styles.head}>Pages</Text>
+            <Text style={styles.head}>{I18n.t('pages')}</Text>
             <Text style={styles.data}>{book.pages || 'N/A'}</Text>
           </View>
           <View>
-            <Text style={styles.head}>Language</Text>
+            <Text style={styles.head}>{I18n.t('language')}</Text>
             <Text style={styles.data}>{book.language || 'AR'}</Text>
           </View>
           <View>
-            <Text style={styles.head}>Reads</Text>
+            <Text style={styles.head}>{I18n.t('pages')}</Text>
             <Text style={styles.data}>{book.reads?.length || 0}</Text>
           </View>
           <View>
-            <Text style={styles.head}>Release Year</Text>
+            <Text style={styles.head}>{I18n.t('releaseYear')}</Text>
             <Text style={styles.data}>{book.releaseYear || 2020}</Text>
           </View>
         </View>
@@ -232,7 +233,7 @@ function BookDetails(props) {
         </View>
         {book.relatedBooks && book.relatedBooks.length > 1 ? (
           <View style={styles.section}>
-            <Text style={styles.sideHeader}>Related Books</Text>
+            <Text style={styles.sideHeader}>{I18n.t('relatedBooks')}</Text>
             <FlatList
               data={book.relatedBooks}
               renderItem={renderRelBooks}
