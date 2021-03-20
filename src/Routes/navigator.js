@@ -3,7 +3,7 @@ import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 import {mainColor, bgColor} from '../configs/global';
-import I18n from '../translate';
+import I18n, {getActiveLang} from '../translate';
 
 import Home from '../Screens/Home/Home';
 import SignUp from '../Screens/Register/Register';
@@ -17,6 +17,7 @@ import AuthorProfile from '../Screens/AuthorProfile/AuthorProfile';
 import SplashScreen from '../Screens/SplashScreen/SplashScreen';
 import PDF from '../Screens/PDF/PDF';
 import AddBook from '../Screens/AddBook/AddBook';
+import Me from '../Screens/ME/Me';
 
 import {Icon} from 'native-base';
 // const {width} = Dimensions.get('window');
@@ -68,8 +69,6 @@ const HomeStack = createStackNavigator({
   },
 });
 
-
-
 const LibraryStack = createStackNavigator({
   Library: {
     screen: Library,
@@ -81,7 +80,7 @@ const LibraryStack = createStackNavigator({
 });
 const ProfileStack = createStackNavigator({
   Profile: {
-    screen: Profile,
+    screen: Me,
     navigationOptions: () => ({
       headerTitle: null,
       headerShown: false,
@@ -125,8 +124,6 @@ const SearchStack = createStackNavigator({
     }),
   },
 });
-
-
 
 HomeStack.navigationOptions = ({navigation}) => {
   let tabBarVisible = true;
@@ -178,6 +175,7 @@ const mainBtm = createBottomTabNavigator(
       screen: HomeStack,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => {
+          let active = I18n.locale === 'ar-EG' ? 'ar' : 'en';
           return (
             <Icon
               name="explore"
@@ -187,7 +185,7 @@ const mainBtm = createBottomTabNavigator(
           );
         },
         headerTitle: '',
-        title: I18n.t('explore'),
+        title: I18n.translations[I18n.locale === 'en-US' ? 'en' : 'ar'].explore,
       },
     },
     // Library: {
@@ -224,6 +222,11 @@ const mainBtm = createBottomTabNavigator(
       screen: ProfileStack,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => {
+          console.log(
+            'Check Local : ',
+            I18n.locale,
+            I18n.translations['ar'].bio,
+          );
           return (
             <Icon
               name="user"
@@ -233,7 +236,7 @@ const mainBtm = createBottomTabNavigator(
           );
         },
         headerTitle: 'Your Library',
-        title: I18n.t('profile'),
+        tabBarLabel: I18n.t('profile'),
       },
     },
   },
@@ -256,7 +259,7 @@ const mainBtm = createBottomTabNavigator(
         },
         shadowOpacity: 0.8,
         shadowRadius: 15.19,
-        elevation: 23,
+        elevation: 2,
       },
     },
   },

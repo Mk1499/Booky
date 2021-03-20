@@ -5,7 +5,7 @@ export default {
   novels: 'Novels',
   search: 'Search',
   explore: 'Explore',
-  Profile: 'Profile',
+  profile: 'Profile',
   author: 'ِAuthor',
   authors: 'Authors',
   noSearchHistory: 'No Search History',
@@ -45,4 +45,6 @@ export default {
   bio: 'Biography',
   noBio: 'Sorry There is available Bio for ',
   trendyBooks: 'Trendy Books',
+  logout: 'Sign Out',
+  changeLang: 'Change Language',
 };

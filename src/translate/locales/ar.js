@@ -13,7 +13,7 @@ export default {
   readsNum: 'عدد القرائات',
   addedBooks: 'الكتب المضافة',
   yourFavBooks: 'كتبك المفضلة',
-  yourFavAuthors: 'الكتاب المفضلين',
+  yourFavAuthors: 'المؤلفين المفضلين',
   topAuthors: 'أبرز المؤلفون',
   newReleases: 'أحدث الاصدارات',
   searchPlaceholder: 'أبحث عن الكتاب او المؤلف',
@@ -46,4 +46,6 @@ export default {
   bio: 'السيرة الذاتية',
   noBio: 'ناسف و لكن لا نملك معلومات كافيه عن ',
   trendyBooks: 'أشهر الكتب',
+  logout: 'تسجيل الخروج',
+  changeLang: 'تغيير اللغة',
 };

@@ -216,7 +216,9 @@ class userProfile extends Component {
           <View style={styles.userSubData}>
             <View style={styles.dataCont}>
               <Text style={[styles.dataHeader]}>{I18n.t('readsNum')}</Text>
-              <Text style={styles.dataText}>{userData.reads?.length}</Text>
+              <Text style={styles.dataText}>
+                {Math.round(userData.reads?.length / 2)}
+              </Text>
             </View>
             <View style={styles.dataCont}>
               <Text style={styles.dataHeader}>{I18n.t('addedBooks')}</Text>
