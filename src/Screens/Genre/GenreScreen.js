@@ -31,7 +31,7 @@ export default function GenreScreen(props) {
     props.navigation.goBack();
   }
 
-  let genreID = props.navigation.state.params.genreID;
+  let genreID = props.route.params.genreID;
   const {refetch} = useQuery(getGenreDetails, {
     variables: {
       id: genreID,

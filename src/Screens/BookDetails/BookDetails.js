@@ -38,12 +38,13 @@ const client = new ApolloClient({
 });
 
 function BookDetails(props) {
+
   const [book, setBook] = useState({});
   const [refreshing, setRefreshing] = React.useState(false);
   const [favState, setFavState] = React.useState(false);
   const [favID, setFavID] = React.useState('');
   const [modalVisiable, setModalVisiable] = React.useState(false);
-  let bookID = props.navigation.state.params.bookID;
+  let bookID = props.route.params.bookID;
   const {refetch} = useQuery(getBookDetails, {
     variables: {id: bookID},
     onCompleted: (data) => {

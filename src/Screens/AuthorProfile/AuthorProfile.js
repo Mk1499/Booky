@@ -38,9 +38,9 @@ import I18n from '../../translate';
 const {width, height} = Dimensions.get('screen');
 
 function ActorPrfile(props) {
-  let authorID = props.navigation.state.params.author.id;
-  let avatarURL = props.navigation.state.params.author.avatarURL;
-  let name = props.navigation.state.params.author.name;
+  let authorID = props.route.params.author.id;
+  let avatarURL = props.route.params.author.avatarURL;
+  let name = props.route.params.author.name;
 
   // console.log('Author Props : ', authorID);
 

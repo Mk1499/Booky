@@ -32,7 +32,7 @@ class PDFSCR extends Component {
           lastPage: this.props.currentReadData.lastPage,
         },
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('add read log err : ', err);
       });
   }
@@ -55,7 +55,7 @@ class PDFSCR extends Component {
           lastPage: this.state.currentPage,
         },
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('add read log err : ', err);
       });
   }
@@ -85,7 +85,7 @@ class PDFSCR extends Component {
           page={this.props.currentReadData.lastPage || 1}
           source={{
             uri:
-              this.props.navigation.getParam('url') ||
+              this.props.route.params.url ||
               'https://books-library.online/files/download-pdf-ebooks.org-1536784094Fw1T2.pdf',
           }}
           onLoadComplete={(numberOfPages, filePath) => {
@@ -100,10 +100,10 @@ class PDFSCR extends Component {
               currentPage: page,
             });
           }}
-          onError={error => {
+          onError={(error) => {
             console.log(error);
           }}
-          onPressLink={uri => {
+          onPressLink={(uri) => {
             // alert(`Link presse: ${uri}`);
           }}
           activityIndicatorProps={{
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   currentReadData: state.book.currentReadData,
   userID: state.auth.userID,
 });

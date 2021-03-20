@@ -41,11 +41,12 @@ export default class LangsModal extends Component {
   changeLanguage = (id) => {
     let {changeAction} = this.props;
     if (I18n.locale !== id) {
-      I18n.locale = id;
-      AsyncStorage.setItem('Lang', id);
-      RNRestart.Restart();
+      console.log('Lang ID : ', id);
+      AsyncStorage.setItem('Lang', id).then(() => {
+        DevSettings.reload();
+        // RNRestart.Restart();
+      });
       //   changeAction();
-      // DevSettings.reload();
 
       //   navigation.popToTop();
     }
