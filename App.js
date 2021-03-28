@@ -1,7 +1,7 @@
 import React, {useEffect, Component} from 'react';
 import {StatusBar} from 'react-native';
 // import AppNavigation from './src/Routes/navigator';
-// import NavigationService from './src/Routes/NavigationServices';
+import NavigationService from './src/Routes/NavigationServices';
 import {mainColor} from './src/configs/global';
 import {Provider} from 'react-redux';
 import store from './src/store';
@@ -33,8 +33,8 @@ export default class App extends Component {
   }
 
   componentDidMount = async () => {
-    await AsyncStorage.getItem('Lang').then((lang) => {
-      I18n.locale = lang || 'ar-EG';
+    await AsyncStorage.getItem('locale').then((locale) => {
+      I18n.locale = locale || 'ar-EG';
       this.setState({
         loading: false,
       });
@@ -42,20 +42,28 @@ export default class App extends Component {
   };
 
   render() {
-    return (
-      <Provider store={store}>
-        <StatusBar backgroundColor={mainColor} />
-        <ApolloProvider client={client}>
-          {/* <AppNavigation
+    let {loading} = this.state;
+    if (!loading) {
+      return (
+        <Provider store={store}>
+          <StatusBar backgroundColor={mainColor} />
+          <ApolloProvider client={client}>
+            {/* <AppNavigation
               ref={(navigatorRef) => {
                 NavigationService.setTopLevelNavigator(navigatorRef);
               }}
             /> */}
-          <NavigationContainer>
-            <MainStack />
-          </NavigationContainer>
-        </ApolloProvider>
-      </Provider>
-    );
+            <NavigationContainer
+              ref={(navigatorRef) => {
+                NavigationService.setTopLevelNavigator(navigatorRef);
+              }}>
+              <MainStack />
+            </NavigationContainer>
+          </ApolloProvider>
+        </Provider>
+      );
+    } else {
+      return null;
+    }
   }
 }

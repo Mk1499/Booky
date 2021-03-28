@@ -12,7 +12,7 @@ import {
 import Modal from 'react-native-modal';
 import {Icon} from 'native-base';
 import styles from './style';
-import I18n from '../../translate';
+import I18n, {setActiveLang} from '../../translate';
 import RNRestart from 'react-native-restart';
 
 export default class LangsModal extends Component {
@@ -39,16 +39,18 @@ export default class LangsModal extends Component {
   }
 
   changeLanguage = (id) => {
+    let lang = id.slice(0, 2);
     let {changeAction} = this.props;
     if (I18n.locale !== id) {
-      console.log('Lang ID : ', id);
-      AsyncStorage.setItem('Lang', id).then(() => {
-        DevSettings.reload();
+      console.log('Lang ID : ', lang);
+      setActiveLang(lang);
+      AsyncStorage.setItem('locale', id).then(() => {
+        // DevSettings.reload();
         // RNRestart.Restart();
+        changeAction();
       });
-      //   changeAction();
 
-      //   navigation.popToTop();
+      // navigation.popToTop();
     }
   };
 

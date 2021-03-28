@@ -48,4 +48,6 @@ export default {
   trendyBooks: 'أشهر الكتب',
   logout: 'تسجيل الخروج',
   changeLang: 'تغيير اللغة',
+  reads: 'قرائات',
+  followers: 'متابعون',
 };

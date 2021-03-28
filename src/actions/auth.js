@@ -111,8 +111,6 @@ export const login = (email, password) => async (dispatch) => {
         payload: false,
       });
     } else {
-      // props.navigation.navigate('Home');
-      // console.log('Use Query');
       await client
         .mutate({
           mutation: userLogin,
@@ -122,7 +120,7 @@ export const login = (email, password) => async (dispatch) => {
           },
         })
         .then((res) => {
-          // console.log('Login Data : ', res);
+          console.log('Login Data : ', res);
           if (res.data.loginUser !== null) {
             let userData = {};
             userData['name'] = res.data.loginUser.name;
@@ -133,10 +131,10 @@ export const login = (email, password) => async (dispatch) => {
               type: LOGIN,
               payload: userData,
             });
-            // AsyncStorage.setItem('userData', JSON.stringify(userData));
-            AsyncStorage.setItem('userID', userData.id);
+            AsyncStorage.setItem('userData', JSON.stringify(userData));
+            // AsyncStorage.setItem('userID', userData.id);
 
-            Navigation.replace('Home');
+            Navigation.replace('MainTab');
           } else {
             RNToasty.Error({
               title: 'Wrong Email or Password',
@@ -157,7 +155,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = (userID) => async (dispatch) => {
-  // console.log('User ID : ', userID);
+  console.log('Logout User ID : ', userID);
   await client
     .mutate({
       mutation: userLogout,
@@ -166,7 +164,7 @@ export const logout = (userID) => async (dispatch) => {
       },
     })
     .then(async (res) => {
-      // console.log('Logout Res : ', res);
+      console.log('Logout Res : ', res);
       if (true) {
         AsyncStorage.setItem('userID', '');
         dispatch({
@@ -185,21 +183,30 @@ export const logout = (userID) => async (dispatch) => {
 };
 
 export const checkAutoLogin = () => async (dispatch) => {
-  // let userData = await AsyncStorage.getItem('userData');
-  // console.log('Checking...');
-  let userID = await AsyncStorage.getItem('userID');
-  // console.log('No User id : ', userID);
-
-  if (userID) {
-    // userData = JSON.parse(userData);
+  let data = await AsyncStorage.getItem('userData');
+  if (data) {
     dispatch({
-      type: AUTOLOGIN,
-      payload: userID,
+      type: SETUSERDATA,
+      payload: JSON.parse(data),
     });
-    Navigation.replace('Home');
+    Navigation.replace('MainTab');
   } else {
     Navigation.replace('Login');
   }
+
+  // let userID = await AsyncStorage.getItem('userID');
+  // console.log('No User id : ', userID);
+
+  // if (userID) {
+  //   // userData = JSON.parse(userData);
+  //   dispatch({
+  //     type: AUTOLOGIN,
+  //     payload: userID,
+  //   });
+  //   Navigation.replace('MainTab');
+  // } else {
+  //   Navigation.replace('Login');
+  // }
 };
 
 export const updateUserImg = (id, photoURL) => async (dispatch) => {

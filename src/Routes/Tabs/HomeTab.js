@@ -20,8 +20,8 @@ export default class HomeTab extends Component {
   }
 
   componentDidMount = async () => {
-    await AsyncStorage.getItem('Lang').then((lang) => {
-      if (lang === 'en-US') {
+    await AsyncStorage.getItem('locale').then((locale) => {
+      if (locale === 'en-US') {
         this.setState({
           explore: I18n.translations.en.explore,
           search: I18n.translations.en.search,

@@ -47,4 +47,6 @@ export default {
   trendyBooks: 'Trendy Books',
   logout: 'Sign Out',
   changeLang: 'Change Language',
+  reads: 'Reads',
+  followers: 'Followers',
 };

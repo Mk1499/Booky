@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {height, width, mainColor} from '../../configs/global';
+import {getActiveLang} from '../../translate';
 
 export default StyleSheet.create({
   container: {
@@ -10,7 +11,6 @@ export default StyleSheet.create({
     paddingHorizontal: 0.05 * width,
   },
   content: {
-    flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
   },
@@ -24,12 +24,13 @@ export default StyleSheet.create({
     marginHorizontal: 0.02 * width,
   },
   name: {
-    fontFamily: 'Cairo',
+    fontFamily: 'Cairo-SemiBold',
     fontSize: 0.055 * width,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: '#333',
   },
   email: {
+    textAlign: getActiveLang() === 'ar' ? 'right' : 'left',
     fontSize: 0.025 * width,
     fontFamily: 'Cairo',
     color: 'grey',

@@ -1,32 +1,34 @@
-// import {NavigationActions, StackActions} from 'react-navigation';
+import {CommonActions, StackActions} from '@react-navigation/native';
 
-// let _navigator;
+let _navigator;
 
-// function setTopLevelNavigator(navigatorRef) {
-//   _navigator = navigatorRef;
-// }
+function setTopLevelNavigator(navigatorRef) {
+  _navigator = navigatorRef;
+}
 
-// function navigate(routeName, params) {
-//   _navigator.dispatch(
-//     NavigationActions.navigate({
-//       routeName,
-//       params,
-//     }),
-//   );
-// }
+function navigate(name, params) {
+  _navigator.dispatch(
+    CommonActions.navigate({
+      name,
+      params,
+    }),
+  );
+}
 
-// function replace(routeName, params) {
-//   _navigator.dispatch(
-//     StackActions.reset({
-//       index: 0,
-//       actions: [NavigationActions.navigate({routeName})],
-//     }),
-//   );
-// }
-// // add other navigation functions that you need and export them
+function replace(name, params) {
+  console.log('Replace to : ', name);
+  _navigator.dispatch(
+    StackActions.replace(name),
+    // StackActions.reset({
+    //   index: 0,
+    //   actions: [CommonActions.navigate({name})],
+    // }),
+  );
+}
+// add other navigation functions that you need and export them
 
-// export default {
-//   navigate,
-//   replace,
-//   setTopLevelNavigator,
-// };
+export default {
+  navigate,
+  replace,
+  setTopLevelNavigator,
+};

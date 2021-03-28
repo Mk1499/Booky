@@ -8,11 +8,11 @@ import {
   KeyboardAvoidingView,
   Image,
 } from 'react-native';
-import {width, height, mainColor, bgColor} from '../../configs/global';
 import Button from '../../Components/Button/Button';
 import {login, checkAutoLogin, loginLoading} from '../../actions/auth';
 import connect from 'react-redux/lib/connect/connect';
-import I18n from '../../translate';
+import I18n, {getActiveLang} from '../../translate';
+import {styles} from './styles';
 
 function Login(props) {
   const [email, setEmail] = useState('');
@@ -24,16 +24,13 @@ function Login(props) {
     return expression.test(String(e).toLowerCase());
   }
 
-  function submitForm() {
-    if (!checkMail(email)) {
-      alert('Please a vaild email Email');
-    } else if (!password) {
-      alert('Please Insert your Password');
-    } else {
-      props.navigation.navigate('Home');
-      setProcessing(false);
-    }
-  }
+  let dirStyle = {
+    flexDirection: getActiveLang() === 'ar' ? 'row-reverse' : 'row',
+  };
+
+  let inputDirStyle = {
+    textAlign: getActiveLang() === 'ar' ? 'right' : 'left',
+  };
 
   return (
     <View style={styles.container}>
@@ -48,7 +45,7 @@ function Login(props) {
         contentContainerStyle={styles.content}>
         <KeyboardAvoidingView behavior="position">
           <TextInput
-            style={[styles.input]}
+            style={[styles.input, inputDirStyle]}
             placeholder={I18n.t('email')}
             keyboardType="email-address"
             onChangeText={(email) => setEmail(email)}
@@ -56,7 +53,7 @@ function Login(props) {
         </KeyboardAvoidingView>
         <KeyboardAvoidingView behavior="position">
           <TextInput
-            style={[styles.input, {marginBottom: 36}]}
+            style={[styles.input, inputDirStyle, {marginBottom: 36}]}
             secureTextEntry
             placeholder={I18n.t('password')}
             onChangeText={(password) => setPassword(password)}
@@ -70,7 +67,7 @@ function Login(props) {
             props.login(email, password);
           }}
         />
-        <View style={styles.signUpLinkView}>
+        <View style={[styles.signUpLinkView, dirStyle]}>
           <Text style={styles.text}>{I18n.t('notMember')} </Text>
           <Text
             onPress={() => {
@@ -84,49 +81,6 @@ function Login(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height,
-    backgroundColor: bgColor,
-  },
-  content: {
-    height: '80%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    borderRadius: 0,
-    // borderColor: mainColor,
-    // borderWidth: 1,
-    width: 0.8 * width,
-    marginVertical: 0.025 * height,
-    paddingHorizontal: 0.05 * width,
-    fontFamily: 'Cairo',
-    // elevation: 2,
-    // shadowColor: mainColor,
-    borderColor: mainColor,
-    borderBottomWidth: 1,
-    color: mainColor,
-  },
-  logoImg: {
-    width: 0.8 * width,
-    height: 0.1 * height,
-    alignSelf: 'center',
-    marginTop: 0.05 * height,
-  },
-  signUpLinkView: {
-    marginVertical: 0.04 * height,
-    flexDirection: 'row',
-  },
-  text: {
-    fontFamily: 'Cairo',
-  },
-  textLink: {
-    fontFamily: 'Cairo',
-    color: mainColor,
-  },
-});
 
 const mapStateToProps = (state) => ({
   processing: state.auth.loginLoading,

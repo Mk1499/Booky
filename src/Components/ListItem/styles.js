@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
 import {mainColor, width, height} from '../../configs/global';
+import {getActiveLang} from '../../translate';
 
 export default StyleSheet.create({
   container: {
-    flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 0.015 * height,
     borderColor: '#eee',
@@ -15,5 +15,6 @@ export default StyleSheet.create({
   },
   text: {
     fontFamily: 'Cairo',
+    marginEnd: 0.02 * width,
   },
 });

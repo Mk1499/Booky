@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {mainColor, height, width} from '../../configs/global';
 import {Icon} from 'native-base';
+import {getActiveLang} from '../../translate';
 
 export default function Button(props) {
   const styles = StyleSheet.create({
@@ -17,12 +18,12 @@ export default function Button(props) {
       height: 0.1 * height,
       borderRadius: 10,
       justifyContent: 'center',
-      elevation:3
+      elevation: 3,
     },
     content: {
       width: '100%',
       height: '100%',
-      flexDirection: 'row',
+      flexDirection: getActiveLang() === 'ar' ? 'row-reverse' : 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       //   backgroundColor: 'black',
@@ -35,7 +36,7 @@ export default function Button(props) {
     },
   });
 
-//   const [processing, setProcessing] = useState(false);
+  //   const [processing, setProcessing] = useState(false);
 
   return (
     <TouchableOpacity
@@ -47,9 +48,13 @@ export default function Button(props) {
       {props.processing ? (
         <ActivityIndicator size="large" color="#fff" />
       ) : (
-        <View style={styles.content}>
+        <View style={[styles.content]}>
           <Text style={styles.text}>{props.text}</Text>
-          <Icon name="right" type="AntDesign" style={{color: '#fff'}} />
+          <Icon
+            name={getActiveLang() === 'ar' ? 'left' : 'right'}
+            type="AntDesign"
+            style={{color: '#fff'}}
+          />
         </View>
       )}
     </TouchableOpacity>

@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
-import { View, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {checkAutoLogin} from '../../actions/auth';
 
 class SplashScreen extends Component {
   componentDidMount = async () => {
     // console.log("Called from splash screen");
-   try{
-
-     this.props.checkAutoLogin();
-   }catch(err){
-     console.log("ERR : ",err);
-   }
+    try {
+      this.props.checkAutoLogin();
+    } catch (err) {
+      console.log('ERR : ', err);
+    }
   };
 
   render() {
@@ -39,6 +38,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps, {checkAutoLogin})(SplashScreen);
