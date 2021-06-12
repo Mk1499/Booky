@@ -50,4 +50,8 @@ export default {
   changeLang: 'تغيير اللغة',
   reads: 'قرائات',
   followers: 'متابعون',
+  following: 'يتابع',
+  addComment: 'أضف تعليق',
+  publisher: 'الناشر',
+  comments: 'التعليقات',
 };

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeStack from '../Stacks/HomeStack';
-import SearchStack from '../Stacks/SearchStack';
-import ProfileStack from '../Stacks/ProfileStack';
+import HomeStack from '../../Routes/Stacks/HomeStack';
+import SearchStack from '../../Routes/Stacks/SearchStack';
+import ProfileStack from '../../Routes/Stacks/ProfileStack';
 import I18n from '../../translate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Icon} from 'native-base';
-import {mainColor, subColor} from '../../configs/global';
+import {mainColor} from '../../configs/global';
 
 const Tab = createBottomTabNavigator();
 export default class HomeTab extends Component {

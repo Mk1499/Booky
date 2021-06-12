@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {width, height} from '../../configs/global';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {Icon} from 'native-base';
 import {connect} from 'react-redux';
 import {setCurrentRead} from '../../actions/book';
 import {client} from '../../queries/queryClient';
 import {checkBookRead} from '../../queries/book';
 import I18n from '../../translate';
+import {styles} from './styles';
 
 function BookActions(props) {
   async function readBook() {
@@ -41,60 +41,24 @@ function BookActions(props) {
   }
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={[styles.Btn, styles.leftBtn]} onPress={readBook}>
+      <TouchableOpacity
+        style={[styles.Btn, styles.leftBtn]}
+        onPress={() => {
+          props.addComment();
+        }}>
+        <Icon name="rate-review" type="MaterialIcons" style={styles.icon} />
+        <Text style={styles.text}>{I18n.t('addComment')}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.Btn, styles.rightBtn]}
+        onPress={readBook}>
         <Icon name="ios-reader-outline" type="Ionicons" style={styles.icon} />
 
-  <Text style={styles.text}>{I18n.t('readBook')}</Text>
+        <Text style={styles.text}>{I18n.t('readBook')}</Text>
       </TouchableOpacity>
-
-      {/* <TouchableOpacity
-        style={[styles.Btn, styles.rightBtn]}
-        onPress={() => props.viewModal()}>
-        <Icon name="md-library-outline" type="Ionicons" style={styles.icon} />
-        <Text style={styles.text}>Add To Library</Text>
-      </TouchableOpacity> */}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: 0.8 * width,
-    height: 0.09 * height,
-    borderRadius: 20,
-    flexDirection: 'row',
-    backgroundColor: 'transparent',
-    elevation: 1,
-  },
-  Btn: {
-    // width: 0.4 * width,
-    width: '100%',
-    flexDirection: 'row',
-    borderColor: '#fff',
-    backgroundColor: '#201f2c',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  rightBtn: {
-    // borderTopRightRadius: 20,
-    // borderBottomRightRadius: 20,
-    borderLeftWidth: 1,
-  },
-  leftBtn: {
-    borderRadius: 20,
-    // borderTopLeftRadius: 20,
-    // borderBottomLeftRadius: 20,
-  },
-  text: {
-    fontFamily: 'Cairo',
-    color: '#eee',
-    fontSize: 0.035 * width,
-  },
-  icon: {
-    color: '#eee',
-    marginHorizontal: 0.01 * width,
-  },
-});
 
 const mapStateToProps = (state) => ({
   userID: state.auth.userID,

@@ -49,4 +49,8 @@ export default {
   changeLang: 'Change Language',
   reads: 'Reads',
   followers: 'Followers',
+  following: 'Following',
+  addComment: 'Add Comment',
+  publisher: 'Publisher',
+  comments: 'Comments',
 };

@@ -6,6 +6,7 @@ import BookDetails from '../../Screens/BookDetails/BookDetails';
 import PDF from '../../Screens/PDF/PDF';
 import GenreScreen from '../../Screens/Genre/GenreScreen';
 import AuthorProfile from '../../Screens/AuthorProfile/AuthorProfile';
+import AddBookComment from '../../Screens/AddBookComment/AddBookComment';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,11 @@ export default class HomeStack extends Component {
         <Stack.Screen
           name="BookDetails"
           component={BookDetails}
+          options={{headerTitle: null, headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddBookComment"
+          component={AddBookComment}
           options={{headerTitle: null, headerShown: false}}
         />
         <Stack.Screen
