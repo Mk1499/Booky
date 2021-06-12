@@ -7,8 +7,9 @@ import {
   Image,
   TouchableOpacity,
   DevSettings,
-  AsyncStorage,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import Modal from 'react-native-modal';
 import {Icon} from 'native-base';
 import styles from './style';

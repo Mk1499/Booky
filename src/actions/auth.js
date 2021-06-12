@@ -165,8 +165,8 @@ export const logout = (userID) => async (dispatch) => {
     })
     .then(async (res) => {
       console.log('Logout Res : ', res);
-      if (true) {
-        AsyncStorage.setItem('userID', '');
+      if (res.data) {
+        AsyncStorage.removeItem('userData');
         dispatch({
           type: LOGOUT,
         });
@@ -184,6 +184,7 @@ export const logout = (userID) => async (dispatch) => {
 
 export const checkAutoLogin = () => async (dispatch) => {
   let data = await AsyncStorage.getItem('userData');
+  console.log("user Data : ", data);
   if (data) {
     dispatch({
       type: SETUSERDATA,

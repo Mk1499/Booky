@@ -16,7 +16,7 @@ export default class SettingList extends Component {
       <View style={styles.container}>
         <FlatList
           data={items}
-          renderItem={({item}) => <ListItem item={item} />}
+          renderItem={({item}) => <ListItem item={item} key={item.id} />}
           contentContainerStyle={styles.list}
           keyExtractor={({item, index}) => index}
         />

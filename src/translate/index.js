@@ -1,7 +1,8 @@
 import I18n, {getLanguages} from 'react-native-i18n';
 import en from './locales/en';
 import ar from './locales/ar';
-import {I18nManager, AsyncStorage} from 'react-native';
+import {I18nManager} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 I18n.fallbacks = true;
 
@@ -10,7 +11,7 @@ I18n.translations = {
   en,
 };
 
-let activeLang = 'ar';
+let activeLang = 'en';
 
 let defineLange = async () => {
   AsyncStorage.getItem('locale').then((locale) => {

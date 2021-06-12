@@ -20,30 +20,35 @@ class Me extends Component {
     this.state = {
       menuItems: [
         {
+          id:0,
           text: I18n.t('yourFavBooks'),
           iconName: 'hearto',
           iconType: 'AntDesign',
           action: () => {},
         },
         {
+          id:1,
           text: I18n.t('addedBooks'),
           iconName: 'add-circle-outline',
           iconType: 'MaterialIcons',
           action: () => {},
         },
         {
+          id:2,
           text: I18n.t('yourFavAuthors'),
           iconName: 'person-outline',
           iconType: 'Ionicons',
           action: () => {},
         },
         {
+          id:3,
           text: I18n.t('changeLang'),
           iconName: 'language-outline',
           iconType: 'Ionicons',
           action: this.toggleLangModal,
         },
         {
+          id:4,
           text: I18n.t('logout'),
           iconName: 'logout',
           iconType: 'AntDesign',
@@ -72,6 +77,10 @@ class Me extends Component {
     );
   };
 
+  editProfile = () => {
+    
+  }
+
   logout = () => {
     this.props.logout(this.props.userData.id);
   };
@@ -81,7 +90,7 @@ class Me extends Component {
     let {navigation, userData} = this.props;
     return (
       <View style={styles.container}>
-        <ActionHeader />
+        <ActionHeader action={this.editProfile} />
         <UserHead user={userData} />
         <UserRecords />
         <SettingList items={menuItems} />

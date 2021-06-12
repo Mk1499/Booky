@@ -37,16 +37,14 @@ export default class HomeTab extends Component {
     });
   };
 
-  getTabBarVisible(route) {
-    const routeName = route.state
-      ? route.state.routes[route.state.index].name
-      : route.params?.screen || 'Home';
-
-    if (routeName === 'Details') {
-      return false;
+  getTabBarVisibility = (route) => {
+    console.log('R : ', route);
+    let index = route.state?.index || 0;
+    if (index === 0) {
+      return true;
     }
-    return true;
-  }
+    return false;
+  };
 
   render() {
     let {explore, search, profile} = this.state;
@@ -68,17 +66,20 @@ export default class HomeTab extends Component {
         <Tab.Screen
           name={explore}
           component={HomeStack}
-          options={{
-            tabBarIcon: ({color}) => {
-              return (
-                <Icon
-                  name="explore"
-                  type="MaterialIcons"
-                  style={{color: color, fontSize: 20}}
-                />
-              );
-            },
-            tabBarVisible: true,
+          options={({route}) => {
+            console.log('Ex Route : ', route);
+            return {
+              tabBarIcon: ({color}) => {
+                return (
+                  <Icon
+                    name="explore"
+                    type="MaterialIcons"
+                    style={{color: color, fontSize: 20}}
+                  />
+                );
+              },
+              tabBarVisible: this.getTabBarVisibility(route),
+            };
           }}
         />
         <Tab.Screen

@@ -63,7 +63,7 @@ class AddBook extends Component {
 
   goBack() {
     let {navigation} = this.props;
-    navigation.state.params.onGoBack();
+    // navigation.state.params.onGoBack();
     navigation.goBack();
   }
 

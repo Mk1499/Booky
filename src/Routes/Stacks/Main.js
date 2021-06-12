@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import HomeTab from '../Tabs/HomeTab';
 import Login from '../../Screens/Login/Login';
+import SignUp from '../../Screens/Register/Register';
 import SplashScreen from '../../Screens/SplashScreen/SplashScreen';
 
 const Stack = createStackNavigator();
@@ -21,6 +22,13 @@ export default class MainStack extends Component {
         <Stack.Screen
           name="Login"
           component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+         <Stack.Screen
+          name="SignUp"
+          component={SignUp}
           options={{
             headerShown: false,
           }}

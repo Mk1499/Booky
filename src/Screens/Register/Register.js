@@ -14,7 +14,7 @@ import {width, height, mainColor, bgColor} from '../../configs/global';
 import Button from '../../Components/Button/Button';
 import {connect} from 'react-redux';
 import {signUp} from '../../actions/auth';
-import I18n from '../../translate';
+import I18n , {getActiveLang} from '../../translate';
 
 function Register(props) {
   const [email, setEmail] = useState('');
@@ -40,6 +40,15 @@ function Register(props) {
     }
   }
 
+
+  let dirStyle = {
+    flexDirection: getActiveLang() === 'ar' ? 'row-reverse' : 'row',
+  };
+
+  let inputDirStyle = {
+    textAlign: getActiveLang() === 'ar' ? 'right' : 'left',
+  };
+
   return (
     <View style={styles.container}>
       {/* <Header /> */}
@@ -53,7 +62,7 @@ function Register(props) {
         contentContainerStyle={styles.content}>
         <KeyboardAvoidingView behavior="position">
           <TextInput
-            style={[styles.input]}
+            style={[styles.input , inputDirStyle]}
             placeholder={I18n.t('username')}
             // keyboardType="email-address"
             onChangeText={(username) => setUsername(username)}
@@ -61,7 +70,7 @@ function Register(props) {
         </KeyboardAvoidingView>
         <KeyboardAvoidingView behavior="position">
           <TextInput
-            style={[styles.input]}
+            style={[styles.input , inputDirStyle]}
             placeholder={I18n.t('email')}
             keyboardType="email-address"
             onChangeText={(email) => setEmail(email)}
@@ -69,7 +78,7 @@ function Register(props) {
         </KeyboardAvoidingView>
         <KeyboardAvoidingView behavior="position">
           <TextInput
-            style={[styles.input, {marginBottom: 36}]}
+            style={[styles.input, {marginBottom: 36}, inputDirStyle]}
             secureTextEntry
             placeholder={I18n.t('password')}
             onChangeText={(password) => setPassword(password)}
@@ -80,7 +89,7 @@ function Register(props) {
           processing={processing}
           action={() => props.signUp(username, email, password)}
         />
-        <View style={styles.signUpLinkView}>
+        <View style={[styles.signUpLinkView, dirStyle]}>
           <Text style={styles.text}>{I18n.t('alreadyMember')}</Text>
           <Text
             onPress={() => {
