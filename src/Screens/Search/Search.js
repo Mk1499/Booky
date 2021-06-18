@@ -6,7 +6,6 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import {height, width} from '../../configs/global';
 import Header from '../../Components/Header/Header';
 import SearchInput from '../../Components/SearchInput/SearchInput';
 import SearchCard from '../../Components/SearchCard/SearchCard';
@@ -14,6 +13,8 @@ import SearchCard from '../../Components/SearchCard/SearchCard';
 import {client} from '../../queries/queryClient';
 import {searchQuery} from '../../queries/book';
 import SearchEmpty from '../../Components/SearchEmpty/SearchEmpty';
+import {getTheme} from '../../Services/themes';
+import styles from './styles';
 
 export default class Search extends Component {
   constructor(props) {
@@ -74,8 +75,16 @@ export default class Search extends Component {
   };
 
   render() {
+    let style = {
+      ...styles,
+      container: {
+        ...styles.container,
+        backgroundColor: getTheme().background,
+      },
+    };
+
     return (
-      <View>
+      <View style={style.container}>
         <Header />
         <SearchInput searchFun={(q) => this.search(q)} />
         {this.state.searching ? (
@@ -89,7 +98,7 @@ export default class Search extends Component {
         ) : this.state.searched ? (
           this.state.bookResult.length ? (
             <FlatList
-              contentContainerStyle={styles.container}
+              contentContainerStyle={style.searchContent}
               data={this.state.bookResult}
               renderItem={this.renderBookItem}
             />
@@ -103,23 +112,3 @@ export default class Search extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 0.05 * height,
-    paddingBottom: 0.4 * height,
-    // backgroundColor:'red'
-  },
-  loadImg: {
-    width: 0.2 * width,
-    height: 0.2 * height,
-  },
-  loadContainer: {
-    width,
-    height: 0.5 * height,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

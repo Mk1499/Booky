@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import styles from './style';
 import {Icon} from 'native-base';
 import {getActiveLang} from '../../translate';
+import { themeStyle } from '../../Services/themes';
 
 export default class ActionHeader extends Component {
   render() {
@@ -11,7 +12,7 @@ export default class ActionHeader extends Component {
       flexDirection: getActiveLang() === 'ar' ? 'row' : 'row-reverse',
     };
     return (
-      <View style={[styles.container, dirStyle]}>
+      <View style={[styles.container, dirStyle, themeStyle()]}>
         <Icon
           name={'user-edit'}
           style={styles.icon}

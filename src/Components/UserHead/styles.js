@@ -27,7 +27,7 @@ export default StyleSheet.create({
     fontFamily: 'Cairo-SemiBold',
     fontSize: 0.055 * width,
     // fontWeight: 'bold',
-    color: '#333',
+    // color: '#333',
   },
   email: {
     textAlign: getActiveLang() === 'ar' ? 'right' : 'left',

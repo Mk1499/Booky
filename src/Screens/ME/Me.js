@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {logout} from '../../actions/auth';
 
 import I18n, {getActiveLang} from '../../translate';
-
+import {changeTheme, getTheme} from '../../Services/themes';
 import styles from './styles';
 import {CommonActions} from '@react-navigation/native';
 
@@ -20,35 +20,42 @@ class Me extends Component {
     this.state = {
       menuItems: [
         {
-          id:0,
+          id: 0,
           text: I18n.t('yourFavBooks'),
           iconName: 'hearto',
           iconType: 'AntDesign',
           action: () => {},
         },
         {
-          id:1,
+          id: 1,
           text: I18n.t('addedBooks'),
           iconName: 'add-circle-outline',
           iconType: 'MaterialIcons',
           action: () => {},
         },
         {
-          id:2,
+          id: 2,
           text: I18n.t('yourFavAuthors'),
           iconName: 'person-outline',
           iconType: 'Ionicons',
           action: () => {},
         },
         {
-          id:3,
+          id: 3,
           text: I18n.t('changeLang'),
           iconName: 'language-outline',
           iconType: 'Ionicons',
           action: this.toggleLangModal,
         },
         {
-          id:4,
+          id: 4,
+          text: I18n.t('changeTheme'),
+          iconName: 'theme-light-dark',
+          iconType: 'MaterialCommunityIcons',
+          action: this.changeTheme,
+        },
+        {
+          id: 5,
           text: I18n.t('logout'),
           iconName: 'logout',
           iconType: 'AntDesign',
@@ -61,6 +68,10 @@ class Me extends Component {
     console.log('me Props : ', this.props);
   }
 
+  componentDidMount() {
+    console.log('Active Theme : ', getTheme());
+  }
+
   toggleLangModal = () => {
     this.setState({
       langModal: !this.state.langModal,
@@ -68,6 +79,16 @@ class Me extends Component {
   };
 
   changeLang = () => {
+    this.resetApp();
+  };
+
+  changeTheme = () => {
+    changeTheme();
+    this.resetApp();
+    // this.setState({});
+  };
+
+  resetApp() {
     let {navigation} = this.props;
     navigation.dispatch(
       CommonActions.reset({
@@ -75,11 +96,9 @@ class Me extends Component {
         routes: [{name: 'MainTab'}],
       }),
     );
-  };
-
-  editProfile = () => {
-    
   }
+
+  editProfile = () => {};
 
   logout = () => {
     this.props.logout(this.props.userData.id);
@@ -88,8 +107,17 @@ class Me extends Component {
   render() {
     let {menuItems, langModal} = this.state;
     let {navigation, userData} = this.props;
+
+    let style = {
+      ...styles,
+      container: {
+        ...styles.container,
+        backgroundColor: getTheme().background,
+      },
+    };
+
     return (
-      <View style={styles.container}>
+      <ScrollView style={[style.container]}>
         <ActionHeader action={this.editProfile} />
         <UserHead user={userData} />
         <UserRecords />
@@ -99,7 +127,7 @@ class Me extends Component {
           hideModal={this.toggleLangModal}
           changeAction={this.changeLang}
         />
-      </View>
+      </ScrollView>
     );
   }
 }

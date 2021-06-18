@@ -6,7 +6,6 @@ export default StyleSheet.create({
   container: {
     alignItems: 'center',
     paddingVertical: 0.015 * height,
-    borderColor: '#eee',
     borderBottomWidth: 1,
   },
   icon: {

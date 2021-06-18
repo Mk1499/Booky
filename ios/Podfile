@@ -12,6 +12,8 @@ target 'Booky' do
 
   pod 'react-native-restart', :path => '../node_modules/react-native-restart'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'BookyTests' do
     inherit! :complete
     # Pods for testing

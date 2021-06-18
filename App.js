@@ -7,17 +7,12 @@ import {Provider} from 'react-redux';
 import store from './src/store';
 import {baseURL} from './src/configs/global';
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
-import {
-  requestUserPermission,
-  backgroundMsgs,
-  forgroundMsgd,
-} from './src/Services/firebaseMessaging';
-import messaging from '@react-native-firebase/messaging';
-
+import {Provider as PaperProvider} from 'react-native-paper';
 import I18n from './src/translate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer , DefaultTheme, DarkTheme , useTheme } from '@react-navigation/native';
 import MainStack from './src/Routes/Stacks/Main';
+
 
 const client = new ApolloClient({
   uri: baseURL,
@@ -29,6 +24,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       loading: true,
+      darkApp:false
     };
   }
 
@@ -41,8 +37,11 @@ export default class App extends Component {
     });
   };
 
+
+
   render() {
-    let {loading} = this.state;
+    let {loading , darkApp} = this.state;
+    let appTheme = darkApp ? DarkTheme : DefaultTheme ; 
     if (!loading) {
       return (
         <Provider store={store}>
@@ -56,7 +55,8 @@ export default class App extends Component {
             <NavigationContainer
               ref={(navigatorRef) => {
                 NavigationService.setTopLevelNavigator(navigatorRef);
-              }}>
+              }}
+              theme={appTheme}>
               <MainStack />
             </NavigationContainer>
           </ApolloProvider>

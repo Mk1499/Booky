@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-import {mainColor, height, width} from '../../configs/global';
+import {mainColor, height, width , Theme} from '../../configs/global';
 import {Icon} from 'native-base';
 import {getActiveLang} from '../../translate';
 
@@ -14,6 +14,8 @@ export default function Button(props) {
   const styles = StyleSheet.create({
     container: {
       backgroundColor: mainColor,
+      // backgroundColor: Theme().mainColor,
+
       width: 0.8 * width,
       height: 0.1 * height,
       borderRadius: 10,

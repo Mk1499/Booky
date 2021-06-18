@@ -7,6 +7,7 @@ import I18n from '../../translate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Icon} from 'native-base';
 import {mainColor, subColor} from '../../configs/global';
+import {getTheme} from '../../Services/themes';
 
 const Tab = createBottomTabNavigator();
 export default class HomeTab extends Component {
@@ -61,6 +62,7 @@ export default class HomeTab extends Component {
           tabStyle: {
             borderTopWidth: 2,
             borderColor: mainColor,
+            backgroundColor: getTheme().background,
           },
         }}>
         <Tab.Screen
@@ -85,16 +87,19 @@ export default class HomeTab extends Component {
         <Tab.Screen
           name={search}
           component={SearchStack}
-          options={{
-            tabBarIcon: ({color}) => {
-              return (
-                <Icon
-                  name="search"
-                  type="Feather"
-                  style={{color: color, fontSize: 20}}
-                />
-              );
-            },
+          options={({route}) => {
+            return {
+              tabBarIcon: ({color}) => {
+                return (
+                  <Icon
+                    name="search"
+                    type="Feather"
+                    style={{color: color, fontSize: 20}}
+                  />
+                );
+              },
+              tabBarVisible: this.getTabBarVisibility(route),
+            };
           }}
         />
         <Tab.Screen

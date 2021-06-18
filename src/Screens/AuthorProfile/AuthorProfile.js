@@ -34,6 +34,7 @@ import {client} from '../../queries/queryClient';
 import {updateUserImg} from '../../actions/auth';
 import {connect} from 'react-redux';
 import I18n from '../../translate';
+import {getTheme} from '../../Services/themes';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -176,6 +177,17 @@ function ActorPrfile(props) {
       });
   }
 
+  let style = {
+    mainView: {
+      ...styles.mainView,
+      backgroundColor: getTheme().background,
+    },
+    actorName: {
+      ...styles.actorName,
+      color: getTheme().text,
+    },
+  };
+
   return (
     <View>
       <SubHeader
@@ -195,10 +207,10 @@ function ActorPrfile(props) {
           uri: author.avatarURL,
         }}
       />
-      <Animated.View style={[styles.mainView, animatedHeight]}>
+      <Animated.View style={[style.mainView, animatedHeight]}>
         <View style={{flexDirection: 'row'}}>
           <View style={{width: 0.8 * width}}>
-            <Text style={styles.actorName}>{author.name}</Text>
+            <Text style={style.actorName}>{author.name}</Text>
             {/* <Text style={styles.note}>{this.state.known_for_department}</Text> */}
           </View>
           <Right>
@@ -221,7 +233,7 @@ function ActorPrfile(props) {
               ellipsizeMode="tail"
               style={{
                 textAlign: 'center',
-                color: subColor,
+                color: getTheme().text,
                 fontFamily: 'Cairo',
               }}>
               {author.bio || `${I18n.t('noBio')}${author.name}`}

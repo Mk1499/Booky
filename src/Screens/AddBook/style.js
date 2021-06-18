@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
 import {width, height, mainColor, bgColor} from '../../configs/global';
+import { getTheme } from '../../Services/themes';
 
 export const styles = StyleSheet.create({
   container: {
     height,
-    // backgroundColor: '#fff',
+    backgroundColor: getTheme().background,
   },
   content: {
     minHeight: '80%',

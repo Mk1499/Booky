@@ -24,6 +24,7 @@ import {
 import {ApolloClient, InMemoryCache} from '@apollo/client';
 import {baseURL} from '../../configs/global';
 import I18n from '../../translate';
+import {getTheme} from '../../Services/themes';
 
 const client = new ApolloClient({
   uri: baseURL,
@@ -144,9 +145,24 @@ function BookDetails(props) {
       });
   }
 
+  let style = {
+    container: {
+      ...styles.container,
+      backgroundColor: getTheme().background,
+    },
+    secHalf: {
+      ...styles.secHalf,
+      backgroundColor: getTheme().background,
+    },
+    desc: {
+      ...styles.desc,
+      color: getTheme().text,
+    },
+  };
+
   return (
     <ScrollView
-      style={styles.container}
+      style={style.container}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }>
@@ -217,9 +233,9 @@ function BookDetails(props) {
           }}
         />
       </View>
-      <View style={styles.secHalf}>
+      <View style={style.secHalf}>
         <View style={styles.section}>
-          <Text style={styles.desc}>{book.description}</Text>
+          <Text style={style.desc}>{book.description}</Text>
         </View>
         {book.relatedBooks && book.relatedBooks.length > 1 ? (
           <View style={styles.section}>

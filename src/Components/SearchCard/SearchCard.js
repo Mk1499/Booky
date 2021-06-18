@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
 import {Image, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {height, width, mainColor} from '../../configs/global';
 import {Icon} from 'native-base';
+import styles from './styles';
+import {getTheme} from '../../Services/themes';
 
 export default class CardImageExample extends Component {
   render() {
+    let style = {
+      container: {
+        ...styles.container,
+        backgroundColor: getTheme().background,
+      },
+    };
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -57,69 +65,3 @@ export default class CardImageExample extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: 0.8 * width,
-    height: 0.35 * height,
-    backgroundColor: '#fff',
-    marginVertical: 0.02 * height,
-    elevation: 3,
-    borderRadius: 13,
-    overflow: 'hidden',
-  },
-  header: {
-    height: '20%',
-    width: '90%',
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: mainColor,
-    // borderBottomWidth: 0.5,
-  },
-  bookName: {
-    color: mainColor,
-    fontFamily: 'Cairo',
-  },
-  body: {
-    height: '55%',
-  },
-  bookImg: {
-    width: '90%',
-    height: '90%',
-    borderRadius: 13,
-    alignSelf: 'center',
-  },
-  footer: {
-    // backgroundColor: 'red',
-    flexDirection: 'row',
-    width: '90%',
-    alignSelf: 'center',
-    justifyContent: 'space-between',
-    borderColor: 'grey',
-    borderTopWidth: 0.4,
-    paddingTop: 10,
-  },
-  item: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  midItem: {
-    borderColor: 'grey',
-    borderLeftWidth: 0.4,
-    borderRightWidth: 0.4,
-    paddingHorizontal: 7,
-    // width: '30%',
-  },
-  icon: {
-    marginRight: 5,
-    color: mainColor,
-    fontSize: 22,
-  },
-  itemText: {
-    color: 'grey',
-    fontSize: 12,
-    fontFamily: 'Cairo',
-  },
-});

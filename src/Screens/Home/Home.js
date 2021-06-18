@@ -39,10 +39,18 @@ import {setAuthors as setAuthorsAction} from '../../actions/author';
 import {setGenres as setGenresAction} from '../../actions/genre';
 import {client} from '../../queries/queryClient';
 import I18n from '../../translate';
-
+import styles from './styles';
+import {getTheme} from '../../Services/themes';
 const {width, height} = Dimensions.get('window');
 
 function Home(props) {
+  let style = {
+    container: {
+      ...styles.container,
+      backgroundColor: getTheme().background,
+    },
+  };
+
   function gotoBookScreen(bookID) {
     props.navigation.navigate('BookDetails', {
       bookID,
@@ -159,6 +167,7 @@ function Home(props) {
     requestUserPermission();
     backgroundMsgs();
     forgroundMsgs();
+    console.log('Home Props : ', props);
   }, []);
 
   useEffect(() => {
@@ -208,7 +217,7 @@ function Home(props) {
   });
 
   return (
-    <View style={styles.container}>
+    <View style={style.container}>
       <Header />
       {books?.length && latestBooks?.length && authors?.length ? (
         <ScrollView
@@ -250,15 +259,26 @@ function Home(props) {
               data={latestBooks}
               horizontal
               renderItem={renderLatestBook}
+              contentContainerStyle={styles.hList}
             />
           </View>
           <View style={styles.genreCont}>
-            <FlatList data={genres} horizontal renderItem={renderGenreItem} />
+            <FlatList
+              data={genres}
+              horizontal
+              renderItem={renderGenreItem}
+              contentContainerStyle={styles.hList}
+            />
           </View>
 
           <View style={styles.section}>
             <Text style={styles.sideHeader}>{I18n.t('topAuthors')}</Text>
-            <FlatList data={authors} horizontal renderItem={renderAuthorCard} />
+            <FlatList
+              data={authors}
+              horizontal
+              renderItem={renderAuthorCard}
+              contentContainerStyle={styles.hList}
+            />
           </View>
         </ScrollView>
       ) : (
@@ -276,64 +296,6 @@ function Home(props) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: 0.9 * height,
-  },
-  topContent: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  roundedBG: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    zIndex: -10,
-    height: 0.35 * height,
-    width,
-    backgroundColor: mainColor,
-    borderBottomEndRadius: 0.45 * width,
-    borderBottomLeftRadius: 0.45 * width,
-  },
-  carousel: {
-    marginTop: 0.1 * height,
-    marginBottom: 0.03 * height,
-    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
-  },
-  section: {
-    paddingHorizontal: 0.03 * width,
-    marginVertical: 0.03 * height,
-  },
-  sideHeader: {
-    color: mainColor,
-    fontSize: 0.06 * width,
-    fontFamily: 'Cairo-SemiBold',
-    marginBottom: 0.03 * height,
-  },
-  bookItem: {
-    marginHorizontal: 0.02 * width,
-  },
-  genreCont: {
-    marginVertical: 0.03 * height,
-  },
-  loadContainer: {
-    width,
-    height: 0.8 * height,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  loadImg: {
-    width: 0.2 * width,
-    height: 0.2 * height,
-  },
-  addBtn: {
-    position: 'absolute',
-    zIndex: 10,
-    bottom: 0.05 * height,
-    right: 0.07 * width,
-  },
-});
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,

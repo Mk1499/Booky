@@ -15,6 +15,7 @@ import {addBook} from '../../mutations/book';
 import {RNToasty} from 'react-native-toasty';
 import I18n from '../../translate';
 import SubHeader from '../../Components/SubHeader/SubHeader';
+import {getTheme} from '../../Services/themes';
 
 class AddBook extends Component {
   static getDrivedStateFromProps(prevProps, nextProps) {
@@ -126,8 +127,13 @@ class AddBook extends Component {
   };
 
   render() {
+    let style = {
+      ...styles,
+      container: {...styles.container, backgroundColor: getTheme().background},
+    };
+
     return (
-      <View style={styles.container}>
+      <View style={[style.container]}>
         {/* <Header /> */}
         <SubHeader
           noHeart={true}

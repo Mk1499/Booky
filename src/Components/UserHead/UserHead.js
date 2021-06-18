@@ -3,6 +3,7 @@ import {Text, View, Image} from 'react-native';
 import styles from './styles';
 import {Icon} from 'native-base';
 import {getActiveLang} from '../../translate';
+import {getTheme} from '../../Services/themes';
 
 export default class UserHead extends Component {
   render() {
@@ -11,9 +12,20 @@ export default class UserHead extends Component {
     };
 
     let {user} = this.props;
+    let style = {
+      ...styles,
+      name: {
+        ...styles.name,
+        color: getTheme().text,
+      },
+      container:{
+        ...styles.container, 
+        backgroundColor:getTheme().background
+      }
+    };
 
     return (
-      <View style={styles.container}>
+      <View style={[style.container]}>
         <View style={[styles.content, dirStyle]}>
           <Image
             style={styles.image}
@@ -24,7 +36,7 @@ export default class UserHead extends Component {
             }}
           />
           <View style={styles.textContent}>
-            <Text style={styles.name}> {user.name} </Text>
+            <Text style={style.name}> {user.name} </Text>
             <Text style={styles.email}> {user.email} </Text>
           </View>
         </View>

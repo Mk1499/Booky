@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import {mainColor, width, height} from '../../configs/global';
+import {View, TextInput, TouchableOpacity} from 'react-native';
 import {Icon} from 'native-base';
 import I18n from '../../translate';
+import styles from './styles';
+import {getTheme} from '../../Services/themes';
+import {mainColor} from '../../configs/global';
 
 export default class SearchInput extends Component {
   constructor(props) {
@@ -19,8 +15,15 @@ export default class SearchInput extends Component {
   }
 
   render() {
+    let style = {
+      container: {
+        ...styles.container,
+        backgroundColor: getTheme().background,
+      },
+    };
+
     return (
-      <View style={styles.container}>
+      <View style={style.container}>
         {this.state.qText ? (
           <TouchableOpacity
             style={styles.btn}
@@ -42,6 +45,7 @@ export default class SearchInput extends Component {
             this.props.searchFun(this.state.qText);
           }}
           value={this.state.qText}
+          placeholderTextColor={mainColor}
         />
         <TouchableOpacity
           style={styles.btn}
@@ -52,33 +56,3 @@ export default class SearchInput extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    // borderWidth: 1,
-    borderColor: mainColor,
-    borderRadius: 10,
-    width: 0.8 * width,
-    height: 0.1 * height,
-    alignSelf: 'center',
-    marginTop: 0.05 * height,
-    elevation: 5,
-    shadowColor: mainColor,
-    backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    justifyContent: 'space-between',
-  },
-  input: {
-    width: '75%',
-    fontSize: 12,
-    color: mainColor,
-    fontFamily: 'Cairo',
-  },
-  btn: {
-    justifyContent: 'center',
-  },
-  icon: {
-    color: mainColor,
-  },
-});

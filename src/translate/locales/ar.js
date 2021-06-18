@@ -54,4 +54,5 @@ export default {
   addComment: 'أضف تعليق',
   publisher: 'الناشر',
   comments: 'التعليقات',
+  changeTheme: 'تغيير المظهر',
 };
