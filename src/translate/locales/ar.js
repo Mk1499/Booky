@@ -55,4 +55,7 @@ export default {
   publisher: 'الناشر',
   comments: 'التعليقات',
   changeTheme: 'تغيير المظهر',
+  editProfile: 'تعديل الملف الشخصي',
+  favQuote: 'العبارة المفضله',
+  save: 'حفظ',
 };

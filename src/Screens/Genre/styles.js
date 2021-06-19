@@ -9,7 +9,9 @@ import {
 } from '../../configs/global';
 
 export default StyleSheet.create({
-  container: {},
+  container: {
+    height,
+  },
   genreImage: {
     width,
     height: 0.25 * height,
@@ -28,6 +30,7 @@ export default StyleSheet.create({
     paddingHorizontal: 0.04 * width,
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
+    height,
   },
   genreName: {
     fontFamily: 'Cairo-SemiBold',

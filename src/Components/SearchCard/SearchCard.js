@@ -14,7 +14,7 @@ export default class CardImageExample extends Component {
     };
 
     return (
-      <View style={styles.container}>
+      <View style={style.container}>
         <View style={styles.header}>
           <Text style={styles.bookName}>{this.props.data.name}</Text>
         </View>

@@ -43,7 +43,7 @@ export default class UserHead extends Component {
         <View style={styles.quoteCont}>
           <Icon name="quote-left" type="FontAwesome" style={styles.icon} />
           <Text style={styles.quote}>
-            {user.quote || ' يوما ما سيكون افضل'}
+            {user.quote}
           </Text>
           <Icon name="quote-right" type="FontAwesome" style={styles.icon} />
         </View>

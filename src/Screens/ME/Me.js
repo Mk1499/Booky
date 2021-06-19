@@ -88,6 +88,10 @@ class Me extends Component {
     // this.setState({});
   };
 
+  goToScreen = (screenName) => {
+    this.props.navigation.navigate(screenName);
+  };
+
   resetApp() {
     let {navigation} = this.props;
     navigation.dispatch(
@@ -118,7 +122,7 @@ class Me extends Component {
 
     return (
       <ScrollView style={[style.container]}>
-        <ActionHeader action={this.editProfile} />
+        <ActionHeader action={() => this.goToScreen('EditProfile')} />
         <UserHead user={userData} />
         <UserRecords />
         <SettingList items={menuItems} />

@@ -7,6 +7,7 @@ import {
   SETUSERDATA,
   UPDATEUSERIMG,
   LOGINLOADING,
+  UPDATEUSERDATA,
 } from './types';
 import {
   userLogin,
@@ -15,6 +16,7 @@ import {
   updateUserImgMutation,
   getUserDetailsQuery,
 } from '../queries/queries';
+import {updateUserMutation} from '../mutations/user';
 import {RNToasty} from 'react-native-toasty';
 import {ApolloClient, InMemoryCache} from '@apollo/client';
 import {baseURL} from '../configs/global';
@@ -127,6 +129,7 @@ export const login = (email, password) => async (dispatch) => {
             userData['email'] = res.data.loginUser.email;
             userData['photo'] = res.data.loginUser.photo;
             userData['id'] = res.data.loginUser.id;
+            userData['quote'] = res.data.loginUser.quote;
             dispatch({
               type: LOGIN,
               payload: userData,
@@ -184,7 +187,7 @@ export const logout = (userID) => async (dispatch) => {
 
 export const checkAutoLogin = () => async (dispatch) => {
   let data = await AsyncStorage.getItem('userData');
-  console.log("user Data : ", data);
+  console.log('user Data : ', data);
   if (data) {
     dispatch({
       type: SETUSERDATA,
@@ -249,4 +252,17 @@ export const getUserDetails = (id) => async (dispatch) => {
     .catch((err) => {
       console.log('getting user info err : ', err);
     });
+};
+
+export const updateUserData = (id, photo, name, quote) => async (dispatch) => {
+  let userData = {
+    id,
+    photo,
+    name,
+    quote,
+  };
+  dispatch({
+    type: UPDATEUSERDATA,
+    payload: userData,
+  });
 };

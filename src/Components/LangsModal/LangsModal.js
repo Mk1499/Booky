@@ -15,6 +15,7 @@ import {Icon} from 'native-base';
 import styles from './style';
 import I18n, {setActiveLang} from '../../translate';
 import RNRestart from 'react-native-restart';
+import {getTheme} from '../../Services/themes';
 
 export default class LangsModal extends Component {
   constructor(props) {
@@ -61,31 +62,38 @@ export default class LangsModal extends Component {
     });
   };
 
-  renderShelfItem = ({item, index}) => (
-    <TouchableOpacity
-      style={styles.langRow}
-      onPress={() => {
-        this.changeLanguage(item.id);
-      }}>
-      <View style={styles.row}>
-        <Image source={{uri: item.cover}} style={styles.langCover} />
-        <Text
-          style={
-            I18n.locale === item.id ? styles.langName : styles.activeLangName
-          }>
-          {item.name}
-        </Text>
-      </View>
-      {I18n.locale === item.id ? (
-        <Icon
-          name="check"
-          style={styles.langAddIcon}
-          onPress={this.props.hideModal}
-          type="Entypo"
-        />
-      ) : null}
-    </TouchableOpacity>
-  );
+  renderShelfItem = ({item, index}) => {
+    let style = {
+      langName: {...styles.langName, color: getTheme().text},
+      activeLangName: {...styles.activeLangName, color: getTheme().primary},
+      langRow: {...styles.langRow, borderColor: getTheme().border},
+    };
+    return (
+      <TouchableOpacity
+        style={style.langRow}
+        onPress={() => {
+          this.changeLanguage(item.id);
+        }}>
+        <View style={styles.row}>
+          <Image source={{uri: item.cover}} style={styles.langCover} />
+          <Text
+            style={
+              I18n.locale === item.id ? style.activeLangName : style.langName
+            }>
+            {item.name}
+          </Text>
+        </View>
+        {I18n.locale === item.id ? (
+          <Icon
+            name="check"
+            style={styles.langAddIcon}
+            onPress={this.props.hideModal}
+            type="Entypo"
+          />
+        ) : null}
+      </TouchableOpacity>
+    );
+  };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     // console.log('Changeeee : ', nextProps.visible, prevState.visible);
@@ -97,6 +105,12 @@ export default class LangsModal extends Component {
   }
 
   render() {
+    let style = {
+      content: {
+        ...styles.content,
+        backgroundColor: getTheme().background,
+      },
+    };
     return (
       <View>
         <Modal
@@ -105,7 +119,7 @@ export default class LangsModal extends Component {
           onBackButtonPress={this.props.hideModal}
           useNativeDriver={true}>
           <View style={styles.container}>
-            <View style={styles.content}>
+            <View style={style.content}>
               <View style={styles.headerView}>
                 <Text style={styles.header}>{I18n.t('changeLang')}</Text>
               </View>

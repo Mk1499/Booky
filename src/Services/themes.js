@@ -1,3 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const ligthTheme = {
   name: 'LightTheme',
   primary: '#fe2c54',
@@ -19,17 +21,24 @@ const darkTheme = {
 
 let activeTheme = 'light';
 
+export const initializeTheme = () => {
+  return new Promise(async (resolve, reject) => {
+    activeTheme = await AsyncStorage.getItem('activeTheme') || 'light';
+    resolve(true);
+  });
+};
+
 export const changeTheme = () => {
   if (activeTheme === 'light') {
     activeTheme = 'dark';
+    AsyncStorage.setItem('activeTheme', 'dark');
   } else {
     activeTheme = 'light';
+    AsyncStorage.setItem('activeTheme', 'light');
   }
-  console.log('New Theme is : ', getTheme());
 };
 
 export const getTheme = () => {
-  console.log('Get Theme Called : ', activeTheme);
   if (activeTheme === 'light') {
     return ligthTheme;
   } else if (activeTheme === 'dark') {

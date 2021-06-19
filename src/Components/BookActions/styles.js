@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   text: {
     fontFamily: 'Cairo',
     color: '#eee',
-    fontSize: 0.035 * width,
+    fontSize: 0.033 * width,
   },
   icon: {
     color: '#eee',

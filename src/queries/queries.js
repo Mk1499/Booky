@@ -30,6 +30,7 @@ export const userLogin = gql`
       name
       email
       photo
+      quote
     }
   }
 `;

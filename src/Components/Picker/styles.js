@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
 
     // elevation: 5,
     backgroundColor: bgColor,
-    borderRadius: 0.02 * width,
+    // borderRadius: 0.02 * width,
   },
   picker: {
     width: 0.8 * width,

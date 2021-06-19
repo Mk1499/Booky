@@ -14,8 +14,7 @@ export default StyleSheet.create({
   },
   content: {
     width: 0.85 * width,
-    minHeight: 0.75 * height,
-    backgroundColor: '#eee',
+    minHeight: 0.45 * height,
     borderRadius: 10,
     overflow: 'hidden',
   },
@@ -23,7 +22,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 0.01 * height,
-    height: '10%',
+    height: '15%',
     backgroundColor: mainColor,
   },
   header: {

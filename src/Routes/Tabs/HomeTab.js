@@ -105,16 +105,19 @@ export default class HomeTab extends Component {
         <Tab.Screen
           name={profile}
           component={ProfileStack}
-          options={{
-            tabBarIcon: ({color}) => {
-              return (
-                <Icon
-                  name="user"
-                  type="AntDesign"
-                  style={{color: color, fontSize: 20}}
-                />
-              );
-            },
+          options={({route}) => {
+            return {
+              tabBarIcon: ({color}) => {
+                return (
+                  <Icon
+                    name="user"
+                    type="AntDesign"
+                    style={{color: color, fontSize: 20}}
+                  />
+                );
+              },
+              tabBarVisible: this.getTabBarVisibility(route),
+            };
           }}
         />
       </Tab.Navigator>

@@ -3,7 +3,8 @@ import {height, width, mainColor} from '../../configs/global';
 
 export default StyleSheet.create({
   container: {
-    height: 0.9 * height,
+    height,
+    // paddingBottom: 100,
   },
   topContent: {
     alignItems: 'center',
@@ -54,8 +55,8 @@ export default StyleSheet.create({
   addBtn: {
     position: 'absolute',
     zIndex: 10,
-    bottom: 0.05 * height,
-    right: 0.07 * width,
+    bottom: 0.13 * height, 
+    right: 0.05*width,
   },
   hList: {
     paddingHorizontal: -0.03 * width,

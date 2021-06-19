@@ -271,7 +271,7 @@ function Home(props) {
             />
           </View>
 
-          <View style={styles.section}>
+          <View style={[styles.section, {marginBottom: 100}]}>
             <Text style={styles.sideHeader}>{I18n.t('topAuthors')}</Text>
             <FlatList
               data={authors}

@@ -10,9 +10,9 @@ import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {Provider as PaperProvider} from 'react-native-paper';
 import I18n from './src/translate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {NavigationContainer , DefaultTheme, DarkTheme , useTheme } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import MainStack from './src/Routes/Stacks/Main';
-
+import {initializeTheme} from './src/Services/themes';
 
 const client = new ApolloClient({
   uri: baseURL,
@@ -24,24 +24,27 @@ export default class App extends Component {
     super(props);
     this.state = {
       loading: true,
-      darkApp:false
     };
   }
 
   componentDidMount = async () => {
-    await AsyncStorage.getItem('locale').then((locale) => {
-      I18n.locale = locale || 'ar-EG';
-      this.setState({
-        loading: false,
+    console.disableYellowBox = true;
+
+    await AsyncStorage.getItem('locale')
+      .then((locale) => {
+        I18n.locale = locale || 'ar-EG';
+      })
+      .then(() => {
+        initializeTheme().then(() => {
+          this.setState({
+            loading: false,
+          });
+        });
       });
-    });
   };
 
-
-
   render() {
-    let {loading , darkApp} = this.state;
-    let appTheme = darkApp ? DarkTheme : DefaultTheme ; 
+    let {loading, darkApp} = this.state;
     if (!loading) {
       return (
         <Provider store={store}>
@@ -55,8 +58,7 @@ export default class App extends Component {
             <NavigationContainer
               ref={(navigatorRef) => {
                 NavigationService.setTopLevelNavigator(navigatorRef);
-              }}
-              theme={appTheme}>
+              }}>
               <MainStack />
             </NavigationContainer>
           </ApolloProvider>

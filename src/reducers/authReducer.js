@@ -14,6 +14,7 @@ import {
   SETUSERDATA,
   UPDATEUSERIMG,
   LOGINLOADING,
+  UPDATEUSERDATA,
 } from '../actions/types';
 
 const auth = (state = INITIAL_STATE, action) => {
@@ -59,6 +60,11 @@ const auth = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userData: {...state.userData, photo: action.payload},
+      };
+    case UPDATEUSERDATA:
+      return {
+        ...state,
+        userData: action.payload,
       };
     default:
       return state;

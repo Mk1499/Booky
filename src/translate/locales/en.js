@@ -1,7 +1,7 @@
 export default {
   appName: 'Booky',
   book: 'Book',
-  books:"Books",
+  books: 'Books',
   novel: 'Novel',
   novels: 'Novels',
   search: 'Search',
@@ -55,4 +55,7 @@ export default {
   publisher: 'Publisher',
   comments: 'Comments',
   changeTheme: 'Change Theme',
+  editProfile: 'Edit Profile',
+  favQuote: 'Favourite Quote',
+  save: 'Save',
 };
