@@ -13,6 +13,7 @@ import UserHead from '../../Components/UserHead/UserHead';
 import UserRecords from '../../Components/UserRecords/UserRecords';
 import SettingList from '../../Components/SettingList/SettingList';
 import LangsModal from '../../Components/LangsModal/LangsModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Me extends Component {
   constructor(props) {
@@ -104,8 +105,14 @@ class Me extends Component {
 
   editProfile = () => {};
 
-  logout = () => {
+  logout = async () => {
     this.props.logout(this.props.userData.id);
+    // await AsyncStorage.multiRemove(['locale', 'activeTheme'])
+    //   .then(() => {
+    //   })
+    //   .catch((err) => {
+    //     console.log('Logout Err : ', err);
+    //   });
   };
 
   render() {

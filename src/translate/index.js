@@ -7,15 +7,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 I18n.fallbacks = true;
 
 I18n.translations = {
-  ar,
   en,
+  ar,
 };
 
 let activeLang = 'en';
 
 let defineLange = async () => {
-  AsyncStorage.getItem('locale').then((locale) => {
-    I18n.locale = locale || 'ar-EG';
+  await AsyncStorage.getItem('locale').then((locale) => {
+    console.log('Stored Locale : ', locale);
+    I18n.locale = locale || 'en-US';
     if (locale === 'ar-EG') {
       activeLang = 'ar';
     } else {
@@ -23,7 +24,7 @@ let defineLange = async () => {
     }
   });
 };
-defineLange();
+// defineLange();
 
 export const setActiveLang = (lang) => {
   let locale = lang === 'ar' ? 'ar-EG' : 'en-US';

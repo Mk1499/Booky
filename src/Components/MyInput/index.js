@@ -7,7 +7,16 @@ import {getActiveLang} from '../../translate';
 
 export default class MyInput extends Component {
   render() {
-    let {placeholder, value, onChangeText, iconName, iconType} = this.props;
+    let {
+      placeholder,
+      value,
+      onChangeText,
+      iconName,
+      iconType,
+      keyboardType,
+      width,
+      secure,
+    } = this.props;
     let style = {
       input: {
         ...styles.input,
@@ -15,6 +24,7 @@ export default class MyInput extends Component {
       },
       container: {
         ...styles.container,
+        width: width || '90%',
         flexDirection: getActiveLang() !== 'ar' ? 'row' : 'row-reverse',
       },
     };
@@ -29,6 +39,9 @@ export default class MyInput extends Component {
           onChangeText={onChangeText}
           style={style.input}
           placeholderTextColor={'grey'}
+          keyboardType={keyboardType}
+          secureTextEntry={secure}
+          textAlign={getActiveLang() === 'ar' ? 'right' : 'left'}
         />
       </View>
     );

@@ -22,17 +22,17 @@ export default class HomeTab extends Component {
 
   componentDidMount = async () => {
     await AsyncStorage.getItem('locale').then((locale) => {
-      if (locale === 'en-US') {
-        this.setState({
-          explore: I18n.translations.en.explore,
-          search: I18n.translations.en.search,
-          profile: I18n.translations.en.profile,
-        });
-      } else {
+      if (locale === 'ar-EG') {
         this.setState({
           explore: I18n.translations.ar.explore,
           search: I18n.translations.ar.search,
           profile: I18n.translations.ar.profile,
+        });
+      } else {
+        this.setState({
+          explore: I18n.translations.en.explore,
+          search: I18n.translations.en.search,
+          profile: I18n.translations.en.profile,
         });
       }
     });

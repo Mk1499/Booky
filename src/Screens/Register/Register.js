@@ -14,7 +14,8 @@ import {width, height, mainColor, bgColor} from '../../configs/global';
 import Button from '../../Components/Button/Button';
 import {connect} from 'react-redux';
 import {signUp} from '../../actions/auth';
-import I18n , {getActiveLang} from '../../translate';
+import I18n, {getActiveLang} from '../../translate';
+import MyInput from '../../Components/MyInput';
 
 function Register(props) {
   const [email, setEmail] = useState('');
@@ -40,7 +41,6 @@ function Register(props) {
     }
   }
 
-
   let dirStyle = {
     flexDirection: getActiveLang() === 'ar' ? 'row-reverse' : 'row',
   };
@@ -61,27 +61,32 @@ function Register(props) {
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={styles.content}>
         <KeyboardAvoidingView behavior="position">
-          <TextInput
-            style={[styles.input , inputDirStyle]}
+          <MyInput
             placeholder={I18n.t('username')}
-            // keyboardType="email-address"
             onChangeText={(username) => setUsername(username)}
+            width={0.8 * width}
+            iconName="user"
+            iconType="AntDesign"
           />
         </KeyboardAvoidingView>
         <KeyboardAvoidingView behavior="position">
-          <TextInput
-            style={[styles.input , inputDirStyle]}
+          <MyInput
             placeholder={I18n.t('email')}
             keyboardType="email-address"
             onChangeText={(email) => setEmail(email)}
+            width={0.8 * width}
+            iconName="email"
+            iconType="Entypo"
           />
         </KeyboardAvoidingView>
         <KeyboardAvoidingView behavior="position">
-          <TextInput
-            style={[styles.input, {marginBottom: 36}, inputDirStyle]}
-            secureTextEntry
+          <MyInput
             placeholder={I18n.t('password')}
             onChangeText={(password) => setPassword(password)}
+            width={0.8 * width}
+            iconName="lock"
+            iconType="Entypo"
+            secure={true}
           />
         </KeyboardAvoidingView>
         <Button

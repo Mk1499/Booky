@@ -29,10 +29,14 @@ export default class App extends Component {
 
   componentDidMount = async () => {
     console.disableYellowBox = true;
+    this.intializeApp();
+  };
 
+  intializeApp = async () => {
     await AsyncStorage.getItem('locale')
       .then((locale) => {
-        I18n.locale = locale || 'ar-EG';
+        console.log('App Stored Local : ', locale);
+        I18n.locale = locale || 'en-US';
       })
       .then(() => {
         initializeTheme().then(() => {
