@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 const author = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SETAUTHORS:
-      console.log('Set Authors : ', action.payload);
+      // console.log('Set Authors : ', action.payload);
       return {
         ...state,
         authors: action.payload ? action.payload : state.authors,

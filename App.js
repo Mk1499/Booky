@@ -35,7 +35,7 @@ export default class App extends Component {
   intializeApp = async () => {
     await AsyncStorage.getItem('locale')
       .then((locale) => {
-        console.log('App Stored Local : ', locale);
+        // // console.log('App Stored Local : ', locale);
         I18n.locale = locale || 'en-US';
       })
       .then(() => {

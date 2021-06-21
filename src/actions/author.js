@@ -13,12 +13,12 @@ export const addAuthorToFav = (userID, authorID) => async (dispatch) => {
       },
     })
     .then((res) => {
-      // console.log('Fav');
+      // // console.log('Fav');
     });
 };
 
 export const setAuthors = (authors) => async (dispatch) => {
-  console.log('set authors action Called : ', authors);
+  // console.log('set authors action Called : ', authors);
   dispatch({
     type: SETAUTHORS,
     payload: authors,

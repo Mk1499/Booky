@@ -5,7 +5,7 @@ import {Icon} from 'native-base';
 
 export default function SmallBookCard(props) {
   // useEffect(() => {
-  //   console.log('Small Book Props : ', props);
+  //   // console.log('Small Book Props : ', props);
   // });
 
   return (

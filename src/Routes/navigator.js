@@ -222,7 +222,7 @@ const mainBtm = createBottomTabNavigator(
       screen: ProfileStack,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => {
-          console.log(
+          // console.log(
             'Check Local : ',
             I18n.locale,
             I18n.translations['ar'].bio,

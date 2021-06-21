@@ -33,7 +33,7 @@ function checkMail(e) {
 }
 
 export const signUp = (name, email, password) => async (dispatch) => {
-  // console.log('user Data : ', name);
+  // // console.log('user Data : ', name);
   if (name && email && password) {
     await client
       .mutate({
@@ -57,7 +57,7 @@ export const signUp = (name, email, password) => async (dispatch) => {
               },
             })
             .then((res) => {
-              // console.log('Reg RES : ', res);
+              // // console.log('Reg RES : ', res);
               let userData = {};
               userData.email = res.data.addUser.email;
               userData.name = res.data.addUser.name;
@@ -70,12 +70,12 @@ export const signUp = (name, email, password) => async (dispatch) => {
               Navigation.replace('Home');
             })
             .catch((err) => {
-              console.log('Reg Error : ', err);
+              // console.log('Reg Error : ', err);
             });
         }
       })
       .catch((err) => {
-        console.log('Logout Err : ', err);
+        // console.log('Logout Err : ', err);
         RNToasty.Error({
           title: err,
         });
@@ -122,7 +122,7 @@ export const login = (email, password) => async (dispatch) => {
           },
         })
         .then((res) => {
-          console.log('Login Data : ', res);
+          // console.log('Login Data : ', res);
           if (res.data.loginUser !== null) {
             let userData = {};
             userData['name'] = res.data.loginUser.name;
@@ -149,16 +149,16 @@ export const login = (email, password) => async (dispatch) => {
           }
         })
         .catch((err) => {
-          console.log('ERR : ', err);
+          // console.log('ERR : ', err);
         });
     }
   } catch (err) {
-    console.log('Catched Err : ', err);
+    // console.log('Catched Err : ', err);
   }
 };
 
 export const logout = (userID) => async (dispatch) => {
-  console.log('Logout User ID : ', userID);
+  // console.log('Logout User ID : ', userID);
   await client
     .mutate({
       mutation: userLogout,
@@ -167,7 +167,7 @@ export const logout = (userID) => async (dispatch) => {
       },
     })
     .then(async (res) => {
-      console.log('Logout Res : ', res);
+      // console.log('Logout Res : ', res);
       if (res.data) {
         AsyncStorage.removeItem('userData');
         dispatch({
@@ -181,13 +181,13 @@ export const logout = (userID) => async (dispatch) => {
       }
     })
     .catch((err) => {
-      console.log('Logout Error : ', err);
+      // console.log('Logout Error : ', err);
     });
 };
 
 export const checkAutoLogin = () => async (dispatch) => {
   let data = await AsyncStorage.getItem('userData');
-  console.log('user Data : ', data);
+  // console.log('user Data : ', data);
   if (data) {
     dispatch({
       type: SETUSERDATA,
@@ -199,7 +199,7 @@ export const checkAutoLogin = () => async (dispatch) => {
   }
 
   // let userID = await AsyncStorage.getItem('userID');
-  // console.log('No User id : ', userID);
+  // // console.log('No User id : ', userID);
 
   // if (userID) {
   //   // userData = JSON.parse(userData);
@@ -223,14 +223,14 @@ export const updateUserImg = (id, photoURL) => async (dispatch) => {
       },
     })
     .then((res) => {
-      // console.log('updated user image res : ', res);
+      // // console.log('updated user image res : ', res);
       dispatch({
         type: UPDATEUSERIMG,
         payload: res.data.updateUserImage.photo,
       });
     })
     .catch((err) => {
-      console.log('update user image err : ', err);
+      // console.log('update user image err : ', err);
     });
 };
 
@@ -243,14 +243,14 @@ export const getUserDetails = (id) => async (dispatch) => {
       },
     })
     .then((res) => {
-      // console.log('User Info11 : ', res);
+      // // console.log('User Info11 : ', res);
       dispatch({
         type: SETUSERDATA,
         payload: res.data.user,
       });
     })
     .catch((err) => {
-      console.log('getting user info err : ', err);
+      // console.log('getting user info err : ', err);
     });
 };
 

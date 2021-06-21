@@ -66,11 +66,11 @@ class Me extends Component {
       ],
       langModal: false,
     };
-    console.log('me Props : ', this.props);
+    // console.log('me Props : ', this.props);
   }
 
   componentDidMount() {
-    console.log('Active Theme : ', getTheme());
+    // console.log('Active Theme : ', getTheme());
   }
 
   toggleLangModal = () => {
@@ -111,7 +111,7 @@ class Me extends Component {
     //   .then(() => {
     //   })
     //   .catch((err) => {
-    //     console.log('Logout Err : ', err);
+    //     // console.log('Logout Err : ', err);
     //   });
   };
 

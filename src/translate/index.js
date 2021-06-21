@@ -15,7 +15,7 @@ let activeLang = 'en';
 
 let defineLange = async () => {
   await AsyncStorage.getItem('locale').then((locale) => {
-    console.log('Stored Locale : ', locale);
+    // console.log('Stored Locale : ', locale);
     I18n.locale = locale || 'en-US';
     if (locale === 'ar-EG') {
       activeLang = 'ar';
@@ -37,14 +37,14 @@ export const getActiveLang = () => {
   return activeLang;
 };
 
-console.log(
-  'RTL : ',
-  I18nManager.isRTL,
-  I18nManager.getConstants(),
-  getActiveLang(),
-);
+// console.log(
+//   'RTL : ',
+//   I18nManager.isRTL,
+//   I18nManager.getConstants(),
+//   getActiveLang(),
+// );
 getLanguages().then((langs) => {
-  console.log('Langs : ', langs);
+  // console.log('Langs : ', langs);
 });
 
 export default I18n;

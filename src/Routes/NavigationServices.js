@@ -16,7 +16,7 @@ function navigate(name, params) {
 }
 
 function replace(name, params) {
-  console.log('Replace to : ', name);
+  // console.log('Replace to : ', name);
   _navigator.dispatch(
     StackActions.replace(name),
     // StackActions.reset({

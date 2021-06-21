@@ -32,15 +32,15 @@ export default function GenreScreen(props) {
       id: genreID,
     },
     onCompleted: (data) => {
-      // console.log('Genre Data : ', data);
+      // // console.log('Genre Data : ', data);
 
       setRefreshing(false);
       setGenre(data.genre);
     },
     onError: (err) => {
-      console.log('Props : ', props);
+      // console.log('Props : ', props);
 
-      // console.log('Getting a book details Error : ', err);
+      // // console.log('Getting a book details Error : ', err);
     },
   });
   const onRefresh = React.useCallback(() => {

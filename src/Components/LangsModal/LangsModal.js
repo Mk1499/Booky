@@ -20,7 +20,7 @@ import {getTheme} from '../../Services/themes';
 export default class LangsModal extends Component {
   constructor(props) {
     super(props);
-    console.log('Change Lange Props : ', props);
+    // console.log('Change Lange Props : ', props);
     this.state = {
       langs: [
         {
@@ -44,7 +44,7 @@ export default class LangsModal extends Component {
     let lang = id.slice(0, 2);
     let {changeAction} = this.props;
     if (I18n.locale !== id) {
-      console.log('Lang ID : ', lang);
+      // console.log('Lang ID : ', lang);
       setActiveLang(lang);
       AsyncStorage.setItem('locale', id).then(() => {
         // DevSettings.reload();
@@ -96,7 +96,7 @@ export default class LangsModal extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log('Changeeee : ', nextProps.visible, prevState.visible);
+    // // console.log('Changeeee : ', nextProps.visible, prevState.visible);
     if (nextProps.visible !== prevState.visible) {
       return {
         visible: nextProps.visible,

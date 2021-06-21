@@ -41,12 +41,12 @@ function BookDetails(props) {
   const {refetch} = useQuery(getBookDetails, {
     variables: {id: bookID},
     onCompleted: (data) => {
-      console.log('Book Data : ', data, bookID);
+      // console.log('Book Data : ', data, bookID);
       setBook(data.book);
       setRefreshing(false);
     },
     onError: (err) => {
-      console.log('Getting a book details Error : ', err);
+      // console.log('Getting a book details Error : ', err);
     },
     notifyOnNetworkStatusChange: true,
   });
@@ -62,7 +62,7 @@ function BookDetails(props) {
         fetchPolicy: 'no-cache',
       })
       .then((res) => {
-        // console.log('checking fav res : ', res);
+        // // console.log('checking fav res : ', res);
         let data = res.data;
         if (data.checkBookFav) {
           setFavState(true);
@@ -70,7 +70,7 @@ function BookDetails(props) {
         }
       })
       .catch((err) => {
-        console.log('checking fav state err : ', err);
+        // console.log('checking fav state err : ', err);
       });
   });
   const onRefresh = React.useCallback(() => {
@@ -127,7 +127,7 @@ function BookDetails(props) {
         setFavID(res.data.addBookFav.id);
       })
       .catch((err) => {
-        console.log('add to fav error : ', err);
+        // console.log('add to fav error : ', err);
       });
   }
 
@@ -141,7 +141,7 @@ function BookDetails(props) {
       })
       .then((res) => {})
       .catch((err) => {
-        console.log('remove from fav err : ', err);
+        // console.log('remove from fav err : ', err);
       });
   }
 

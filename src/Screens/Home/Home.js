@@ -127,7 +127,7 @@ function Home(props) {
         fetchPolicy: 'no-cache',
       })
       .then(({data}) => {
-        console.log('Books : ', data.books);
+        // console.log('Books : ', data.books);
         setBooks(data.books);
       })
       .catch((err) => {
@@ -167,7 +167,7 @@ function Home(props) {
     requestUserPermission();
     backgroundMsgs();
     forgroundMsgs();
-    console.log('Home Props : ', props);
+    // console.log('Home Props : ', props);
   }, []);
 
   useEffect(() => {
@@ -184,7 +184,7 @@ function Home(props) {
       setRefreshing(false);
     },
     onError: (err) => {
-      console.log('Get Books Err : ', err);
+      // console.log('Get Books Err : ', err);
       setRefreshing(false);
     },
   });
@@ -194,7 +194,7 @@ function Home(props) {
       setAuthors(data.authors);
     },
     onError: (err) => {
-      console.log('Get Authors Err : ', err);
+      // console.log('Get Authors Err : ', err);
     },
   });
 
@@ -203,7 +203,7 @@ function Home(props) {
       setLatestBooks(data.books);
     },
     onError: (err) => {
-      console.log('Get Latest Books Err : ', err);
+      // console.log('Get Latest Books Err : ', err);
     },
   });
 
@@ -212,7 +212,7 @@ function Home(props) {
       setGenres(data.genres);
     },
     onError: (err) => {
-      console.log('Get Genres Err : ', err);
+      // console.log('Get Genres Err : ', err);
     },
   });
 

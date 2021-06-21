@@ -36,7 +36,7 @@ function BookActions(props) {
         });
       })
       .catch((err) => {
-        console.log('cecking book read Err : ', err);
+        // console.log('cecking book read Err : ', err);
       });
   }
   return (

@@ -7,26 +7,26 @@ export async function requestUserPermission() {
     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
   if (enabled) {
-    console.log('Authorization statuss:', authStatus);
+    // console.log('Authorization statuss:', authStatus);
     await messaging()
       .getToken()
       .then((token) => {
-        console.log('Your Device Token is : ', token);
+        // console.log('Your Device Token is : ', token);
       });
   }
 }
 
 export const backgroundMsgs = () => {
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    console.log('Message handled in the background!', remoteMessage);
+    // console.log('Message handled in the background!', remoteMessage);
   });
 };
 
 export const forgroundMsgs = () => {
   messaging().onMessage(async (remoteMessage) => {
-    console.log(
-      'A new FCM message arrived! from fb file',
-      JSON.stringify(remoteMessage),
-    );
+    // console.log(
+    //   'A new FCM message arrived! from fb file',
+    //   JSON.stringify(remoteMessage),
+    // );
   });
 };

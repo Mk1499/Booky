@@ -12,9 +12,9 @@ export default function SubHeader(props) {
     setFavState(!favState);
   }
   useEffect(() => {
-    // console.log('FavState changed : ', props.state);
+    // // console.log('FavState changed : ', props.state);
     setFavState(props.state);
-    console.log('Lang : ', I18nManager);
+    // console.log('Lang : ', I18nManager);
   }, [props.state]);
 
   return (

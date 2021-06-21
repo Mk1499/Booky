@@ -80,7 +80,7 @@ function Login(props) {
           <Text style={styles.text}>{I18n.t('notMember')} </Text>
           <Text
             onPress={() => {
-              console.log('Nav : ', props.navigation);
+              // console.log('Nav : ', props.navigation);
               props.navigation.navigate('SignUp');
             }}
             style={styles.textLink}>

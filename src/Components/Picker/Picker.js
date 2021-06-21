@@ -12,7 +12,7 @@ export default class PickerCompoents extends Component {
       selectedItem: null,
       data: [],
     };
-    console.log('DATA : ', this.props.data);
+    // console.log('DATA : ', this.props.data);
   }
 
   componentDidMount() {

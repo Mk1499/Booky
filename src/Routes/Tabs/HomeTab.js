@@ -39,7 +39,7 @@ export default class HomeTab extends Component {
   };
 
   getTabBarVisibility = (route) => {
-    console.log('R : ', route);
+    // console.log('R : ', route);
     let index = route.state?.index || 0;
     if (index === 0) {
       return true;
@@ -69,7 +69,7 @@ export default class HomeTab extends Component {
           name={explore}
           component={HomeStack}
           options={({route}) => {
-            console.log('Ex Route : ', route);
+            // console.log('Ex Route : ', route);
             return {
               tabBarIcon: ({color}) => {
                 return (

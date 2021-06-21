@@ -43,7 +43,7 @@ class userProfile extends Component {
       props.userData.photo !== state.userImg &&
       !state.imgUpdated
     ) {
-      console.log('Img Changed : ', props.userData.photo);
+      // console.log('Img Changed : ', props.userData.photo);
       return {
         userImg: props.userData.photo,
       };
@@ -75,7 +75,7 @@ class userProfile extends Component {
         });
       })
       .catch((err) => {
-        console.log('Getting Fav Books error : ', err, userID);
+        // console.log('Getting Fav Books error : ', err, userID);
       });
   };
 
@@ -95,7 +95,7 @@ class userProfile extends Component {
         });
       })
       .catch((err) => {
-        console.log('Getting Fav Authors error : ', err, userID);
+        // console.log('Getting Fav Authors error : ', err, userID);
       });
   };
 
@@ -156,11 +156,11 @@ class userProfile extends Component {
               updateUserImg(userData.id, imgURL);
             })
             .catch((err) => {
-              console.log("Can't upload : ", err);
+              // console.log("Can't upload : ", err);
             });
         })
         .catch((err) => {
-          console.log('upload Err : ', err);
+          // console.log('upload Err : ', err);
           throw err;
         });
     } catch (err) {

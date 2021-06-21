@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 const genre = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SETGENRES:
-      console.log('Set Genres : ', action.payload);
+      // console.log('Set Genres : ', action.payload);
       return {
         ...state,
         genres: action.payload ? action.payload : state.genres,

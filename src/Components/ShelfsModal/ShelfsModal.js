@@ -19,7 +19,7 @@ export default class ShelfsModal extends Component {
       visible: this.props.visible,
     };
 
-    // console.log('Shelf props : ', this.props);
+    // // console.log('Shelf props : ', this.props);
   }
 
   toggleModal = () => {
@@ -43,7 +43,7 @@ export default class ShelfsModal extends Component {
   );
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    // console.log('Changeeee : ', nextProps.visible, prevState.visible);
+    // // console.log('Changeeee : ', nextProps.visible, prevState.visible);
     if (nextProps.visible !== prevState.visible) {
       return {
         visible: nextProps.visible,

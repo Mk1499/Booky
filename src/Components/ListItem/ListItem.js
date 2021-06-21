@@ -8,7 +8,7 @@ import { mainColor } from '../../configs/global';
 
 export default class ListItem extends Component {
   componentDidMount() {
-    console.log('Active Lang : ', getActiveLang());
+    // console.log('Active Lang : ', getActiveLang());
   }
 
   render() {

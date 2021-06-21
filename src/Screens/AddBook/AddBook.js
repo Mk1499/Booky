@@ -19,7 +19,7 @@ import {getTheme} from '../../Services/themes';
 
 class AddBook extends Component {
   static getDrivedStateFromProps(prevProps, nextProps) {
-    console.log('new Props : ', prevProps, nextProps);
+    // console.log('new Props : ', prevProps, nextProps);
   }
 
   constructor(props) {
@@ -42,7 +42,7 @@ class AddBook extends Component {
   }
 
   componentDidMount() {
-    console.log('Redux Authors : ', this.props.authors);
+    // console.log('Redux Authors : ', this.props.authors);
     this.setState({
       authorID: this.props.authors[0]?.id,
       genreID: this.props.genres[0]?.id,
@@ -50,11 +50,11 @@ class AddBook extends Component {
   }
 
   componentDidUpdate() {
-    console.log('Cmd will recieve props : ', this.props);
+    // console.log('Cmd will recieve props : ', this.props);
   }
 
   changeAuthor = (author) => {
-    console.log('Change Item : ', author);
+    // console.log('Change Item : ', author);
     if (author && author.id) {
       this.setState({
         authorID: author.id,
@@ -69,7 +69,7 @@ class AddBook extends Component {
   }
 
   changeGenre = (genre) => {
-    console.log('Change Item : ', genre);
+    // console.log('Change Item : ', genre);
 
     if (genre && genre.id) {
       this.setState({
@@ -89,7 +89,7 @@ class AddBook extends Component {
       coverURL,
     };
 
-    console.log('Book Data : ', book);
+    // console.log('Book Data : ', book);
     this.setState({
       addingBook: true,
     });
@@ -107,14 +107,14 @@ class AddBook extends Component {
         },
       })
       .then((data) => {
-        console.log('Book Added Successfully : ', data);
+        // console.log('Book Added Successfully : ', data);
         this.goBack();
         RNToasty.Success({
           title: I18n.t('bookAdded'),
         });
       })
       .catch((err) => {
-        console.log('Fail adding new book : ', JSON.stringify(err));
+        // console.log('Fail adding new book : ', JSON.stringify(err));
         RNToasty.Error({
           title: I18n.t('addBookFail'),
         });

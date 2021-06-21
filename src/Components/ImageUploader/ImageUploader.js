@@ -124,7 +124,7 @@ export default class ImageSelector extends Component {
         }
       })
       .catch((err) => {
-        console.log('upload err : ', err);
+        // console.log('upload err : ', err);
       });
   }
 

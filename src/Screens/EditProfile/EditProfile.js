@@ -30,7 +30,7 @@ class EditProfile extends Component {
       profileImg: null,
     };
 
-    console.log('edit profile props : ', props);
+    // console.log('edit profile props : ', props);
   }
 
   goBack() {
@@ -51,7 +51,7 @@ class EditProfile extends Component {
           });
         })
         .catch((err) => {
-          console.log('upload Err : ', err);
+          // console.log('upload Err : ', err);
           throw err;
         });
     } catch (err) {
@@ -64,7 +64,7 @@ class EditProfile extends Component {
   };
 
   uploadImg = async () => {
-    console.log('try ');
+    // console.log('try ');
     let {profileImg} = this.state;
     return new Promise(async (resolve, reject) => {
       let imgName = `${Math.random() * 10000}${profileImg.name}`;
@@ -77,7 +77,7 @@ class EditProfile extends Component {
           resolve(imgURL);
         })
         .catch((err) => {
-          console.log("Can't upload : ", err);
+          // console.log("Can't upload : ", err);
         });
     });
   };
@@ -91,7 +91,7 @@ class EditProfile extends Component {
     // if user change old phone
     if (profileImg) {
       this.uploadImg().then((imgURL) => {
-        console.log('Uploaded img url : ', imgURL);
+        // console.log('Uploaded img url : ', imgURL);
         this.submit(imgURL);
         this.setState({
           profileImg: null,
@@ -105,7 +105,7 @@ class EditProfile extends Component {
   submit = async (photo = this.state.photo) => {
     let {id, userName, quote} = this.state;
     this.setState({submiting: true});
-    console.log('state before submit : ', this.state , photo);
+    // console.log('state before submit : ', this.state , photo);
     await client
       .mutate({
         mutation: updateUserMutation,
@@ -117,7 +117,7 @@ class EditProfile extends Component {
         },
       })
       .then((res) => {
-        console.log('Update User RES : ', res);
+        // console.log('Update User RES : ', res);
         // updateUserData(id, photo, userName, quote);
         this.props.updateUserData(id, photo, userName, quote);
 
@@ -125,7 +125,7 @@ class EditProfile extends Component {
         this.goBack();
       })
       .catch((err) => {
-        console.log('Update User Err : ', err);
+        // console.log('Update User Err : ', err);
         this.setState({submiting: false});
       });
   };

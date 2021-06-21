@@ -43,7 +43,7 @@ function ActorPrfile(props) {
   let avatarURL = props.route.params.author.avatarURL;
   let name = props.route.params.author.name;
 
-  // console.log('Author Props : ', authorID);
+  // // console.log('Author Props : ', authorID);
 
   const [author, setAuthor] = useState({
     id: authorID,
@@ -68,11 +68,11 @@ function ActorPrfile(props) {
   useQuery(getAuthorDetails, {
     variables: {id: authorID},
     onCompleted: (data) => {
-      // console.log('Author Data : ', data, authorID);
+      // // console.log('Author Data : ', data, authorID);
       setAuthor(data.author);
     },
     onError: (err) => {
-      console.log('Getting a Author details Error : ', err);
+      // console.log('Getting a Author details Error : ', err);
     },
     notifyOnNetworkStatusChange: true,
   });
@@ -105,7 +105,7 @@ function ActorPrfile(props) {
   }
 
   function renderWork({item}, type) {
-    // console.log('Book :', item);
+    // // console.log('Book :', item);
 
     return (
       <TouchableOpacity
@@ -130,19 +130,19 @@ function ActorPrfile(props) {
         fetchPolicy: 'no-cache',
       })
       .then((res) => {
-        // console.log('checking author fav res  : ', res);
+        // // console.log('checking author fav res  : ', res);
         if (res.data.checkAuthorFav !== null) {
           setFavState(true);
           setFavID(res.data.checkAuthorFav.id);
         }
       })
       .catch((err) => {
-        console.log('checking author fav err : ', err);
+        // console.log('checking author fav err : ', err);
       });
   }, []);
 
   function addToFav() {
-    // console.log('Author Data : ', author);
+    // // console.log('Author Data : ', author);
     client
       .mutate({
         mutation: addAuthorToFavMutation,
@@ -152,17 +152,17 @@ function ActorPrfile(props) {
         },
       })
       .then((res) => {
-        // console.log('author fav res : ', res);
+        // // console.log('author fav res : ', res);
 
         setFavID(res.data.addFavAuthor.id);
       })
       .catch((err) => {
-        console.log('add to fav error : ', err);
+        // console.log('add to fav error : ', err);
       });
   }
 
   function removeFromFav() {
-    // console.log('FAVID : ', favID);
+    // // console.log('FAVID : ', favID);
 
     client
       .mutate({
@@ -173,7 +173,7 @@ function ActorPrfile(props) {
       })
       .then((res) => {})
       .catch((err) => {
-        console.log('remove author from fav err : ', err);
+        // console.log('remove author from fav err : ', err);
       });
   }
 
