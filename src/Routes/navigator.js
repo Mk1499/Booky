@@ -223,10 +223,10 @@ const mainBtm = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({tintColor}) => {
           // console.log(
-            'Check Local : ',
-            I18n.locale,
-            I18n.translations['ar'].bio,
-          );
+          //   'Check Local : ',
+          //   I18n.locale,
+          //   I18n.translations['ar'].bio,
+          // );
           return (
             <Icon
               name="user"

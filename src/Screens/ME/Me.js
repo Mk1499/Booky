@@ -39,7 +39,7 @@ class Me extends Component {
           text: I18n.t('yourFavAuthors'),
           iconName: 'person-outline',
           iconType: 'Ionicons',
-          action: () => {},
+          action: () => this.goToScreen('FavAuthors'),
         },
         {
           id: 3,

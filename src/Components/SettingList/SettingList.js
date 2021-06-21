@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, FlatList} from 'react-native';
 import styles from './styles';
 import ListItem from '../ListItem/ListItem';
-import { getTheme } from '../../Services/themes';
+import {getTheme} from '../../Services/themes';
 
 export default class SettingList extends Component {
   constructor(props) {
@@ -14,11 +14,11 @@ export default class SettingList extends Component {
     let {items} = this.props;
     let style = {
       ...styles,
-      container:{
+      container: {
         ...styles.container,
-        backgroundColor: getTheme().background
-      }
-    }
+        backgroundColor: getTheme().background,
+      },
+    };
 
     return (
       <View style={style.container}>
@@ -26,7 +26,6 @@ export default class SettingList extends Component {
           data={items}
           renderItem={({item}) => <ListItem item={item} key={item.id} />}
           contentContainerStyle={styles.list}
-          keyExtractor={({item, index}) => index}
         />
       </View>
     );

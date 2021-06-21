@@ -58,4 +58,7 @@ export default {
   editProfile: 'تعديل الملف الشخصي',
   favQuote: 'العبارة المفضله',
   save: 'حفظ',
+  name: 'الأسم',
+  age: 'العمر',
+  noFavAuthors: 'عفوا ولكنك لم تضف مؤلفين الى قائمة مفضلتك بعد',
 };

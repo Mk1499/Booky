@@ -16,6 +16,7 @@ export const getFavAuthorsQuery = gql`
         id
         name
         avatarURL
+        age
       }
     }
   }

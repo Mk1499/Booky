@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'Cairo',
     color: textColor,
-    fontSize: 0.06 * width,
+    fontSize: 0.05 * width,
     textAlign: I18nManager.isRTL ? 'left' : 'right',
     width: '90%',
     // backgroundColor:'black'

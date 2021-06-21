@@ -58,4 +58,7 @@ export default {
   editProfile: 'Edit Profile',
   favQuote: 'Favourite Quote',
   save: 'Save',
+  name: 'Name',
+  age: 'Age',
+  noFavAuthors: "Sorry but you don't add any favourite author yet",
 };
