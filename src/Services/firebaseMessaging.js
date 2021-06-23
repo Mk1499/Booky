@@ -1,4 +1,5 @@
 import messaging from '@react-native-firebase/messaging';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
@@ -12,6 +13,7 @@ export async function requestUserPermission() {
       .getToken()
       .then((token) => {
         // console.log('Your Device Token is : ', token);
+        AsyncStorage.setItem('DeviceToken', token);
       });
   }
 }

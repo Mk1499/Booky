@@ -8,6 +8,7 @@ import {
   UPDATEUSERIMG,
   LOGINLOADING,
   UPDATEUSERDATA,
+  UPDATEDEVICTOKEN,
 } from './types';
 import {
   userLogin,
@@ -94,7 +95,8 @@ export const loginLoading = () => (dispatch) => {
   });
 };
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, deviceToken) => async (dispatch) => {
+  console.log('Device Token : ', deviceToken);
   try {
     if (!checkMail(email)) {
       RNToasty.Error({
@@ -119,6 +121,7 @@ export const login = (email, password) => async (dispatch) => {
           variables: {
             email,
             password,
+            deviceToken,
           },
         })
         .then((res) => {
@@ -264,5 +267,13 @@ export const updateUserData = (id, photo, name, quote) => async (dispatch) => {
   dispatch({
     type: UPDATEUSERDATA,
     payload: userData,
+  });
+};
+
+export const updateDeviceToken = (token) => async (dispatch) => {
+  console.log('New Token : ', token);
+  dispatch({
+    type: UPDATEDEVICTOKEN,
+    payload: token,
   });
 };

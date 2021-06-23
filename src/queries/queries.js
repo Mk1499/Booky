@@ -24,8 +24,8 @@ export const getUserDetailsQuery = gql`
 `;
 
 export const userLogin = gql`
-  mutation($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
+  mutation($email: String!, $password: String!, $deviceToken: String) {
+    loginUser(email: $email, password: $password, deviceToken: $deviceToken) {
       id
       name
       email

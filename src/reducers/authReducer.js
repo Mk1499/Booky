@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   userData: {},
   signUpLoading: false,
   loading: false,
+  deviceToken: null,
 };
 import {
   LOGIN,
@@ -15,6 +16,7 @@ import {
   UPDATEUSERIMG,
   LOGINLOADING,
   UPDATEUSERDATA,
+  UPDATEDEVICTOKEN,
 } from '../actions/types';
 
 const auth = (state = INITIAL_STATE, action) => {
@@ -65,6 +67,11 @@ const auth = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userData: action.payload,
+      };
+    case UPDATEDEVICTOKEN:
+      return {
+        ...state,
+        deviceToken: action.payload,
       };
     default:
       return state;

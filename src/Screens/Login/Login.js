@@ -14,6 +14,7 @@ import I18n, {getActiveLang} from '../../translate';
 import {styles} from './styles';
 import MyInput from '../../Components/MyInput';
 import {width} from '../../configs/global';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Login(props) {
   const [email, setEmail] = useState('');
@@ -31,6 +32,11 @@ function Login(props) {
   let inputDirStyle = {
     textAlign: getActiveLang() === 'ar' ? 'right' : 'left',
   };
+
+  let deviceToken = null;
+  AsyncStorage.getItem('DeviceToken').then((token) => {
+    deviceToken = token;
+  });
 
   return (
     <View style={styles.container}>
@@ -73,7 +79,7 @@ function Login(props) {
           processing={props.processing}
           action={() => {
             props.loginLoading();
-            props.login(email, password);
+            props.login(email, password, deviceToken);
           }}
         />
         <View style={[styles.signUpLinkView, dirStyle]}>
@@ -94,6 +100,7 @@ function Login(props) {
 
 const mapStateToProps = (state) => ({
   processing: state.auth.loginLoading,
+  deviceToken: state.auth.deviceToken,
 });
 
 export default connect(mapStateToProps, {login, checkAutoLogin, loginLoading})(
