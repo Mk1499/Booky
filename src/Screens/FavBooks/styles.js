@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {height, width} from '../../configs/global';
+import {height, width,mainColor} from '../../configs/global';
 
 export default StyleSheet.create({
   container: {
@@ -21,5 +21,9 @@ export default StyleSheet.create({
   book: {
     marginHorizontal: 0.05 * width,
     marginVertical: 0.05 * width,
+  },
+  msg: {
+    color: mainColor,
+    fontFamily: 'Cairo',
   },
 });

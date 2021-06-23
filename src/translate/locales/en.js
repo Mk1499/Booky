@@ -60,5 +60,7 @@ export default {
   save: 'Save',
   name: 'Name',
   age: 'Age',
-  noFavAuthors: "Sorry but you don't add any favourite author yet",
+  noFavAuthors: "Sorry but you don't add any favourite authors yet",
+  noFavBooks: "Sorry but you don't add any favourite Books yet",
+  noAddedBooks: "Sorry but you don't add any Books yet",
 };

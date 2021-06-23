@@ -162,7 +162,7 @@ function ActorPrfile(props) {
   }
 
   function removeFromFav() {
-    // // console.log('FAVID : ', favID);
+    console.log('FAVID : ', favID);
 
     client
       .mutate({

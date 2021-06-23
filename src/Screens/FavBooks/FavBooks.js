@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, ActivityIndicator, ScrollView, FlatList} from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  ScrollView,
+  FlatList,
+  Text,
+  RefreshControl,
+} from 'react-native';
 import {connect} from 'react-redux';
 import styles from './styles';
 import SubHeader from '../../Components/SubHeader/SubHeader';
@@ -16,6 +23,7 @@ class FavBooks extends Component {
     this.state = {
       books: [],
       loading: true,
+      refreshing: false,
     };
   }
 
@@ -48,6 +56,9 @@ class FavBooks extends Component {
   getFavBooks = async () => {
     let {userData} = this.props;
     console.log('User ID : ', userData.id);
+    this.setState({
+      refreshing: true,
+    });
     await client
       .query({
         query: getFavBooksQuery,
@@ -61,16 +72,20 @@ class FavBooks extends Component {
         this.setState({
           loading: false,
           books: data.favBooks,
+          refreshing: false,
         });
       })
       .catch((err) => {
-        this.setState({});
+        this.setState({
+          loading: false,
+          refreshing: false,
+        });
         console.error('Get Fav Authors Err : ', err);
       });
   };
 
   render() {
-    let {books, loading} = this.state;
+    let {books, loading, refreshing} = this.state;
     let style = {
       container: {
         ...styles.container,
@@ -89,8 +104,16 @@ class FavBooks extends Component {
           <View style={styles.centerView}>
             <ActivityIndicator color={mainColor} size="large" />
           </View>
-        ) : (
-          <ScrollView contentContainerStyle={styles.content}>
+        ) : books.length ? (
+          <ScrollView
+            contentContainerStyle={styles.content}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => this.getFavBooks()}
+                colors={[mainColor]}
+              />
+            }>
             <FlatList
               data={books}
               renderItem={this.renderItem}
@@ -98,6 +121,10 @@ class FavBooks extends Component {
               style={styles.list}
             />
           </ScrollView>
+        ) : (
+          <View style={styles.centerView}>
+            <Text style={styles.msg}>{I18n.t('noFavBooks')} </Text>
+          </View>
         )}
       </View>
     );

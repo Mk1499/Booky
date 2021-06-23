@@ -5,6 +5,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Text,
+  RefreshControl,
 } from 'react-native';
 import styles from './styles';
 import AuthorListItem from '../../Components/AuthorListItem/AuthorListItem';
@@ -22,6 +23,7 @@ class FavAuthors extends Component {
     this.state = {
       authors: [],
       loading: true,
+      refreshing: false,
     };
   }
 
@@ -32,6 +34,9 @@ class FavAuthors extends Component {
   getFavAuthors = async () => {
     let {userData} = this.props;
     console.log('User ID : ', userData.id);
+    this.setState({
+      refreshing: true,
+    });
     await client
       .query({
         query: getFavAuthorsQuery,
@@ -45,10 +50,15 @@ class FavAuthors extends Component {
         this.setState({
           loading: false,
           authors: data.favAuthors,
+          refreshing: false,
         });
       })
       .catch((err) => {
         console.error('Get Fav Authors Err : ', err);
+        this.setState({
+          refreshing: false,
+          loading: false,
+        });
       });
   };
 
@@ -77,7 +87,7 @@ class FavAuthors extends Component {
       },
     };
 
-    let {authors, loading} = this.state;
+    let {authors, loading, refreshing} = this.state;
 
     return (
       <View style={style.container}>
@@ -91,7 +101,15 @@ class FavAuthors extends Component {
             <ActivityIndicator color={mainColor} size="large" />
           </View>
         ) : authors.length ? (
-          <ScrollView contentContainerStyle={styles.content}>
+          <ScrollView
+            contentContainerStyle={styles.content}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => this.getFavAuthors()}
+                colors={[mainColor]}
+              />
+            }>
             <FlatList data={authors} renderItem={this.renderItem} />
           </ScrollView>
         ) : (

@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, ActivityIndicator, ScrollView, FlatList} from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  ScrollView,
+  FlatList,
+  RefreshControl,
+  Text,
+} from 'react-native';
 import {connect} from 'react-redux';
 import styles from './styles';
 import SubHeader from '../../Components/SubHeader/SubHeader';
@@ -17,11 +24,12 @@ class AddedBooks extends Component {
     this.state = {
       books: [],
       loading: true,
+      refreshing: false,
     };
   }
 
   componentDidMount() {
-    this.getFavBooks();
+    this.getAddedBooks();
   }
 
   goBack = () => {
@@ -32,10 +40,7 @@ class AddedBooks extends Component {
     console.log('Book Item : ', item);
     return (
       <View style={styles.book}>
-        <BookCard
-          book={item}
-          navigate={() => this.gotoBookScreen(item?.id)}
-        />
+        <BookCard book={item} navigate={() => this.gotoBookScreen(item?.id)} />
       </View>
     );
   };
@@ -46,9 +51,11 @@ class AddedBooks extends Component {
     });
   };
 
-  getFavBooks = async () => {
+  getAddedBooks = async () => {
     let {userData} = this.props;
-    console.log('User ID : ', userData.id);
+    this.setState({
+      refreshing: true,
+    });
     await client
       .query({
         query: getUserAddedBooksQuery,
@@ -62,16 +69,20 @@ class AddedBooks extends Component {
         this.setState({
           loading: false,
           books: data.user.addedBooks,
+          refreshing: false,
         });
       })
       .catch((err) => {
-        this.setState({});
+        this.setState({
+          refreshing: false,
+          loading: true,
+        });
         console.error('Get Fav Authors Err : ', err);
       });
   };
 
   render() {
-    let {books, loading} = this.state;
+    let {books, loading , refreshing} = this.state;
     let style = {
       container: {
         ...styles.container,
@@ -90,8 +101,16 @@ class AddedBooks extends Component {
           <View style={styles.centerView}>
             <ActivityIndicator color={mainColor} size="large" />
           </View>
-        ) : (
-          <ScrollView contentContainerStyle={styles.content}>
+        ) : books.length ? (
+          <ScrollView
+            contentContainerStyle={styles.content}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => this.getAddedBooks()}
+                colors={[mainColor]}
+              />
+            }>
             <FlatList
               data={books}
               renderItem={this.renderItem}
@@ -99,6 +118,10 @@ class AddedBooks extends Component {
               style={styles.list}
             />
           </ScrollView>
+        ) : (
+          <View style={styles.centerView}>
+            <Text style={styles.msg}>{I18n.t('noAddedBooks')} </Text>
+          </View>
         )}
       </View>
     );
