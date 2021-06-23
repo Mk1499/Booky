@@ -25,14 +25,14 @@ class Me extends Component {
           text: I18n.t('yourFavBooks'),
           iconName: 'hearto',
           iconType: 'AntDesign',
-          action: () => {},
+          action: () => this.goToScreen('FavBooks'),
         },
         {
           id: 1,
           text: I18n.t('addedBooks'),
           iconName: 'add-circle-outline',
           iconType: 'MaterialIcons',
-          action: () => {},
+          action: () => this.goToScreen('AddedBooks'),
         },
         {
           id: 2,

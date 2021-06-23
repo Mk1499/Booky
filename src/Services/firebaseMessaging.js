@@ -15,6 +15,7 @@ export async function requestUserPermission() {
         // console.log('Your Device Token is : ', token);
         AsyncStorage.setItem('DeviceToken', token);
       });
+    messaging().subscribeToTopic('MobileApp');
   }
 }
 

@@ -5,6 +5,8 @@ import BookDetails from '../../Screens/BookDetails/BookDetails';
 import AuthorProfile from '../../Screens/AuthorProfile/AuthorProfile';
 import EditProfile from '../../Screens/EditProfile/EditProfile';
 import FavAuthors from '../../Screens/FavAuthors/FavAuthors';
+import FavBooks from '../../Screens/FavBooks/FavBooks';
+import AddedBooks from '../../Screens/AddedBooks/AddedBooks';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +27,16 @@ export default class ProfileStack extends Component {
         <Stack.Screen
           name="FavAuthors"
           component={FavAuthors}
+          options={{headerTitle: null, headerShown: false}}
+        />
+        <Stack.Screen
+          name="FavBooks"
+          component={FavBooks}
+          options={{headerTitle: null, headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddedBooks"
+          component={AddedBooks}
           options={{headerTitle: null, headerShown: false}}
         />
         <Stack.Screen
