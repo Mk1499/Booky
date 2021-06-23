@@ -36,9 +36,14 @@ class FavBooks extends Component {
   };
 
   renderItem = ({item}) => {
-    console.log('Book Item : ', item);
+    let style = {
+        book: {
+          ...styles.book,
+          backgroundColor: getTheme().background,
+        },
+      };
     return (
-      <View style={styles.book}>
+      <View style={style.book}>
         <BookCard
           book={item.book}
           navigate={() => this.gotoBookScreen(item?.book?.id)}

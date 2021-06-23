@@ -38,8 +38,14 @@ class AddedBooks extends Component {
 
   renderItem = ({item}) => {
     console.log('Book Item : ', item);
+    let style = {
+      book: {
+        ...styles.book,
+        backgroundColor: getTheme().background,
+      },
+    };
     return (
-      <View style={styles.book}>
+      <View style={style.book}>
         <BookCard book={item} navigate={() => this.gotoBookScreen(item?.id)} />
       </View>
     );
@@ -82,7 +88,7 @@ class AddedBooks extends Component {
   };
 
   render() {
-    let {books, loading , refreshing} = this.state;
+    let {books, loading, refreshing} = this.state;
     let style = {
       container: {
         ...styles.container,

@@ -19,8 +19,12 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   book: {
-    marginHorizontal: 0.05 * width,
+    marginHorizontal: 0.02 * width,
     marginVertical: 0.05 * width,
+    elevation:3,
+    shadowColor:"#333",
+    paddingBottom:0.02 * height, 
+    borderRadius:0.01*height
   },
   msg: {
     color: mainColor,

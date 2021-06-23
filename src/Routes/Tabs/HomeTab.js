@@ -6,7 +6,7 @@ import ProfileStack from '../Stacks/ProfileStack';
 import I18n from '../../translate';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Icon} from 'native-base';
-import {mainColor, subColor} from '../../configs/global';
+import {mainColor, height} from '../../configs/global';
 import {getTheme} from '../../Services/themes';
 
 const Tab = createBottomTabNavigator();
@@ -55,6 +55,7 @@ export default class HomeTab extends Component {
         tabBarOptions={{
           activeTintColor: mainColor,
           inactiveTintColor: 'grey',
+          style:{margin:0},
           labelStyle: {
             fontFamily: 'Cairo',
             fontSize: 12,
@@ -63,8 +64,10 @@ export default class HomeTab extends Component {
             borderTopWidth: 2,
             borderColor: mainColor,
             backgroundColor: getTheme().background,
+            marginTop:-0.001 * height
           },
-        }}>
+        }}
+        >
         <Tab.Screen
           name={explore}
           component={HomeStack}
