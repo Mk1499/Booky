@@ -5,7 +5,7 @@ import {
   removeBookFromFavMutation,
 } from '../mutations/book';
 import {baseURL} from '../configs/global';
-import {SETBOOKREAD} from '../actions/types';
+import {SETBOOKREAD, UPDATEFAVBOOKS} from '../actions/types';
 
 const client = new ApolloClient({
   uri: baseURL,
@@ -13,7 +13,6 @@ const client = new ApolloClient({
 });
 
 export const addBookToFav = (userID, bookID) => async (dispatch) => {
-  // // console.log('adding Book with id : ', bookID, ' for user with ID : ', userID);
   await client
     .mutate({
       mutation: addBookToFavMutation,
@@ -23,17 +22,21 @@ export const addBookToFav = (userID, bookID) => async (dispatch) => {
       },
     })
     .then((res) => {
-      // // console.log('book fav res : ', res);
     })
     .catch((err) => {
-      // console.log('add to fav error : ', err);
     });
 };
 
 export const setCurrentRead = (readData) => (dispatch) => {
-  // // console.log('Read Data action : ', readData);
   dispatch({
     type: SETBOOKREAD,
     payload: readData,
+  });
+};
+
+export const updateFavBooksAction = (favBooks) => (dispatch) => {
+  dispatch({
+    type: UPDATEFAVBOOKS,
+    payload: favBooks,
   });
 };

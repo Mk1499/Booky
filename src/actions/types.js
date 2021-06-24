@@ -11,9 +11,10 @@ export const UPDATEDEVICTOKEN = 'UPDATEDEVICTOKEN';
 
 // Book
 export const SETBOOKREAD = 'SETBOOKREAD';
-
+export const UPDATEFAVBOOKS = 'UPDATEFAVBOOKS';
 // Author
 export const SETAUTHORS = 'SETAUTHORS';
+export const UPDATEFAVAUTHORS = 'UPDATEFAVAUTHORS';
 
 // Genre
 export const SETGENRES = 'SETGENRES';

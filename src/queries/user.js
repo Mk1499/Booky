@@ -12,3 +12,20 @@ export const getUserAddedBooksQuery = gql`
     }
   }
 `;
+
+export const getUserFavs = gql`
+  query($userID: ID!) {
+    user(id: $userID) {
+      favBooks {
+        book {
+          id
+        }
+      }
+      favAuthors {
+        author {
+          id
+        }
+      }
+    }
+  }
+`;

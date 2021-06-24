@@ -1,7 +1,7 @@
 import {client} from '../queries/queryClient';
 import {addAuthorToFavMutation} from '../mutations/author';
 
-import {SETAUTHORS} from './types';
+import {SETAUTHORS, UPDATEFAVAUTHORS} from './types';
 
 export const addAuthorToFav = (userID, authorID) => async (dispatch) => {
   await client
@@ -22,5 +22,12 @@ export const setAuthors = (authors) => async (dispatch) => {
   dispatch({
     type: SETAUTHORS,
     payload: authors,
+  });
+};
+
+export const updateFavAuthorsAction = (favAuthors) => (dispatch) => {
+  dispatch({
+    type: UPDATEFAVAUTHORS,
+    payload: favAuthors,
   });
 };

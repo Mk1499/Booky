@@ -14,23 +14,16 @@ import {Icon, Right} from 'native-base';
 import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import SubHeader from '../../Components/SubHeader/SubHeader';
 
-import {
-  baseUrl,
-  apiKey,
-  mainColor,
-  bgColor,
-  textColor,
-  subColor,
-} from '../../configs/global';
+import {mainColor} from '../../configs/global';
 import {styles, animation, animatedHeight} from './style';
 import {getAuthorDetails} from '../../queries/queries';
-import {checkAuthorFavQuery} from '../../queries/author';
 import {
   addAuthorToFavMutation,
   removeAuthorToFavMutation,
 } from '../../mutations/author';
 import {useQuery} from '@apollo/client';
 import {client} from '../../queries/queryClient';
+import {updateFavAuthorsAction} from '../../actions/author';
 import {updateUserImg} from '../../actions/auth';
 import {connect} from 'react-redux';
 import I18n from '../../translate';
@@ -120,29 +113,22 @@ function ActorPrfile(props) {
   }
 
   useEffect(() => {
-    client
-      .query({
-        query: checkAuthorFavQuery,
-        variables: {
-          userID: props.userID,
-          authorID: author.id,
-        },
-        fetchPolicy: 'no-cache',
-      })
-      .then((res) => {
-        // // console.log('checking author fav res  : ', res);
-        if (res.data.checkAuthorFav !== null) {
-          setFavState(true);
-          setFavID(res.data.checkAuthorFav.id);
-        }
-      })
-      .catch((err) => {
-        // console.log('checking author fav err : ', err);
-      });
+    checkAuthorFav();
   }, []);
+
+  function checkAuthorFav() {
+    let {favAuthorsIDs} = props;
+    if (favAuthorsIDs.includes(authorID)) {
+      setFavState(true);
+    }
+  }
 
   function addToFav() {
     // // console.log('Author Data : ', author);
+    setFavState(true);
+    let {favAuthorsIDs, updateFavAuthorsAction} = props;
+    let newFavAuthorsIDs = [...favAuthorsIDs, authorID];
+    updateFavAuthorsAction(newFavAuthorsIDs);
     client
       .mutate({
         mutation: addAuthorToFavMutation,
@@ -151,24 +137,22 @@ function ActorPrfile(props) {
           authorID: author.id,
         },
       })
-      .then((res) => {
-        // // console.log('author fav res : ', res);
-
-        setFavID(res.data.addFavAuthor.id);
-      })
-      .catch((err) => {
-        // console.log('add to fav error : ', err);
-      });
+      .then((res) => {})
+      .catch((err) => {});
   }
 
   function removeFromFav() {
-    console.log('FAVID : ', favID);
-
+    setFavState(false);
+    let {favAuthorsIDs, updateFavAuthorsAction, userID} = props;
+    let newFavAuthorsIDs = favAuthorsIDs.filter((id) => id !== authorID);
+    updateFavAuthorsAction(newFavAuthorsIDs);
+    console.log("VARS : ", authorID, userID);
     client
       .mutate({
         mutation: removeAuthorToFavMutation,
         variables: {
-          id: favID,
+          userID,
+          authorID,
         },
       })
       .then((res) => {})
@@ -240,28 +224,6 @@ function ActorPrfile(props) {
             </Text>
           </View>
 
-          {/* <View
-            style={{
-              marginTop: 0.05 * height,
-              flexDirection: 'row',
-            }}>
-            <View style={styles.iconMainView}>
-              <View style={styles.iconView}>
-                <Icon name="trending-up" style={{color: mainColor}} />
-              </View>
-              <Text style={styles.iconText}>{author.popularity || 'N/A'}</Text>
-            </View>
-            <View style={styles.iconMainView}>
-              <View style={styles.iconView}>
-                <Icon
-                  name="flag"
-                  style={{color: mainColor}}
-                  type="FontAwesome"
-                />
-              </View>
-              <Text style={styles.iconText}>{author.birthDate || 'N/A'}</Text>
-            </View>
-          </View> */}
           {author.books ? (
             <View
               style={{
@@ -283,7 +245,11 @@ function ActorPrfile(props) {
 }
 
 const mapStateToProps = (state) => ({
-  userID: state.auth.userID,
+  userID: state.auth.userData.id,
+  favAuthorsIDs: state.author.favAuthorsIDs,
 });
 
-export default connect(mapStateToProps, {updateUserImg})(ActorPrfile);
+export default connect(mapStateToProps, {
+  updateUserImg,
+  updateFavAuthorsAction,
+})(ActorPrfile);

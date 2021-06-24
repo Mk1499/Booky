@@ -31,6 +31,11 @@ export const userLogin = gql`
       email
       photo
       quote
+      favBooks{
+        book{
+          id
+        }
+      }
     }
   }
 `;

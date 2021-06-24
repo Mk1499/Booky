@@ -37,6 +37,7 @@ import {
 
 import {setAuthors as setAuthorsAction} from '../../actions/author';
 import {setGenres as setGenresAction} from '../../actions/genre';
+import {getUserFavsAction} from '../../actions/user';
 import {client} from '../../queries/queryClient';
 import I18n from '../../translate';
 import styles from './styles';
@@ -167,6 +168,7 @@ function Home(props) {
     requestUserPermission();
     backgroundMsgs();
     forgroundMsgs();
+    props.getUserFavsAction(props.userData.id);
     // console.log('Home Props : ', props);
   }, []);
 
@@ -298,9 +300,11 @@ function Home(props) {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user,
+  userData: state.auth.userData,
 });
 
-export default connect(mapStateToProps, {setAuthorsAction, setGenresAction})(
-  Home,
-);
+export default connect(mapStateToProps, {
+  setAuthorsAction,
+  setGenresAction,
+  getUserFavsAction,
+})(Home);

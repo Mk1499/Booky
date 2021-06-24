@@ -15,7 +15,7 @@ import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import {useQuery} from '@apollo/client';
 import {getBookDetails} from '../../queries/queries';
 import {connect} from 'react-redux';
-import {addBookToFav} from '../../actions/book';
+import {addBookToFav, updateFavBooksAction} from '../../actions/book';
 import {checkBookFavQuery} from '../../queries/book';
 import {
   addBookToFavMutation,
@@ -52,27 +52,16 @@ function BookDetails(props) {
   });
 
   useEffect(() => {
-    client
-      .query({
-        query: checkBookFavQuery,
-        variables: {
-          userID: props.userID,
-          bookID: bookID,
-        },
-        fetchPolicy: 'no-cache',
-      })
-      .then((res) => {
-        // // console.log('checking fav res : ', res);
-        let data = res.data;
-        if (data.checkBookFav) {
-          setFavState(true);
-          setFavID(data.checkBookFav.id);
-        }
-      })
-      .catch((err) => {
-        // console.log('checking fav state err : ', err);
-      });
-  });
+    checkBookFav();
+  }, [props]);
+
+  function checkBookFav() {
+    let favBooksIDs = props.favBooksIDs;
+    if (favBooksIDs.includes(bookID)) {
+      setFavState(true);
+    }
+  }
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     refetch();
@@ -115,6 +104,11 @@ function BookDetails(props) {
   }
 
   function addToFav() {
+    let {favBooksIDs} = props;
+    let newFavBooksIDs = [...favBooksIDs, bookID];
+    setFavState(true);
+    props.updateFavBooksAction(newFavBooksIDs);
+
     client
       .mutate({
         mutation: addBookToFavMutation,
@@ -124,7 +118,7 @@ function BookDetails(props) {
         },
       })
       .then((res) => {
-        setFavID(res.data.addBookFav.id);
+        // setFavID(res.data.addBookFav.id);
       })
       .catch((err) => {
         // console.log('add to fav error : ', err);
@@ -132,16 +126,22 @@ function BookDetails(props) {
   }
 
   function removeFromFav() {
+    let {favBooksIDs} = props;
+    let newFavBooksIDs = favBooksIDs.filter((id) => id !== bookID);
+    setFavState(false);
+    props.updateFavBooksAction(newFavBooksIDs);
+
     client
       .mutate({
         mutation: removeBookFromFavMutation,
         variables: {
-          id: favID,
+          userID: props.userID,
+          bookID,
         },
       })
       .then((res) => {})
       .catch((err) => {
-        // console.log('remove from fav err : ', err);
+        console.log('remove from fav err : ', err);
       });
   }
 
@@ -257,7 +257,10 @@ function BookDetails(props) {
 }
 
 const mapStateToProps = (state) => ({
-  userID: state.auth.userID,
+  userID: state.auth.userData.id,
+  favBooksIDs: state.book.favBooksIDs,
 });
 
-export default connect(mapStateToProps, {addBookToFav})(BookDetails);
+export default connect(mapStateToProps, {addBookToFav, updateFavBooksAction})(
+  BookDetails,
+);

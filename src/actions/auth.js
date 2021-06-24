@@ -9,6 +9,7 @@ import {
   LOGINLOADING,
   UPDATEUSERDATA,
   UPDATEDEVICTOKEN,
+  UPDATEFAVBOOKS,
 } from './types';
 import {
   userLogin,
@@ -125,7 +126,6 @@ export const login = (email, password, deviceToken) => async (dispatch) => {
           },
         })
         .then((res) => {
-          // console.log('Login Data : ', res);
           if (res.data.loginUser !== null) {
             let userData = {};
             userData['name'] = res.data.loginUser.name;

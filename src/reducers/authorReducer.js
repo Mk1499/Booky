@@ -1,7 +1,8 @@
-import {SETAUTHORS} from '../actions/types';
+import {SETAUTHORS, UPDATEFAVAUTHORS} from '../actions/types';
 
 const INITIAL_STATE = {
   authors: [],
+  favAuthorsIDs:[]
 };
 
 const author = (state = INITIAL_STATE, action) => {
@@ -12,6 +13,11 @@ const author = (state = INITIAL_STATE, action) => {
         ...state,
         authors: action.payload ? action.payload : state.authors,
       };
+    case UPDATEFAVAUTHORS:
+      return {
+        ...state,
+        favAuthorsIDs:action.payload
+      }
     default:
       return state;
   }

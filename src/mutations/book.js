@@ -9,8 +9,8 @@ export const addBookToFavMutation = gql`
 `;
 
 export const removeBookFromFavMutation = gql`
-  mutation($id: ID!) {
-    removeBookFav(id: $id) {
+  mutation($userID: ID!, $bookID: ID!) {
+    removeBookFav(userID: $userID, bookID: $bookID) {
       id
     }
   }
