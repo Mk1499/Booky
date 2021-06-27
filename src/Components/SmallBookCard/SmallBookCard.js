@@ -2,11 +2,19 @@ import React, {useEffect} from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {mainColor, textColor, width, height} from '../../configs/global';
 import {Icon} from 'native-base';
+import {getActiveLang} from '../../translate';
 
 export default function SmallBookCard(props) {
   // useEffect(() => {
   //   // console.log('Small Book Props : ', props);
   // });
+
+  let {book} = props;
+  let name = book.enName && getActiveLang() === 'en' ? book.enName : book.name;
+  let authorName =
+    book.author && book.author.enName && getActiveLang() === 'en'
+      ? book.author.enName
+      : book.author.name;
 
   return (
     <TouchableOpacity
@@ -14,7 +22,7 @@ export default function SmallBookCard(props) {
       style={styles.container}
       onPress={props.navigate}>
       <Image
-        source={
+        source={4
           props.book.posterURL
             ? {
                 uri: props.book.posterURL,
@@ -25,10 +33,10 @@ export default function SmallBookCard(props) {
         resizeMode="cover"
       />
       <Text numberOfLines={1} ellipsizeMode="tail" style={styles.bookName}>
-        {props.book.name}
+        {name}
       </Text>
       <Text numberOfLines={1} ellipsizeMode="tail" style={styles.authorName}>
-        {props.book.author ? props.book.author.name : null}
+        {props.book.author ? authorName : null}
       </Text>
       <View style={styles.bookRateView}>
         <Text style={styles.rateText}>{props.book.rate || 2.5} / 5</Text>
