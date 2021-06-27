@@ -16,6 +16,7 @@ export const getUserDetailsQuery = gql`
       addedBooks {
         id
         name
+        enName
         posterURL
         rate
       }
@@ -31,8 +32,8 @@ export const userLogin = gql`
       email
       photo
       quote
-      favBooks{
-        book{
+      favBooks {
+        book {
           id
         }
       }
@@ -75,6 +76,7 @@ export const getAuthorsQuery = gql`
     authors {
       id
       name
+      enName
       avatarURL
     }
   }
@@ -85,6 +87,7 @@ export const getAuthorDetails = gql`
     author(id: $id) {
       id
       name
+      enName
       birthDate
       avatarURL
       age
@@ -105,13 +108,16 @@ export const getBooksQuery = gql`
     books(limit: 5) {
       id
       name
+      enName
       genre {
         name
+        enName
       }
       posterURL
       readURL
       author {
         name
+        enName
       }
     }
   }
@@ -130,13 +136,16 @@ export const getLatestBooksQuery = gql`
     books(limit: -5) {
       id
       name
+      enName
       rate
       genre {
         name
+        enName
       }
       posterURL
       author {
         name
+        enName
       }
     }
   }
@@ -147,6 +156,7 @@ export const getBookDetails = gql`
     book(id: $id) {
       id
       name
+      enName
       posterURL
       readURL
       rate
@@ -154,20 +164,27 @@ export const getBookDetails = gql`
       author {
         id
         name
+        enName
       }
       genre {
         id
         name
+        enName
       }
       relatedBooks {
         id
         name
+        enName
         posterURL
         rate
       }
       reads {
         id
         time
+      }
+      owner {
+        id
+        name
       }
     }
   }
@@ -179,6 +196,7 @@ export const getGenresQuery = gql`
     genres {
       id
       name
+      enName
       photoURL
     }
   }
@@ -188,8 +206,10 @@ export const getGenreDetails = gql`
     genre(id: $id) {
       name
       photoURL
+      enName
       books {
         name
+        enName
         id
         posterURL
         rate

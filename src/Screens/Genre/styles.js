@@ -7,6 +7,7 @@ import {
   subColor,
   textColor,
 } from '../../configs/global';
+import {getActiveLang} from '../../translate';
 
 export default StyleSheet.create({
   container: {
@@ -47,9 +48,7 @@ export default StyleSheet.create({
     marginVertical: 0.03 * height,
   },
   sectionHead: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     width: 0.92 * width,
     marginBottom: 0.02 * height,
   },
@@ -64,5 +63,10 @@ export default StyleSheet.create({
   },
   bookItem: {
     marginHorizontal: 0.02 * width,
+    marginBottom: 0.05 * height,
+  },
+  bookList: {
+    alignItems: 'center',
+    paddingBottom: 0.3 * height,
   },
 });

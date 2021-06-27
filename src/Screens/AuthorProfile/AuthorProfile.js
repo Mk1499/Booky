@@ -26,15 +26,19 @@ import {client} from '../../queries/queryClient';
 import {updateFavAuthorsAction} from '../../actions/author';
 import {updateUserImg} from '../../actions/auth';
 import {connect} from 'react-redux';
-import I18n from '../../translate';
+import I18n, {getActiveLang} from '../../translate';
 import {getTheme} from '../../Services/themes';
 
 const {width, height} = Dimensions.get('screen');
 
 function ActorPrfile(props) {
-  let authorID = props.route.params.author.id;
-  let avatarURL = props.route.params.author.avatarURL;
-  let name = props.route.params.author.name;
+  let authorData = props.route.params.author;
+  let authorID = authorData.id;
+  let avatarURL = authorData.avatarURL;
+  let name =
+    authorData.enName && getActiveLang() === 'en'
+      ? authorData.enName
+      : authorData.name;
 
   // // console.log('Author Props : ', authorID);
 
@@ -146,7 +150,7 @@ function ActorPrfile(props) {
     let {favAuthorsIDs, updateFavAuthorsAction, userID} = props;
     let newFavAuthorsIDs = favAuthorsIDs.filter((id) => id !== authorID);
     updateFavAuthorsAction(newFavAuthorsIDs);
-    console.log("VARS : ", authorID, userID);
+    console.log('VARS : ', authorID, userID);
     client
       .mutate({
         mutation: removeAuthorToFavMutation,
@@ -172,6 +176,9 @@ function ActorPrfile(props) {
     },
   };
 
+  let authorName =
+    author.enName && getActiveLang() === 'en' ? author.enName : author.name;
+
   return (
     <View>
       <SubHeader
@@ -194,7 +201,7 @@ function ActorPrfile(props) {
       <Animated.View style={[style.mainView, animatedHeight]}>
         <View style={{flexDirection: 'row'}}>
           <View style={{width: 0.8 * width}}>
-            <Text style={style.actorName}>{author.name}</Text>
+            <Text style={style.actorName}>{authorName}</Text>
             {/* <Text style={styles.note}>{this.state.known_for_department}</Text> */}
           </View>
           <Right>

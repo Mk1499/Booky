@@ -63,4 +63,14 @@ export default {
   noFavAuthors: 'عفوا ولكنك لم تضف مؤلفين الى قائمة مفضلتك بعد',
   noFavBooks: 'عفوا ولكنك لم تضف كتب الى قائمة مفضلتك بعد',
   noAddedBooks: 'عفوا ولكنك لم تضف اى كتب بعد',
+  chooseAuthor: 'أختر المؤلف',
+  chooseGenre: 'أختار التصنيف',
+  change: 'تغيير',
+  arBookName: 'أسم الكتاب باللغة العربية',
+  enBookName: 'أسم الكتاب باللغة الانجليزية',
+  processSuccess: 'تمت العملية بنجاح',
+  processFail: 'فشل اتمام العملية',
+  bookAddedAndWaitForNote:
+    'تم أضافة كتابك و هو الان تحت التقييم سيتم اشعارك أذا تمت الموافقة عليه',
+  ok: 'موافق',
 };

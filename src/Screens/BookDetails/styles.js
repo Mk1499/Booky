@@ -62,6 +62,8 @@ export const styles = StyleSheet.create({
     color: textColor,
     alignSelf: 'center',
     fontSize: 0.04 * width,
+    maxWidth: 0.18 * width,
+    height: 0.1 * height,
   },
   secHalf: {},
   section: {

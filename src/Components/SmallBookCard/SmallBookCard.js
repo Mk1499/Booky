@@ -22,7 +22,7 @@ export default function SmallBookCard(props) {
       style={styles.container}
       onPress={props.navigate}>
       <Image
-        source={4
+        source={
           props.book.posterURL
             ? {
                 uri: props.book.posterURL,

@@ -6,6 +6,7 @@ export const getUserAddedBooksQuery = gql`
       addedBooks {
         id
         name
+        enName
         posterURL
         rate
       }

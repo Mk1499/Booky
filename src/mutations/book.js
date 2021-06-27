@@ -43,9 +43,11 @@ export const addBook = gql`
     $readURL: String!
     $genreID: String!
     $coverURL: String!
+    $enName: String!
   ) {
     addBook(
       name: $name
+      enName: $enName
       authorID: $authorID
       ownerID: $userID
       description: $description

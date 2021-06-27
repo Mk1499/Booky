@@ -1,8 +1,10 @@
 import React from 'react';
 import {TouchableOpacity, Text, Image, StyleSheet, View} from 'react-native';
 import {width, height, textColor} from '../../configs/global';
+import { getActiveLang } from '../../translate';
 
 export default function GenreCard(props) {
+  let name = getActiveLang() === 'en' && props.genre.enName? props.genre.enName : props.genre.name 
   return (
     <TouchableOpacity activeOpacity={0.2} onPress={props.navigation}>
       <View style={styles.container}>
@@ -18,7 +20,7 @@ export default function GenreCard(props) {
           resizeMode="cover"
         />
         <View style={styles.nameView}>
-          <Text style={styles.genreName}>{props.genre.name}</Text>
+          <Text style={styles.genreName}>{name}</Text>
         </View>
       </View>
     </TouchableOpacity>

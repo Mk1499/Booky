@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {width, height, mainColor, bgColor} from '../../configs/global';
-import { getTheme } from '../../Services/themes';
+import {getTheme} from '../../Services/themes';
 
 export const styles = StyleSheet.create({
   container: {
@@ -16,14 +16,10 @@ export const styles = StyleSheet.create({
   },
   input: {
     borderRadius: 0,
-    // borderColor: mainColor,
-    // borderWidth: 1,
     width: 0.8 * width,
     marginVertical: 0.025 * height,
     paddingHorizontal: 0.05 * width,
     fontFamily: 'Cairo',
-    // elevation: 2,
-    // shadowColor: mainColor,
     color: mainColor,
     backgroundColor: bgColor,
     borderBottomWidth: 1,

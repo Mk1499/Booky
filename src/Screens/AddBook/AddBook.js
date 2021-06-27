@@ -13,19 +13,20 @@ import {mainColor} from '../../configs/global';
 import {client} from '../../queries/queryClient';
 import {addBook} from '../../mutations/book';
 import {RNToasty} from 'react-native-toasty';
-import I18n from '../../translate';
+import I18n, {getActiveLang} from '../../translate';
 import SubHeader from '../../Components/SubHeader/SubHeader';
 import {getTheme} from '../../Services/themes';
+import PickerModal from '../../Components/PickerModal/PickerModal';
+import MyAlert from '../../Components/MyAlert/MyAlert';
 
 class AddBook extends Component {
-  static getDrivedStateFromProps(prevProps, nextProps) {
-    // console.log('new Props : ', prevProps, nextProps);
-  }
+  static getDrivedStateFromProps(prevProps, nextProps) {}
 
   constructor(props) {
     super(props);
     this.state = {
       name: '',
+      enName: '',
       authorID: '',
       ownerID: '',
       description: '',
@@ -38,6 +39,7 @@ class AddBook extends Component {
       selectedAuthor: '',
       genres: [],
       addingBook: false,
+      showSuccessModal: false,
     };
   }
 
@@ -79,7 +81,15 @@ class AddBook extends Component {
   };
 
   addingBook = async () => {
-    let {name, authorID, genreID, readURL, coverURL, description} = this.state;
+    let {
+      name,
+      authorID,
+      genreID,
+      readURL,
+      coverURL,
+      description,
+      enName,
+    } = this.state;
     let {user} = this.props;
     let book = {
       name,
@@ -100,6 +110,7 @@ class AddBook extends Component {
           userID: user.id,
           authorID,
           name,
+          enName,
           description,
           readURL,
           genreID,
@@ -108,7 +119,10 @@ class AddBook extends Component {
       })
       .then((data) => {
         // console.log('Book Added Successfully : ', data);
-        this.goBack();
+        // this.goBack();
+        this.setState({
+          showSuccessModal: true,
+        });
         RNToasty.Success({
           title: I18n.t('bookAdded'),
         });
@@ -130,6 +144,12 @@ class AddBook extends Component {
     let style = {
       ...styles,
       container: {...styles.container, backgroundColor: getTheme().background},
+      inputBG: {
+        backgroundColor: getTheme().background,
+        borderWidth: 1,
+        borderRadius: 10,
+        textAlign: getActiveLang() === 'ar' ? 'right' : 'left',
+      },
     };
 
     return (
@@ -145,12 +165,24 @@ class AddBook extends Component {
           contentContainerStyle={styles.content}>
           <KeyboardAvoidingView behavior="position">
             <TextInput
-              style={[styles.input]}
-              placeholder={I18n.t('bookName')}
+              style={[styles.input, style.inputBG]}
+              placeholder={I18n.t('arBookName')}
               keyboardType="default"
               onChangeText={(name) => {
                 this.setState({name});
               }}
+              placeholderTextColor={mainColor}
+            />
+          </KeyboardAvoidingView>
+          <KeyboardAvoidingView behavior="position">
+            <TextInput
+              style={[styles.input, style.inputBG]}
+              placeholder={I18n.t('enBookName')}
+              keyboardType="default"
+              onChangeText={(enName) => {
+                this.setState({enName});
+              }}
+              placeholderTextColor={mainColor}
             />
           </KeyboardAvoidingView>
           <ImageSelector
@@ -160,19 +192,28 @@ class AddBook extends Component {
               this.setState({readURL});
             }}
           />
-
-          <Picker
+          <PickerModal
+            label={I18n.t('chooseAuthor')}
+            data={this.props.authors}
+            action={(item) => this.changeAuthor(item)}
+          />
+          {/* <Picker
             data={this.props.authors}
             change={(item) => this.changeAuthor(item)}
             label={I18n.t('author')}
-          />
+          /> */}
 
-          <Picker
+          {/* <Picker
             data={this.props.genres}
             change={(item) => this.changeGenre(item)}
             label={I18n.t('genre')}
-          />
+          /> */}
 
+          <PickerModal
+            label={I18n.t('chooseGenre')}
+            data={this.props.genres}
+            action={(item) => this.changeGenre(item)}
+          />
           <ImageSelector
             selectText={I18n.t('uploadBookCover')}
             selectType="image"
@@ -182,7 +223,7 @@ class AddBook extends Component {
           />
           <KeyboardAvoidingView behavior="position">
             <Textarea
-              style={[styles.input]}
+              style={[styles.input, style.inputBG]}
               placeholder={I18n.t('bookDesc')}
               keyboardType="default"
               placeholderTextColor={mainColor}
@@ -199,6 +240,22 @@ class AddBook extends Component {
             action={() => this.addingBook()}
           />
         </ScrollView>
+        <MyAlert
+          visible={this.state.showSuccessModal}
+          type="success"
+          msg={I18n.t('bookAddedAndWaitForNote')}
+          head={I18n.t('processSuccess')}
+          action={() => {
+            this.setState(
+              {
+                showSuccessModal: false,
+              },
+              () => {
+                this.props.navigation.goBack();
+              },
+            );
+          }}
+        />
       </View>
     );
   }

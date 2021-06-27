@@ -15,6 +15,7 @@ export const getFavBooksQuery = gql`
       book {
         id
         name
+        enName
         posterURL
         author {
           name

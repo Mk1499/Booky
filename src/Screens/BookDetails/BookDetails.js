@@ -22,7 +22,7 @@ import {
   removeBookFromFavMutation,
 } from '../../mutations/book';
 import {ApolloClient, InMemoryCache} from '@apollo/client';
-import {baseURL} from '../../configs/global';
+import {baseURL, mainColor} from '../../configs/global';
 import I18n from '../../translate';
 import {getTheme} from '../../Services/themes';
 
@@ -38,18 +38,37 @@ function BookDetails(props) {
   const [favID, setFavID] = React.useState('');
   const [modalVisiable, setModalVisiable] = React.useState(false);
   let bookID = props.route.params.bookID;
-  const {refetch} = useQuery(getBookDetails, {
-    variables: {id: bookID},
-    onCompleted: (data) => {
-      // console.log('Book Data : ', data, bookID);
-      setBook(data.book);
-      setRefreshing(false);
-    },
-    onError: (err) => {
-      // console.log('Getting a book details Error : ', err);
-    },
-    notifyOnNetworkStatusChange: true,
-  });
+
+  function getDetails() {
+    client
+      .query({
+        query: getBookDetails,
+        variables: {
+          id: bookID,
+        },
+      })
+      .then(({data}) => {
+        setBook(data.book);
+        setRefreshing(false);
+      });
+  }
+
+  useEffect(() => {
+    getDetails();
+  }, []);
+
+  // const {refetch} = useQuery(getBookDetails, {
+  //   variables: {id: bookID},
+  //   onCompleted: (data) => {
+  //     // console.log('Book Data : ', data, bookID);
+  //     setBook(data.book);
+  //     setRefreshing(false);
+  //   },
+  //   onError: (err) => {
+  //     // console.log('Getting a book details Error : ', err);
+  //   },
+  //   notifyOnNetworkStatusChange: true,
+  // });
 
   useEffect(() => {
     checkBookFav();
@@ -64,7 +83,8 @@ function BookDetails(props) {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    refetch();
+    // refetch();
+    getDetails();
   }, []);
 
   function goBack() {
@@ -160,11 +180,22 @@ function BookDetails(props) {
     },
   };
 
+  let bookName =
+    book.enName && I18n.locale === 'en-US' ? book.enName : book.name;
+  let authorName =
+    book.author && book?.author.enName && I18n.locale === 'en-US'
+      ? book?.author?.enName
+      : book?.author?.name;
+
   return (
     <ScrollView
       style={style.container}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          colors={[mainColor]}
+        />
       }>
       {book.posterURL ? (
         <Image source={{uri: book.posterURL}} style={styles.backgroundImg} />
@@ -188,7 +219,7 @@ function BookDetails(props) {
             resizeMode="cover"
           />
         </View>
-        <Text style={styles.bookName}>{book.name}</Text>
+        <Text style={styles.bookName}>{bookName}</Text>
         <Text
           style={styles.authorName}
           onPress={() => {
@@ -196,7 +227,7 @@ function BookDetails(props) {
               gotoAuthorScreen(book.author);
             }
           }}>
-          {book.author ? book.author.name : ''}
+          {book.author ? authorName : ''}
         </Text>
         <View style={styles.bookData}>
           <View>
@@ -216,7 +247,9 @@ function BookDetails(props) {
           </View>
           <View>
             <Text style={styles.head}>{I18n.t('publisher')}</Text>
-            <Text style={styles.data}>{book.releaseYear || 2020}</Text>
+            <Text style={styles.data} numberOfLines={1} ellipsizeMode="tail">
+              {book.owner?.name}
+            </Text>
           </View>
         </View>
       </View>
