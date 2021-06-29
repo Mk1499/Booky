@@ -14,6 +14,8 @@ import UserRecords from '../../Components/UserRecords/UserRecords';
 import SettingList from '../../Components/SettingList/SettingList';
 import LangsModal from '../../Components/LangsModal/LangsModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {client} from '../../queries/queryClient';
+import {updateUserLangMutation, updateUserMutation} from '../../mutations/user';
 
 class Me extends Component {
   constructor(props) {
@@ -77,10 +79,24 @@ class Me extends Component {
     this.setState({
       langModal: !this.state.langModal,
     });
-  };
+  }; 
 
-  changeLang = () => {
+  changeLang = (newLang) => {
+    console.log("NEW LAng  : ", newLang);
     this.resetApp();
+    this.updateUserLang(newLang)
+  };  
+
+  updateUserLang = async (newLang) => {
+    let {userData} = this.props;
+
+    await client.mutate({
+      mutation: updateUserLangMutation,
+      variables: {
+        userID: userData.id,
+        lang: newLang,
+      },
+    });
   };
 
   changeTheme = () => {
@@ -107,12 +123,6 @@ class Me extends Component {
 
   logout = async () => {
     this.props.logout(this.props.userData.id);
-    // await AsyncStorage.multiRemove(['locale', 'activeTheme'])
-    //   .then(() => {
-    //   })
-    //   .catch((err) => {
-    //     // console.log('Logout Err : ', err);
-    //   });
   };
 
   render() {
@@ -136,7 +146,7 @@ class Me extends Component {
         <LangsModal
           visible={langModal}
           hideModal={this.toggleLangModal}
-          changeAction={this.changeLang}
+          changeAction={(lang)=> this.changeLang(lang)}
         />
       </ScrollView>
     );

@@ -44,15 +44,11 @@ export default class LangsModal extends Component {
     let lang = id.slice(0, 2);
     let {changeAction} = this.props;
     if (I18n.locale !== id) {
-      // console.log('Lang ID : ', lang);
+      this.setState({visible: false});
       setActiveLang(lang);
       AsyncStorage.setItem('locale', id).then(() => {
-        // DevSettings.reload();
-        // RNRestart.Restart();
-        changeAction();
+        changeAction(lang);
       });
-
-      // navigation.popToTop();
     }
   };
 
