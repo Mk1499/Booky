@@ -97,9 +97,11 @@ function BookDetails(props) {
     });
   }
 
-  function addComment(book) {
-    props.navigation.push('AddBookComment', {
+  function addComment(book, bookName) {
+    props.navigation.push('BookComments', {
       book,
+      bookName,
+      comments: book.comments,
     });
   }
 
@@ -262,7 +264,7 @@ function BookDetails(props) {
             setModalVisiable(true);
           }}
           addComment={() => {
-            addComment(book);
+            addComment(book, bookName);
           }}
         />
       </View>

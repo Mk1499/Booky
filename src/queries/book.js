@@ -55,3 +55,19 @@ export const searchQuery = gql`
     }
   }
 `;
+
+export const getBookComments = gql`
+  query($bookID: ID!) {
+    bookComments(bookID: $bookID) {
+      id
+      comment
+      usersLikes
+      usersDislikes
+      user {
+        id
+        name
+        photo
+      }
+    }
+  }
+`;

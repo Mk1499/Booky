@@ -6,7 +6,7 @@ import {getActiveLang} from '../../translate';
 
 export default function SmallBookCard(props) {
   // useEffect(() => {
-  //   // console.log('Small Book Props : ', props);
+  //   console.log('Small Book Props : ', props);
   // });
 
   let {book} = props;
@@ -14,7 +14,9 @@ export default function SmallBookCard(props) {
   let authorName =
     book.author && book.author.enName && getActiveLang() === 'en'
       ? book.author.enName
-      : book.author.name;
+      : book.author
+      ? book.author.name
+      : '';
 
   return (
     <TouchableOpacity

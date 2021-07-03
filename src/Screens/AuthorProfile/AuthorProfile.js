@@ -227,7 +227,7 @@ function ActorPrfile(props) {
                 color: getTheme().text,
                 fontFamily: 'Cairo',
               }}>
-              {author.bio || `${I18n.t('noBio')}${author.name}`}
+              {author.bio || `${I18n.t('noBio')}${authorName}`}
             </Text>
           </View>
 

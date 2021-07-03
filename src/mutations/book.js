@@ -60,3 +60,10 @@ export const addBook = gql`
     }
   }
 `;
+export const addCommentAction = gql`
+  mutation($userID: String!, $commentID: String!, $action: String!) {
+    addCommentAction(userID: $userID, commentID: $commentID, action: $action) {
+      id
+    }
+  }
+`;
