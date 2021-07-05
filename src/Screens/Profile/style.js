@@ -93,7 +93,7 @@ export const styles = StyleSheet.create({
   emptyMsg: {
     textAlign: 'center',
     color: subColor,
-    fontFamily: 'Lato-Light',
+    fontFamily: 'Cairo',
     fontSize: 0.035 * width,
   },
   carousel: {
