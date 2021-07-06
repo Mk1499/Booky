@@ -111,15 +111,18 @@ class BookComments extends Component {
     this.setState({
       bookComments:[...this.state.bookComments,newComment]
     })
-    this.commentsListRef.current.scrollToEnd();
+    this.commentsListRef.current?.scrollToEnd();
   }
 
   submitComment = async (body) => {
     let userID = this.props.userData.id;
     let bookID = this.state.book.id; 
     let comment = body;   
-    
-    this.pushComment(body);
+    try{
+      this.pushComment(body);
+    } catch(err){
+      console.log("Error : ", err);
+    }
     client.mutate({
       mutation:addBookCommentMutation, 
       variables:{
