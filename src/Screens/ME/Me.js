@@ -21,7 +21,7 @@ class Me extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuItems: [
+      menuItems: [ 
         {
           id: 0,
           text: I18n.t('yourFavBooks'),
