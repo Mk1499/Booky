@@ -12,7 +12,7 @@ export async function requestUserPermission() {
     await messaging()
       .getToken()
       .then((token) => {
-        // console.log('Your Device Token is : ', token);
+        console.log('Your Device Token is : ' + token);
         AsyncStorage.setItem('DeviceToken', token);
       });
     messaging().subscribeToTopic('MobileApp');
@@ -20,6 +20,7 @@ export async function requestUserPermission() {
 }
 
 export const backgroundMsgs = () => {
+
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     // console.log('Message handled in the background!', remoteMessage);
   });
@@ -27,9 +28,9 @@ export const backgroundMsgs = () => {
 
 export const forgroundMsgs = () => {
   messaging().onMessage(async (remoteMessage) => {
-    // console.log(
-    //   'A new FCM message arrived! from fb file',
-    //   JSON.stringify(remoteMessage),
-    // );
+    console.log(
+      'A new FCM message arrived! from fb file',
+      JSON.stringify(remoteMessage),
+    );
   });
 };
