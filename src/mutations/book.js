@@ -67,3 +67,11 @@ export const addCommentAction = gql`
     }
   }
 `;
+
+export const addBookCommentMutation = gql`
+  mutation($userID:String!,$bookID:String!,$comment:String!){
+    addBookComment(userID:$userID,comment:$comment, bookID:$bookID){
+      id
+    }
+  }
+`

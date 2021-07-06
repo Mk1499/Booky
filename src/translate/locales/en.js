@@ -73,4 +73,8 @@ export default {
   bookAddedAndWaitForNote:
     'Your Book Added Successfully and its under review now you will notified if your book approved',
   ok: 'OK',
+  addYourComment:"Add Your Comment Here",
+  send:"Send",
+  noComments:'No Comments Yet'
+
 };

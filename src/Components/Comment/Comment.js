@@ -5,6 +5,7 @@ import {Thumbnail, Icon} from 'native-base';
 import {getActiveLang} from '../../translate';
 import {client} from '../../queries/queryClient';
 import {addCommentAction} from '../../mutations/book';
+import { getTheme } from '../../Services/themes';
 
 export default class Comment extends Component {
   constructor(props) {
@@ -102,17 +103,28 @@ export default class Comment extends Component {
       textAlign: getActiveLang() === 'ar' ? 'right' : 'left',
     };
 
+    let style = {
+      container:{
+        ...styles.container, 
+        borderColor: getTheme().border
+      }, 
+      comment:{
+        ...styles.comment,
+        color: getTheme().text
+      }
+    }
+
     let userImg = user?.photo
       ? {uri: user?.photo}
       : require('../../../assets/images/avatar.jpg');
     return (
-      <View style={[styles.container]}>
+      <View style={[style.container]}>
         <View style={[styles.commentCont, dirStyle]}>
           <Thumbnail style={styles.userImg} source={userImg} />
           <View style={styles.textCont}>
             <Text style={[styles.userName, textAlignStyle]}>{user?.name}</Text>
             <Text
-              style={[styles.comment, textAlignStyle]}
+              style={[style.comment, textAlignStyle]}
               numberOfLines={3}
               ellipsizeMode="tail">
               {comment}

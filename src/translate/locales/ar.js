@@ -73,4 +73,7 @@ export default {
   bookAddedAndWaitForNote:
     'تم أضافة كتابك و هو الان تحت التقييم سيتم اشعارك أذا تمت الموافقة عليه',
   ok: 'موافق',
+  addYourComment:"آضف تعليقك هنا",
+  send:'آرسال',
+  noComments:'لا يوجد تعليقات'
 };

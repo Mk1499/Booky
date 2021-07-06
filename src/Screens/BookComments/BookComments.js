@@ -1,13 +1,17 @@
-import React, {Component} from 'react';
-import {Text, View, FlatList,RefreshControl} from 'react-native';
+import React, { Component } from 'react';
+import { Text, View, FlatList, RefreshControl,KeyboardAvoidingView,ActivityIndicator } from 'react-native';
 import styles from './style';
 import SubHeader from '../../Components/SubHeader/SubHeader';
 import I18n from '../../translate';
 import Comment from '../../Components/Comment/Comment';
-import {client} from '../../queries/queryClient';
-import {getBookComments} from '../../queries/book';
-import {connect} from 'react-redux';
-import { mainColor } from '../../configs/global';
+import { client } from '../../queries/queryClient';
+import { getBookComments } from '../../queries/book';
+import {addBookCommentMutation} from '../../mutations/book'
+import { connect } from 'react-redux';
+import { height, mainColor } from '../../configs/global';
+import CommentForm from '../../Components/CommentForm/CommentForm';
+import { getTheme } from '../../Services/themes';
+
 
 class BookComments extends Component {
   constructor(props) {
@@ -17,16 +21,17 @@ class BookComments extends Component {
       bookName: '',
       book: null,
       refreshing: false,
+      loadComments:true
     };
+    this.commentsListRef = React.createRef();
   }
 
   componentDidMount() {
-    let {bookName, book} = this.props.route.params;
+    let { bookName, book } = this.props.route.params;
     this.setState(
       {
         bookName,
         book,
-        //   comments,
       },
       () => {
         this.getComments();
@@ -41,19 +46,25 @@ class BookComments extends Component {
         variables: {
           bookID: this.state.book.id,
         },
-        fetchPolicy:'no-cache'
+        fetchPolicy: 'no-cache'
       })
-      .then(({data}) => {
+      .then(({ data }) => {
         console.log('Book Comments Q : ', data);
-        let {bookComments} = data;
+        let { bookComments } = data;
         this.setState({
           bookComments,
           refreshing: false,
+          loadComments:false
         });
-      });
+      }).catch(()=>{
+        this.setState({
+          refreshing: false,
+          loadComments:false
+        })
+      })
   };
 
-  renderComment = ({item}) => {
+  renderComment = ({ item }) => {
     let userID = this.props.userData.id;
     let userLikedFlag = item?.usersLikes.includes(userID);
     let userDislikedFlag = item?.usersDislikes.includes(userID);
@@ -69,7 +80,7 @@ class BookComments extends Component {
   };
 
   goBack = () => {
-    let {navigation} = this.props;
+    let { navigation } = this.props;
     navigation.goBack();
   };
 
@@ -84,18 +95,81 @@ class BookComments extends Component {
     );
   };
 
+  pushComment = (body) => {
+    // alert(body);
+    let {userData} = this.props; 
+    let newComment = {
+      comment:body, 
+      user:{
+        id: userData.id,
+        name:userData.name,
+        photo:userData.photo,
+      },
+      usersLikes:[],
+      usersDislikes:[],
+    }
+    this.setState({
+      bookComments:[...this.state.bookComments,newComment]
+    })
+    this.commentsListRef.current.scrollToEnd();
+  }
+
+  submitComment = async (body) => {
+    let userID = this.props.userData.id;
+    let bookID = this.state.book.id; 
+    let comment = body;   
+    
+    this.pushComment(body);
+    client.mutate({
+      mutation:addBookCommentMutation, 
+      variables:{
+        userID,
+        bookID,
+        comment
+      }
+    })
+
+  }
+
+  
+
   render() {
-    const {bookName, bookComments, refreshing} = this.state;
-    console.log('c : ', bookComments);
+    const { bookName, bookComments, refreshing,loadComments } = this.state;
+    
+    let style ={
+      container :{
+        ...styles.container, 
+        backgroundColor:getTheme().background,
+        //  height:"100%"
+
+      }
+    }
+
     return (
-      <View style={styles.container}>
+      <View style={style.container}>
+        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={40}>
+
         <SubHeader
           noHeart={true}
           title={bookName + ' ' + I18n.t('comments')}
           goBack={() => this.goBack()}
         />
-        {/* <Text> textInComponent </Text> */}
-        <FlatList
+        <View style={styles.content} >
+
+          {/* <Text> textInComponent </Text> */}
+          {loadComments ?
+             <View style={styles.loadingCont}>
+             <ActivityIndicator style={styles.spinner}
+             size="large"
+             color={mainColor}
+             />
+             </View>
+          : !bookComments.length ? 
+            <View style={styles.msgCont} >
+              <Text style={styles.msg}>{I18n.t("noComments")}</Text>
+            </View>
+          :
+          <FlatList
           data={bookComments}
           renderItem={this.renderComment}
           refreshControl={
@@ -103,9 +177,17 @@ class BookComments extends Component {
             refreshing={refreshing}
             onRefresh={() => this.refreshComments()}
             colors={[mainColor]}
-          />
+            />
           }
-        />
+          ref={this.commentsListRef}
+          />
+        }
+        </View>
+
+          <View style={styles.addCommentCont}>
+            <CommentForm submit={(body)=>{ this.submitComment(body) }} />
+          </View>
+        </KeyboardAvoidingView>
       </View>
     );
   }
