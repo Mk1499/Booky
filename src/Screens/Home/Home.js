@@ -21,6 +21,8 @@ import SmallBookCard from '../../Components/SmallBookCard/SmallBookCard';
 import AddBookBtn from '../../Components/AddBookBtn/AddBookBtn';
 // import Carousel from 'react-native-anchor-carousel';
 import Carousel from 'react-native-snap-carousel';
+import SplashScreen from 'react-native-splash-screen'
+
 
 import {
   getBooksQuery,
@@ -119,6 +121,7 @@ function Home(props) {
     await refreshLatestBooks();
     await refreshAuthors();
     setRefreshing(false);
+    SplashScreen.hide();
   }
 
   async function refreshBooks() {

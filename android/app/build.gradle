@@ -193,6 +193,7 @@ dependencies {
     implementation project(path: ":@react-native-firebase_app")
     implementation project(path: ":@react-native-firebase_messaging")
     implementation project(path: ":@react-native-firebase_storage")
+    implementation project(':react-native-splash-screen')
 
 
 //     compile(project(':react-native-device-info')) {compile(project(':react-native-device-info')) {

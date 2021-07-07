@@ -24,6 +24,8 @@ target 'Booky' do
   pod 'RNFBApp', :path => '../node_modules/@react-native-firebase/app'
 
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'BookyTests' do
     inherit! :complete
     # Pods for testing
