@@ -32,7 +32,7 @@ export default class App extends Component {
   componentDidMount = async () => {
     console.disableYellowBox = true;
     this.intializeApp();
-    SplashScreen.hide();
+    // SplashScreen.hide();
 
   };
 

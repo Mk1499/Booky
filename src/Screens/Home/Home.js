@@ -121,7 +121,6 @@ function Home(props) {
     await refreshLatestBooks();
     await refreshAuthors();
     setRefreshing(false);
-    SplashScreen.hide();
   }
 
   async function refreshBooks() {
@@ -173,6 +172,8 @@ function Home(props) {
     forgroundMsgs();
     props.getUserFavsAction(props.userData.id);
     // console.log('Home Props : ', props);
+    SplashScreen.hide();
+
   }, []);
 
   useEffect(() => {

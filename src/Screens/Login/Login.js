@@ -22,7 +22,7 @@ function Login(props) {
   const [password, setPassword] = useState('');
 
   useEffect(()=>{
-    // SplashScreen.hide()
+    SplashScreen.hide()
   },[])
 
   function checkMail(e) {
