@@ -1,5 +1,6 @@
 import {StyleSheet, I18nManager} from 'react-native';
 import {height, width, mainColor} from '../../configs/global';
+import {getActiveLang} from '../../translate'
 
 export default StyleSheet.create({
   container: {
@@ -35,6 +36,8 @@ export default StyleSheet.create({
     fontSize: 0.06 * width,
     fontFamily: 'Cairo-SemiBold',
     marginBottom: 0.03 * height,
+    // flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+    // textAlign:getActiveLang() === 'ar'  ? 'right' : 'left'
   },
   bookItem: {
     marginHorizontal: 0.02 * width,

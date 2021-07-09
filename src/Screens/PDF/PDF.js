@@ -5,13 +5,15 @@ import {
   width,
   height,
   mainColor,
-  textColor,
   subColor,
 } from '../../configs/global';
 import {connect} from 'react-redux';
 import {setCurrentRead} from '../../actions/book';
 import {addBookReadMutation} from '../../mutations/book';
 import {client} from '../../queries/queryClient';
+import { Icon } from 'native-base';
+import I18n , {getActiveLang} from '../../translate'
+import { Platform } from 'react-native';
 
 class PDFSCR extends Component {
   constructor(props) {
@@ -33,7 +35,6 @@ class PDFSCR extends Component {
         },
       })
       .catch((err) => {
-        // console.log('add read log err : ', err);
       });
   }
 
@@ -42,10 +43,7 @@ class PDFSCR extends Component {
       book: this.props.currentReadData.book,
       lastPage: this.state.currentPage,
     };
-
     this.props.setCurrentRead(newReadData);
-    // // console.log('exit with page : ', newReadData);
-
     client
       .mutate({
         mutation: addBookReadMutation,
@@ -56,16 +54,30 @@ class PDFSCR extends Component {
         },
       })
       .catch((err) => {
-        // console.log('add read log err : ', err);
       });
   }
 
+  goBack = () => {
+    this.props.navigation.goBack()
+  }
+
   render() {
+    
+    let bookName = getActiveLang() === 'en' && this.props.currentReadData.book.enName ? this.props.currentReadData.book.enName : this.props.currentReadData.book.name
+   
     return (
       <View style={styles.container}>
         <View style={styles.header}>
+        <View style={styles.menuItem}>
+            <Icon
+              name={getActiveLang === 'ar' ? 'chevron-thin-right' : 'chevron-thin-left'}
+              type="Entypo"
+              style={styles.icon}
+              onPress={this.goBack}
+            />
+          </View>
           <View style={styles.menuItem}>
-            <Text style={styles.menuItemHead}>Page</Text>
+            <Text style={styles.menuItemHead}>{I18n.t('page')}</Text>
             <Text style={styles.menuItemBody}>
               {' '}
               {this.state.currentPage} / {this.state.noOfPages}
@@ -73,7 +85,7 @@ class PDFSCR extends Component {
           </View>
           <View style={styles.menuItem}>
             <Text style={styles.menuItemHead}>
-              {this.props.currentReadData.book.name}
+              {bookName}
             </Text>
             {/* <Text style={styles.menuItemBody}>
               {' '}
@@ -131,7 +143,7 @@ const styles = StyleSheet.create({
     top: 0,
     width: width,
     backgroundColor: '#fff',
-    height: 0.085 * height,
+    height: 0.1 * height,
     // borderRadius: 10,
     zIndex: 50,
     elevation: 5,
@@ -140,6 +152,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    paddingTop:Platform.OS === 'ios' ? 0.03 * height : 0 
+
   },
   menuItem: {
     alignItems: 'center',
@@ -155,6 +169,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo',
     fontSize: 0.03 * width,
   },
+  icon:{
+    color:mainColor
+  }
 });
 
 const mapStateToProps = (state) => ({

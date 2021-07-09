@@ -116,11 +116,13 @@ export default function GenreScreen(props) {
       ...styles.sideHead,
       color: getTheme().text,
     },
+    dirTextCont:{ 
+      flexDirection: getActiveLang() === 'ar' ? 'row-reverse' : 'row',
+    },
   };
 
   let name =
     genre.enName && getActiveLang() === 'en' ? genre.enName : genre.name;
-  console.log('Genre : ', genre);
 
   return (
     <ScrollView
@@ -141,12 +143,12 @@ export default function GenreScreen(props) {
         onError={() => failToLoadImg()}
       />
       <View style={style.content}>
-        <View>
+        <View style={style.dirTextCont}>
           <Text style={styles.genreName}>{name}</Text>
         </View>
         {genre.books ? (
           <View style={styles.section}>
-            <View style={styles.sectionHead}>
+            <View style={[styles.sectionHead,style.dirTextCont]}>
               <Text style={style.sideHead}>{I18n.t('trendyBooks')}</Text>
               {/* <Text style={styles.seeMore}>See More > </Text> */}
             </View>

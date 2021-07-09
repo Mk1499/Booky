@@ -41,7 +41,7 @@ import {setAuthors as setAuthorsAction} from '../../actions/author';
 import {setGenres as setGenresAction} from '../../actions/genre';
 import {getUserFavsAction} from '../../actions/user';
 import {client} from '../../queries/queryClient';
-import I18n from '../../translate';
+import I18n, { getActiveLang } from '../../translate';
 import styles from './styles';
 import {getTheme} from '../../Services/themes';
 const {width, height} = Dimensions.get('window');
@@ -222,6 +222,10 @@ function Home(props) {
     },
   });
 
+  let dirStyle = {
+    flexDirection: getActiveLang() === 'ar' ? 'row-reverse' : 'row',
+  };
+
   return (
     <View style={style.container}>
       <Header />
@@ -260,7 +264,9 @@ function Home(props) {
             )}
           </View>
           <View style={styles.section}>
-            <Text style={styles.sideHeader}>{I18n.t('newReleases')}</Text>
+            <View style={dirStyle}>
+             <Text style={styles.sideHeader}>{I18n.t('newReleases')}</Text>
+            </View>
             <FlatList
               data={latestBooks}
               horizontal
@@ -278,7 +284,9 @@ function Home(props) {
           </View>
 
           <View style={[styles.section, {marginBottom: 100}]}>
-            <Text style={styles.sideHeader}>{I18n.t('topAuthors')}</Text>
+            <View style={dirStyle}>
+              <Text style={styles.sideHeader}>{I18n.t('topAuthors')}</Text>
+            </View>
             <FlatList
               data={authors}
               horizontal

@@ -16,7 +16,8 @@ import {useQuery} from '@apollo/client';
 import {getBookDetails} from '../../queries/queries';
 import {connect} from 'react-redux';
 import {addBookToFav, updateFavBooksAction} from '../../actions/book';
-import {checkBookFavQuery} from '../../queries/book';
+import Loader from '../../Components/Loader/Loader'; 
+
 import {
   addBookToFavMutation,
   removeBookFromFavMutation,
@@ -105,6 +106,12 @@ function BookDetails(props) {
     });
   }
 
+  function gotoPublisherProfile(userID){
+    props.navigation.push('UserProfile',{
+      userID
+    })
+  }
+
   function renderRelBooks({item}) {
     if (item.id !== book.id)
       return (
@@ -189,6 +196,13 @@ function BookDetails(props) {
       ? book?.author?.enName
       : book?.author?.name;
 
+if (!book.name){
+  return (
+    <Loader />
+  )
+}
+
+
   return (
     <ScrollView
       style={style.container}
@@ -249,7 +263,9 @@ function BookDetails(props) {
           </View>
           <View>
             <Text style={styles.head}>{I18n.t('publisher')}</Text>
-            <Text style={styles.data} numberOfLines={1} ellipsizeMode="tail">
+            <Text style={styles.data} numberOfLines={1} ellipsizeMode="tail" onPress={()=>{
+              gotoPublisherProfile(book.owner.id)
+            }} >
               {book.owner?.name}
             </Text>
           </View>

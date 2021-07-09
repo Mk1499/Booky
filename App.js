@@ -13,8 +13,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import MainStack from './src/Routes/Stacks/Main';
 import {initializeTheme} from './src/Services/themes';
-import SplashScreen from 'react-native-splash-screen'
-
 
 const client = new ApolloClient({
   uri: baseURL,
@@ -32,8 +30,6 @@ export default class App extends Component {
   componentDidMount = async () => {
     console.disableYellowBox = true;
     this.intializeApp();
-    // SplashScreen.hide();
-
   };
 
   intializeApp = async () => {

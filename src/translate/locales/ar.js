@@ -75,5 +75,11 @@ export default {
   ok: 'موافق',
   addYourComment:"آضف تعليقك هنا",
   send:'آرسال',
-  noComments:'لا يوجد تعليقات'
+  noComments:'لا يوجد تعليقات', 
+  page:'صفحة',
+  articles:'المقالات',
+  follow:"متابعة",
+  seeMore:"المزيد",
+  latestArticles:"أخر المقالات",
+  latestAddedBooks:"أخر الكتب المضافة",
 };

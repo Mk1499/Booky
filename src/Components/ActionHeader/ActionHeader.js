@@ -14,9 +14,9 @@ export default class ActionHeader extends Component {
     return (
       <View style={[styles.container, dirStyle, themeStyle()]}>
         <Icon
-          name={'user-edit'}
+          name={'account-edit-outline'}
           style={styles.icon}
-          type="FontAwesome5"
+          type="MaterialCommunityIcons"
           onPress={() => action()}
         />
       </View>

@@ -75,6 +75,13 @@ export default {
   ok: 'OK',
   addYourComment:"Add Your Comment Here",
   send:"Send",
-  noComments:'No Comments Yet'
+  noComments:'No Comments Yet',
+  page:'Page',
+  articles:'Articles',
+  follow:"Follow",
+  seeMore:"See More",
+  latestArticles:"Latest Articles",
+  latestAddedBooks:"Latest Added Books",
+
 
 };

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, I18nManager} from 'react-native';
+import {View, Text, StyleSheet, I18nManager , Platform} from 'react-native';
 import {Icon} from 'native-base';
 import {height, width, textColor, mainColor} from '../../configs/global';
 import I18n from '../../translate';
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    height: 0.1 * height,
+    height: Platform.OS === 'ios' ? 0.13 * height :0.1 * height,
     width,
     // position: 'absolute',
     top: 0,
     paddingHorizontal: 0.03 * width,
     flexDirection: 'row',
-    // backgroundColor:"red"
+    paddingTop: Platform.OS === 'ios' ?  0.03 * height : 0  
   },
   icon: {
     color: textColor,

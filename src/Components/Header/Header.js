@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, I18nManager} from 'react-native';
+import {View, Text, StyleSheet, Image, I18nManager,Platform} from 'react-native';
 import {mainColor, height, textColor, width} from '../../configs/global';
-import {Icon} from 'native-base';
 import logoWhite from '../../../assets/images/logoWhite.png';
+
+
 
 export default function Header() {
   return (
@@ -23,9 +24,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: mainColor,
-    height: 0.08 * height,
+    height:Platform.OS === 'ios'? 0.1 * height : 0.08 * height,
     flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
     elevation: 20,
+    paddingTop: Platform.OS === 'ios'? 0.034* height:0
   },
   appName: {
     letterSpacing: 5,
