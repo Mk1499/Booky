@@ -30,3 +30,32 @@ export const getUserFavs = gql`
     }
   }
 `;
+
+export const getUserProfileQ = gql`
+  query($userID: ID!) {
+    user(id: $userID) {
+      id
+      name
+      photo
+      cover
+      followers
+      following
+      addedBooks{
+        id
+        name
+        enName
+        posterURL
+      }
+      articles{
+        id
+        title
+        coverURL
+        body
+        publisher{
+          name
+          photo
+        }
+      }
+    }
+  }
+`

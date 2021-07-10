@@ -4,9 +4,14 @@ import { Text, View, Image } from 'react-native'
 import { getTheme } from '../../Services/themes';
 import { getActiveLang } from '../../translate';
 import styles from './style';
+import profileAvatar from '../../../assets/images/avatar.jpg'; 
+import dummyCover from '../../../assets/images/cover.jpg'; 
 
 
 export default class ArticleCard extends Component {
+
+
+
 
     render() {
 
@@ -29,18 +34,23 @@ export default class ArticleCard extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.coverCont}>
-                    <Image style={styles.cover} source={{
-                        uri: 'https://img.youm7.com/ArticleImgs/2020/9/24/172845-93fdd37799f823e9a4dc227c6304ae99.jpg'
-                    }} />
+                    <Image 
+                        style={styles.cover} 
+                        source={
+                        article.coverURL ?  {uri:  article.coverURL} : dummyCover}
+                        defaultSource={dummyCover}
+                        />
                 </View>
               
                 <View style={style.upperRow}>
                     <View style={style.userCont}>
                         <Image
                             style={styles.userImg}
-                            source={{ uri: "https://i.redd.it/dac08nj65vp21.jpg" }} />
+                            source={article?.publisher?.photo ? { uri:  article?.publisher?.photo} :profileAvatar}
+                            defaultSource={profileAvatar}
+                            />
                         <Text style={[styles.userName,style.themedFontColor]}>
-                            Bob Morley
+                            {article?.publisher?.name }
                         </Text>
                     </View>
                     <View style={styles.likesCont}>
@@ -57,13 +67,13 @@ export default class ArticleCard extends Component {
                     </View>
                 </View>
                 <View style={styles.titleCont}>
-                    <Text style={styles.title}> How To The Choosen One </Text>
+                    <Text style={styles.title}> {article.title} </Text>
                 </View>
                 <View style={styles.line}></View>
 
                 <View style={styles.priefCont}>
                     <Text style={[styles.prief,style.themedFontColor]} numberOfLines={3} ellipsizeMode="middle">
-                        Sit enim enim duis elit excepteur ea.Ex Lorem occaecat exercitation reprehenderit laboris minim eiusmod.
+                    {article.body}
                     </Text>
                 </View>
             </View>

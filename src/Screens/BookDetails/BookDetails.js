@@ -26,6 +26,8 @@ import {ApolloClient, InMemoryCache} from '@apollo/client';
 import {baseURL, mainColor} from '../../configs/global';
 import I18n from '../../translate';
 import {getTheme} from '../../Services/themes';
+import dummyBookCover from '../../../assets/images/bookCover.jpg'
+
 
 const client = new ApolloClient({
   uri: baseURL,
@@ -214,7 +216,7 @@ if (!book.name){
         />
       }>
       {book.posterURL ? (
-        <Image source={{uri: book.posterURL}} style={styles.backgroundImg} />
+        <Image source={{uri: book.posterURL}} style={styles.backgroundImg} defaultSource={dummyBookCover} />
       ) : null}
       <View style={styles.headCont}>
         <SubHeader
@@ -229,10 +231,13 @@ if (!book.name){
             source={
               book.posterURL
                 ? {uri: book.posterURL}
-                : require('../../../assets/images/bookCover.jpg')
+                : dummyBookCover
             }
             style={styles.bookCover}
             resizeMode="cover"
+            defaultSource={
+              dummyBookCover
+            }
           />
         </View>
         <Text style={styles.bookName}>{bookName}</Text>

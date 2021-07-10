@@ -28,6 +28,7 @@ import {updateUserImg} from '../../actions/auth';
 import {connect} from 'react-redux';
 import I18n, {getActiveLang} from '../../translate';
 import {getTheme} from '../../Services/themes';
+import { Platform } from 'react-native';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -58,7 +59,7 @@ function ActorPrfile(props) {
     props.navigation.goBack();
   }
   function gotoBookScreen(bookID) {
-    props.navigation.navigate('BookDetails', {
+    props.navigation.push('BookDetails', {
       bookID,
     });
   }
@@ -191,7 +192,7 @@ function ActorPrfile(props) {
         style={{
           width,
           height: 0.5 * height,
-          marginTop: -0.1 * height,
+          marginTop: Platform.OS === 'ios'? -0.13 * height : -0.1 * height,
           zIndex: -1,
         }}
         source={{

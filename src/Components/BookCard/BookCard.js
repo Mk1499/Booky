@@ -3,6 +3,7 @@ import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {mainColor, textColor, width, height} from '../../configs/global';
 import {connect} from 'react-redux';
 import I18n, {getActiveLang} from '../../translate';
+import dummyCover from '../../../assets/images/bookCover.jpg'
 
 function BookCard(props) {
   let {book} = props;
@@ -18,10 +19,11 @@ function BookCard(props) {
             ? {
                 uri: props.book.posterURL,
               }
-            : require('../../../assets/images/bookCover.jpg')
+            : dummyCover
         }
         style={styles.bookCover}
         resizeMode="cover"
+        defaultSource={dummyCover}
       />
       <Text style={styles.bookName} numberOfLines={1} ellipsizeMode="tail">
         {name}

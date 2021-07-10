@@ -35,11 +35,13 @@ export default StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+        backgroundColor:'#fff',
+        borderRadius: 20,
+        overflow:'hidden'
     },
     profileImg: {
         width: 0.4 * width,
         height: 0.2 * height,
-        borderRadius: 20,
     },
     name: {
         fontFamily: 'Cairo',

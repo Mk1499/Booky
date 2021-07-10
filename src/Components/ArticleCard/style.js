@@ -8,7 +8,7 @@ export default StyleSheet.create({
         borderWidth:1,
         borderColor:mainColor,
         borderRadius:10,
-        shadowColor: "#000",
+        shadowColor: "#fff",
         shadowOffset: {
             width: 0,
             height: 2,
@@ -16,6 +16,7 @@ export default StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+        backgroundColor:'#fff',
         marginHorizontal:0.02 * width,
         overflow:'hidden',
         marginVertical:0.03 * height
@@ -51,7 +52,17 @@ export default StyleSheet.create({
         width:0.1*width,
         height:0.1*width,
         borderRadius:0.05*width,
-        resizeMode:'cover'
+        resizeMode:'cover', 
+        shadowColor: "#fff",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 1,
+    },
+    userImgCont:{
     },
     userName:{
         fontFamily:'Cairo',

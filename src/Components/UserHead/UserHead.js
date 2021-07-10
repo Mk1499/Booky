@@ -4,6 +4,7 @@ import styles from './styles';
 import {Icon} from 'native-base';
 import {getActiveLang} from '../../translate';
 import {getTheme} from '../../Services/themes';
+import dummyProfilePic from '../../../assets/images/avatar.jpg'
 
 export default class UserHead extends Component {
   render() {
@@ -34,6 +35,7 @@ export default class UserHead extends Component {
                 user.photo ||
                 'https://i.pinimg.com/originals/50/3d/de/503ddedd8c29b75b318d1af71744f446.jpg',
             }}
+            defaultSource={dummyProfilePic}
           />
           <View style={styles.textContent}>
             <Text style={style.name}> {user.name} </Text>
