@@ -1,9 +1,10 @@
 import {gql} from '@apollo/client';
 
 export const getUserAddedBooksQuery = gql`
-  query($userID: ID!) {
-    user(id: $userID) {
-      addedBooks {
+  query($userID: String!, $page:Int) {
+    userAddedBooks(userID: $userID,page:$page ) {
+      allBooksNum
+      books{
         id
         name
         enName
@@ -40,12 +41,15 @@ export const getUserProfileQ = gql`
       cover
       followers
       following
+      addedBooksNum
+      quote
       addedBooks{
         id
         name
         enName
         posterURL
       }
+      articlesNum
       articles{
         id
         title

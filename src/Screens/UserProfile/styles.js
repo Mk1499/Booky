@@ -10,7 +10,7 @@ export default StyleSheet.create({
         height: Platform.OS === 'ios' ? 0.1 * height : 0.08 * height,
         paddingTop: Platform.OS === 'ios' ? 0.04 * height : 0,
         paddingHorizontal: 0.02 * width,
-        backfaceVisibility: 'visible'
+        justifyContent:'center'
     },
     backIcon: {
         color: mainColor
@@ -98,11 +98,11 @@ export default StyleSheet.create({
     sectionTitle:{
         fontFamily:'Cairo',
         color:mainColor, 
-        fontSize:25  
+        fontSize:0.06 * width  
     },
     showMoreText:{
         fontFamily:'Cairo',
-        fontSize:15  
+        fontSize:0.04 * width  
     },
     listCont:{
     },
@@ -112,5 +112,21 @@ export default StyleSheet.create({
     bookItem:{
         marginTop: 0.03 * height,
         marginHorizontal: 0.02 * width
-    }
+    },
+    quoteCont: {
+        flexDirection: 'row',
+        marginVertical: 0.02 * height,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      quote: {
+        fontFamily: 'Cairo',
+        color: mainColor,
+        textAlign: 'center',
+        marginHorizontal: 0.01 * width,
+      },
+      icon: {
+        fontSize: 0.03 * width,
+        color: mainColor,
+      },
 })

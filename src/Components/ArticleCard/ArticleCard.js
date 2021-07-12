@@ -18,6 +18,10 @@ export default class ArticleCard extends Component {
         let { article } = this.props;
 
         let style = {
+            container:{
+                ...styles.container,
+                backgroundColor:getTheme().background
+            },
             userCont:{
                 ...styles.userCont, 
                 flexDirection: getActiveLang() === 'ar'? 'row-reverse' : 'row'
@@ -32,7 +36,7 @@ export default class ArticleCard extends Component {
         }
 
         return (
-            <View style={styles.container}>
+            <View style={style.container}>
                 <View style={styles.coverCont}>
                     <Image 
                         style={styles.cover} 
@@ -63,8 +67,12 @@ export default class ArticleCard extends Component {
                             <Icon style={styles.likeIcon} name="dislike2" type="AntDesign" />
                             <Text style={[styles.likesNum,style.themedFontColor]}>13</Text>
                         </View>
+                        <View style={styles.likeView}>
+                            <Icon style={styles.likeIcon} name="comment-o" type="FontAwesome" />
+                            <Text style={[styles.likesNum,style.themedFontColor]}>11</Text>
+                        </View>
 
-                    </View>
+                    </View> 
                 </View>
                 <View style={styles.titleCont}>
                     <Text style={styles.title}> {article.title} </Text>
@@ -72,8 +80,8 @@ export default class ArticleCard extends Component {
                 <View style={styles.line}></View>
 
                 <View style={styles.priefCont}>
-                    <Text style={[styles.prief,style.themedFontColor]} numberOfLines={3} ellipsizeMode="middle">
-                    {article.body}
+                    <Text style={[styles.prief,style.themedFontColor]} numberOfLines={2} ellipsizeMode="middle">
+                    {article.body }
                     </Text>
                 </View>
             </View>

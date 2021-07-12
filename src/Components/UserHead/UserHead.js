@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image,TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {Icon} from 'native-base';
 import {getActiveLang} from '../../translate';
@@ -12,7 +12,7 @@ export default class UserHead extends Component {
       flexDirection: getActiveLang() === 'ar' ? 'row-reverse' : 'row',
     };
 
-    let {user} = this.props;
+    let {user , navigate} = this.props;
     let style = {
       ...styles,
       name: {
@@ -27,7 +27,7 @@ export default class UserHead extends Component {
 
     return (
       <View style={[style.container]}>
-        <View style={[styles.content, dirStyle]}>
+        <TouchableOpacity activeOpacity={0} style={[styles.content, dirStyle]} onPress={navigate}>
           <Image
             style={styles.image}
             source={{
@@ -41,7 +41,7 @@ export default class UserHead extends Component {
             <Text style={style.name}> {user.name} </Text>
             <Text style={styles.email}> {user.email} </Text>
           </View>
-        </View>
+        </TouchableOpacity>
         <View style={styles.quoteCont}>
           <Icon name="quote-left" type="FontAwesome" style={styles.icon} />
           <Text style={styles.quote}>

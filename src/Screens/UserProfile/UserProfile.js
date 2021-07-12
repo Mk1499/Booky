@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  RefreshControl,
 } from 'react-native';
 import styles from './styles';
 import {Icon} from 'native-base';
@@ -19,12 +20,14 @@ import {getUserProfileQ} from '../../queries/user';
 import {connect} from 'react-redux';
 import dummyCover from '../../../assets/images/cover.jpg';
 import dummyProfilePic from '../../../assets/images/avatar.jpg';
+import {mainColor} from '../../configs/global';
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
+      refreshing: false,
       user: {
         name: '',
         articles: [],
@@ -34,7 +37,6 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
-      console.log("P : ", this.props);
     this.getData();
   }
 
@@ -46,12 +48,14 @@ class UserProfile extends Component {
         variables: {
           userID,
         },
+        fetchPolicy: 'no-cache',
       })
       .then(({data}) => {
         let {user} = data;
         this.setState({
           user,
           loading: false,
+          refreshing: false,
         });
       });
   };
@@ -61,9 +65,9 @@ class UserProfile extends Component {
   };
 
   goToBookScreen = (book) => {
-      this.props.navigation.push('BookDetails', {
-          bookID:book.id
-      })
+    this.props.navigation.push('BookDetails', {
+      bookID: book.id,
+    });
   };
 
   renderArticle = (item) => {
@@ -78,8 +82,18 @@ class UserProfile extends Component {
     );
   };
 
+  showAddedBooks = () =>{
+    let {userID} = this.props.route.params;
+    let userName = this.state.user.name; 
+    let {navigation} = this.props; 
+    navigation.navigate('AddedBooks',{
+      userID, 
+      userName
+    })
+  }
+
   render() {
-    let {articles, books, loading, user} = this.state;
+    let {refreshing, loading, user} = this.state;
 
     let style = {
       container: {
@@ -104,7 +118,15 @@ class UserProfile extends Component {
     }
 
     return (
-      <ScrollView contentContainerStyle={style.container}>
+      <ScrollView
+        contentContainerStyle={style.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={this.getData}
+            colors={[mainColor]}
+          />
+        }>
         <View style={styles.header}>
           <Icon
             name={
@@ -137,19 +159,26 @@ class UserProfile extends Component {
             />
           </View>
           <Text style={[styles.name, style.themedFontColor]}>{user.name}</Text>
+          {user.quote ? (
+            <View style={styles.quoteCont}>
+              <Icon name="quote-left" type="FontAwesome" style={styles.icon} />
+              <Text style={styles.quote}>{user.quote}</Text>
+              <Icon name="quote-right" type="FontAwesome" style={styles.icon} />
+            </View>
+          ) : null}
         </View>
         <View style={style.priefRow}>
           <View style={styles.preifCont}>
             <Text style={[styles.preifHead, style.themedFontColor]}>
               {I18n.t('articles')}
             </Text>
-            <Text style={styles.priefData}>89</Text>
+            <Text style={styles.priefData}>{user.articlesNum || 0}</Text>
           </View>
           <View style={styles.preifCont}>
             <Text style={[styles.preifHead, style.themedFontColor]}>
               {I18n.t('books')}
             </Text>
-            <Text style={styles.priefData}>0</Text>
+            <Text style={styles.priefData}>{user.addedBooksNum || 0}</Text>
           </View>
           <View style={styles.preifCont}>
             <Text style={[styles.preifHead, style.themedFontColor]}>
@@ -193,7 +222,7 @@ class UserProfile extends Component {
             <Text style={styles.sectionTitle}>
               {I18n.t('latestAddedBooks')}
             </Text>
-            <Text style={[styles.showMoreText, style.themedFontColor]}>
+            <Text style={[styles.showMoreText, style.themedFontColor]} onPress={this.showAddedBooks}>
               {I18n.t('seeMore')}
             </Text>
           </View>

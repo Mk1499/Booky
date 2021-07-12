@@ -29,13 +29,13 @@ class Me extends Component {
           iconType: 'AntDesign',
           action: () => this.goToScreen('FavBooks'),
         },
-        {
-          id: 1,
-          text: I18n.t('addedBooks'),
-          iconName: 'add-circle-outline',
-          iconType: 'MaterialIcons',
-          action: () => this.goToScreen('AddedBooks'),
-        },
+        // {
+        //   id: 1,
+        //   text: I18n.t('addedBooks'),
+        //   iconName: 'add-circle-outline',
+        //   iconType: 'MaterialIcons',
+        //   action: () => this.goToScreen('AddedBooks'),
+        // },
         {
           id: 2,
           text: I18n.t('yourFavAuthors'),
@@ -125,6 +125,12 @@ class Me extends Component {
     this.props.logout(this.props.userData.id);
   };
 
+  showMyProfile = () => {
+    this.props.navigation.navigate('UserProfile',{
+      userID: this.props.userData.id
+    })
+  }
+
   render() {
     let {menuItems, langModal} = this.state;
     let {navigation, userData} = this.props;
@@ -137,10 +143,12 @@ class Me extends Component {
       },
     };
 
+   
+
     return (
       <ScrollView style={[style.container]}>
         <ActionHeader action={() => this.goToScreen('EditProfile')} />
-        <UserHead user={userData} />
+        <UserHead user={userData} navigate={this.showMyProfile} />
         <UserRecords />
         <SettingList items={menuItems} />
         <LangsModal

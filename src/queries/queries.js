@@ -32,6 +32,7 @@ export const userLogin = gql`
       email
       photo
       quote
+      cover
       favBooks {
         book {
           id
@@ -127,7 +128,7 @@ export const addBookMutation = gql`
     addBook(name: $name, genre: $genre, authorID: $authorID) {
       name
       id
-    }
+    } 
   }
 `;
 

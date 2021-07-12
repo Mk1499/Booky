@@ -3,8 +3,8 @@ import {width,height,mainColor} from '../../configs/global';
 
 export default StyleSheet.create({
     container:{
-        width : 0.75*width,
-        height:0.45 * height,
+        width : 0.8*width,
+        height:0.5 * height,
         borderWidth:1,
         borderColor:mainColor,
         borderRadius:10,
@@ -60,7 +60,7 @@ export default StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 1,
+        // elevation: 1,
     },
     userImgCont:{
     },
@@ -82,7 +82,8 @@ export default StyleSheet.create({
         flexDirection:'column'
     },
     likeIcon:{
-        color:mainColor
+        color:mainColor , 
+        fontSize:0.05 * width
     },
     likesNum:{
         fontFamily:'Cairo',
@@ -90,11 +91,13 @@ export default StyleSheet.create({
     },
     priefCont:{
         paddingHorizontal:'3%',
-        alignItems:'center'
+        alignItems:'center',
+       paddingBottom:0.1 * height
     },
     prief:{
         fontFamily:'Cairo',
-        opacity:0.7
+        opacity:0.7, 
+        fontSize:0.03 * width
     }, 
     line:{
         width : '95%',

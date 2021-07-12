@@ -6,7 +6,7 @@ export default StyleSheet.create({
     height: 100,
   },
   form: {
-    marginTop: 0.05 * height,
+    marginTop:-0.05 * height, 
     paddingHorizontal: 0.1 * width,
     flexDirection: 'column',
     alignItems: 'center',
@@ -34,10 +34,21 @@ export default StyleSheet.create({
     borderColor: mainColor,
     borderWidth: 0.5,
     padding: 10,
-    borderRadius: 55,
+    borderRadius: 515,
   },
   btnCont: {
     position: 'relative',
     bottom: 0,
   },
+  coverCont:{
+    width,
+    height:0.2 * height,
+  },
+  cover:{
+    width:'100%',
+    height:'100%'
+  },
+  editCoverBtn:{
+    margin:10
+  }
 });

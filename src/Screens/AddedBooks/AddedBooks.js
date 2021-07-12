@@ -25,11 +25,18 @@ class AddedBooks extends Component {
       books: [],
       loading: true,
       refreshing: false,
+      userName: '',
+      page: 1,
+      allBooks: 0,
+      gettingNewPage: false,
     };
   }
 
   componentDidMount() {
     this.getAddedBooks();
+    this.setState({
+      userName: this.props.route.params.userName,
+    });
   }
 
   goBack = () => {
@@ -37,7 +44,6 @@ class AddedBooks extends Component {
   };
 
   renderItem = ({item}) => {
-    console.log('Book Item : ', item);
     let style = {
       book: {
         ...styles.book,
@@ -58,7 +64,10 @@ class AddedBooks extends Component {
   };
 
   getAddedBooks = async () => {
-    let {userData} = this.props;
+    // let {userData} = this.props;
+    let {userID} = this.props.route.params;
+    let {page} = this.state;
+
     this.setState({
       refreshing: true,
     });
@@ -66,7 +75,8 @@ class AddedBooks extends Component {
       .query({
         query: getUserAddedBooksQuery,
         variables: {
-          userID: userData.id,
+          userID,
+          page,
         },
         fetchPolicy: 'no-cache',
       })
@@ -74,21 +84,49 @@ class AddedBooks extends Component {
         console.log('Added Books : ', data);
         this.setState({
           loading: false,
-          books: data.user.addedBooks,
+          books: [...this.state.books, ...data.userAddedBooks.books],
           refreshing: false,
+          allBooks: data.userAddedBooks.allBooksNum,
+          gettingNewPage: false,
         });
       })
       .catch((err) => {
         this.setState({
           refreshing: false,
-          loading: true,
+          loading: false,
         });
         console.error('Get Fav Authors Err : ', err);
       });
   };
 
+  getNewPage = () => {
+    let {books, allBooks, page, loading} = this.state;
+    if (loading) {
+      return null;
+    }
+    if (allBooks > books.length) {
+      this.setState(
+        {
+          page: this.state.page + 1,
+          gettingNewPage: true,
+        },
+        () => {
+          this.getAddedBooks();
+        },
+      );
+    }
+  };
+
+  isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
+
   render() {
-    let {books, loading, refreshing} = this.state;
+    let {books, loading, refreshing, userName, gettingNewPage} = this.state;
     let style = {
       container: {
         ...styles.container,
@@ -100,7 +138,7 @@ class AddedBooks extends Component {
       <View style={style.container}>
         <SubHeader
           noHeart={true}
-          title={I18n.t('addedBooks')}
+          title={userName + ' ' + I18n.t('addedBooks')}
           goBack={() => this.goBack()}
         />
         {loading ? (
@@ -116,13 +154,26 @@ class AddedBooks extends Component {
                 onRefresh={() => this.getAddedBooks()}
                 colors={[mainColor]}
               />
-            }>
+            }
+            onScroll={({nativeEvent}) => {
+              console.log('Scroll : ', nativeEvent);
+              if (this.isCloseToBottom(nativeEvent)) {
+                this.getNewPage();
+              }
+            }}
+            // scrollEventThrottle={400}
+            >
             <FlatList
               data={books}
               renderItem={this.renderItem}
               numColumns={2}
               style={styles.list}
             />
+            {gettingNewPage && (
+              <View>
+                <ActivityIndicator color={mainColor} size="large" />
+              </View>
+            )}
           </ScrollView>
         ) : (
           <View style={styles.centerView}>

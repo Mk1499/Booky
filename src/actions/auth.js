@@ -131,6 +131,7 @@ export const login = (email, password, deviceToken) => async (dispatch) => {
             userData['name'] = res.data.loginUser.name;
             userData['email'] = res.data.loginUser.email;
             userData['photo'] = res.data.loginUser.photo;
+            userData['cover'] = res.data.loginUser.cover;
             userData['id'] = res.data.loginUser.id;
             userData['quote'] = res.data.loginUser.quote;
             dispatch({
@@ -257,13 +258,15 @@ export const getUserDetails = (id) => async (dispatch) => {
     });
 };
 
-export const updateUserData = (id, photo, name, quote) => async (dispatch) => {
+export const updateUserData = (id, photo,cover, name, quote) => async (dispatch) => {
   let userData = {
     id,
     photo,
     name,
     quote,
+    cover
   };
+  await AsyncStorage.setItem('userData', JSON.stringify(userData));
   dispatch({
     type: UPDATEUSERDATA,
     payload: userData,
