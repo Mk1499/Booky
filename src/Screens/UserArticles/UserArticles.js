@@ -12,28 +12,28 @@ import styles from './styles';
 import SubHeader from '../../Components/SubHeader/SubHeader';
 import I18n from '../../translate';
 import BookCard from '../../Components/BookCard/BookCard';
-// import {getFavBooksQuery} from '../../queries/book';
-import {getUserAddedBooksQuery} from '../../queries/user';
+import {getUserArticlesQuery} from '../../queries/article';
 import {getTheme} from '../../Services/themes';
 import {mainColor} from '../../configs/global';
 import {client} from '../../queries/queryClient';
+import ArticleCard from '../../Components/ArticleCard/ArticleCard';
 
-class AddedBooks extends Component {
+class UserArticles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
+      articles: [],
       loading: true,
       refreshing: false,
       userName: '',
       page: 1,
-      allBooks: 0,
+      allArticles: 0,
       gettingNewPage: false,
     };
   }
 
   componentDidMount() {
-    this.getAddedBooks();
+    this.getAddedArticles();
     this.setState({
       userName: this.props.route.params.userName,
     });
@@ -51,9 +51,7 @@ class AddedBooks extends Component {
       },
     };
     return (
-      <View style={style.book}>
-        <BookCard book={item} navigate={() => this.gotoBookScreen(item?.id)} />
-      </View>
+      <ArticleCard article={item} />
     );
   };
 
@@ -63,7 +61,7 @@ class AddedBooks extends Component {
     });
   };
 
-  getAddedBooks = async () => {
+  getAddedArticles = async () => {
     // let {userData} = this.props;
     let {userID} = this.props.route.params;
     let {page} = this.state;
@@ -73,7 +71,7 @@ class AddedBooks extends Component {
     });
     await client
       .query({
-        query: getUserAddedBooksQuery,
+        query: getUserArticlesQuery,
         variables: {
           userID,
           page,
@@ -81,12 +79,12 @@ class AddedBooks extends Component {
         fetchPolicy: 'no-cache',
       })
       .then(({data}) => {
-        console.log('Added Books : ', data);
+        console.log('User Articles : ', data);
         this.setState({
           loading: false,
-          books: [...this.state.books, ...data.userAddedBooks.books],
+          articles: [...this.state.articles, ...data.userAddedArticles.articles],
           refreshing: false,
-          allBooks: data.userAddedBooks.allBooksNum,
+          allArticles: data.userAddedArticles.allArticlesNum,
           gettingNewPage: false,
         });
       })
@@ -95,23 +93,23 @@ class AddedBooks extends Component {
           refreshing: false,
           loading: false,
         });
-        console.error('Get Fav Authors Err : ', err);
+        console.error('Get User Articles Err : ', err);
       });
   };
 
   getNewPage = () => {
-    let {books, allBooks, page, loading} = this.state;
+    let {articles, allArticles, page, loading} = this.state;
     if (loading) {
       return null;
     }
-    if (allBooks > books.length) {
+    if (allArticles > articles.length) {
       this.setState(
         {
           page: this.state.page + 1,
           gettingNewPage: true,
         },
         () => {
-          this.getAddedBooks();
+          this.getAddedArticles();
         },
       );
     }
@@ -126,7 +124,7 @@ class AddedBooks extends Component {
   };
 
   render() {
-    let {books, loading, refreshing, userName, gettingNewPage} = this.state;
+    let {articles, loading, refreshing, userName, gettingNewPage} = this.state;
     let style = {
       container: {
         ...styles.container,
@@ -138,20 +136,20 @@ class AddedBooks extends Component {
       <View style={style.container}>
         <SubHeader
           noHeart={true}
-          title={userName + ' ' + I18n.t('addedBooks')}
+          title={userName + ' ' + I18n.t('articles')}
           goBack={() => this.goBack()}
         />
         {loading ? (
           <View style={styles.centerView}>
             <ActivityIndicator color={mainColor} size="large" />
           </View>
-        ) : books.length ? (
+        ) : articles.length ? (
           <ScrollView
             contentContainerStyle={styles.content}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
-                onRefresh={() => this.getAddedBooks()}
+                onRefresh={() => this.getAddedArticles()}
                 colors={[mainColor]}
               />
             }
@@ -163,9 +161,8 @@ class AddedBooks extends Component {
             // scrollEventThrottle={400}
             >
             <FlatList
-              data={books}
+              data={articles}
               renderItem={this.renderItem}
-              numColumns={2}
               style={styles.list}
             />
             {gettingNewPage && (
@@ -188,4 +185,4 @@ const mapPropsToState = (state) => ({
   userData: state.auth.userData,
 });
 
-export default connect(mapPropsToState, {})(AddedBooks);
+export default connect(mapPropsToState, {})(UserArticles);

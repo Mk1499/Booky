@@ -63,3 +63,18 @@ export const getUserProfileQ = gql`
     }
   }
 `
+export const getUserPriefData = gql`
+  query($userID:ID!){
+    user(id:$userID){
+      id
+      name
+      email
+      photo
+      quote
+      followers
+      reads{
+        id
+      }
+    }
+  }
+`

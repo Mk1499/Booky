@@ -4,6 +4,7 @@ import Search from '../../Screens/Search/Search';
 import BookDetails from '../../Screens/BookDetails/BookDetails';
 import AuthorProfile from '../../Screens/AuthorProfile/AuthorProfile';
 import BookComments from '../../Screens/BookComments/BookComments';
+import Followers from '../../Screens/Followers/Followers';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,11 @@ export default class SearchStack extends Component {
         <Stack.Screen
           name="AuthorProfile"
           component={AuthorProfile}
+          options={{headerTitle: null, headerShown: false}}
+        />
+        <Stack.Screen
+          name="UserFollowers"
+          component={Followers}
           options={{headerTitle: null, headerShown: false}}
         />
       </Stack.Navigator>

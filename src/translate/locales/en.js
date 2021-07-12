@@ -82,6 +82,6 @@ export default {
   seeMore:"See More",
   latestArticles:"Latest Articles",
   latestAddedBooks:"Latest Added Books",
-
+  noPostsOrBooks:"No Books or Articles yet"
 
 };

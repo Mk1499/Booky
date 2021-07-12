@@ -82,14 +82,34 @@ class UserProfile extends Component {
     );
   };
 
-  showAddedBooks = () =>{
+  showAddedBooks = () => {
     let {userID} = this.props.route.params;
-    let userName = this.state.user.name; 
-    let {navigation} = this.props; 
-    navigation.navigate('AddedBooks',{
-      userID, 
-      userName
-    })
+    let userName = this.state.user.name;
+    let {navigation} = this.props;
+    navigation.navigate('AddedBooks', {
+      userID,
+      userName,
+    });
+  };
+
+  showUserArticles = () => {
+    let {userID} = this.props.route.params;
+    let userName = this.state.user.name;
+    let {navigation} = this.props;
+    navigation.navigate('UserArticles', {
+      userID,
+      userName,
+    });
+  };
+
+  showUserFollowers = () => {
+    let {userID} = this.props.route.params;
+    let userName = this.state.user.name;
+    let {navigation} = this.props;
+    navigation.navigate('UserFollowers', {
+      userID,
+      userName,
+    });
   }
 
   render() {
@@ -181,10 +201,10 @@ class UserProfile extends Component {
             <Text style={styles.priefData}>{user.addedBooksNum || 0}</Text>
           </View>
           <View style={styles.preifCont}>
-            <Text style={[styles.preifHead, style.themedFontColor]}>
+            <Text style={[styles.preifHead, style.themedFontColor]} onPress={this.showUserFollowers}>
               {I18n.t('followers')}
             </Text>
-            <Text style={styles.priefData}>{user.followers}</Text>
+            <Text style={styles.priefData} onPress={this.showUserFollowers}>{user.followers}</Text>
           </View>
           <View style={styles.preifCont}>
             <Text style={[styles.preifHead, style.themedFontColor]}>
@@ -200,41 +220,58 @@ class UserProfile extends Component {
             </TouchableOpacity>
           </View>
         ) : null}
-        <View style={styles.section}>
-          <View style={style.sectionHead}>
-            <Text style={styles.sectionTitle}>{I18n.t('latestArticles')}</Text>
-            <Text style={[styles.showMoreText, style.themedFontColor]}>
-              {I18n.t('seeMore')}
-            </Text>
+        {!user?.addedBooks?.length && !user.articles?.length ? 
+        
+         <View style={styles.noDataCont}>
+           <Icon name="file-alert-outline" type="MaterialCommunityIcons" style={styles.noDataIcon} />
+           <Text style={styles.noDataMsg}>{I18n.t('noPostsOrBooks')}</Text>
+         </View>
+        : 
+        
+        <View>
+          <View style={styles.section}>
+            <View style={style.sectionHead}>
+              <Text style={styles.sectionTitle}>
+                {I18n.t('latestArticles')}
+              </Text>
+              <Text
+                style={[styles.showMoreText, style.themedFontColor]}
+                onPress={this.showUserArticles}>
+                {I18n.t('seeMore')}
+              </Text>
+            </View>
+            <View style={styles.listCont}>
+              <FlatList
+                contentContainerStyle={styles.list}
+                data={user.articles}
+                renderItem={({item}) => this.renderArticle(item)}
+                horizontal
+                />
+            </View>
           </View>
-          <View style={styles.listCont}>
-            <FlatList
-              contentContainerStyle={styles.list}
-              data={user.articles}
-              renderItem={({item}) => this.renderArticle(item)}
-              horizontal
-            />
-          </View>
-        </View>
 
-        <View style={styles.section}>
-          <View style={style.sectionHead}>
-            <Text style={styles.sectionTitle}>
-              {I18n.t('latestAddedBooks')}
-            </Text>
-            <Text style={[styles.showMoreText, style.themedFontColor]} onPress={this.showAddedBooks}>
-              {I18n.t('seeMore')}
-            </Text>
-          </View>
-          <View style={styles.listCont}>
-            <FlatList
-              contentContainerStyle={styles.list}
-              data={user.addedBooks}
-              renderItem={({item}) => this.renderBook(item)}
-              horizontal
-            />
+          <View style={styles.section}>
+            <View style={style.sectionHead}>
+              <Text style={styles.sectionTitle}>
+                {I18n.t('latestAddedBooks')}
+              </Text>
+              <Text
+                style={[styles.showMoreText, style.themedFontColor]}
+                onPress={this.showAddedBooks}>
+                {I18n.t('seeMore')}
+              </Text>
+            </View>
+            <View style={styles.listCont}>
+              <FlatList
+                contentContainerStyle={styles.list}
+                data={user.addedBooks}
+                renderItem={({item}) => this.renderBook(item)}
+                horizontal
+                />
+            </View>
           </View>
         </View>
+        }
       </ScrollView>
     );
   }

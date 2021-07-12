@@ -167,12 +167,12 @@ function Home(props) {
   }
 
   useEffect(() => {
+    SplashScreen.hide();
     requestUserPermission();
     backgroundMsgs();
     forgroundMsgs();
     props.getUserFavsAction(props.userData.id);
     // console.log('Home Props : ', props);
-    SplashScreen.hide();
 
   }, []);
 

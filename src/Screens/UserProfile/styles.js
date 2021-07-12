@@ -1,5 +1,5 @@
 import { StyleSheet, Platform } from "react-native";
-import { mainColor, width, height } from "../../configs/global";
+import { mainColor, width, height, subColor , textColor } from "../../configs/global";
 
 export default StyleSheet.create({
     container: {
@@ -129,4 +129,20 @@ export default StyleSheet.create({
         fontSize: 0.03 * width,
         color: mainColor,
       },
+      noDataCont:{
+          height:0.41 * height, 
+        //   justifyContent:'center',
+          alignItems:'center', 
+          paddingTop:0.05 * height
+      },
+      noDataIcon:{
+          fontSize:0.4 * width, 
+          color:"#ddd"
+      },
+      noDataMsg:{
+        fontSize:0.05 * width, 
+        color:mainColor, 
+        fontFamily:'Cairo',
+        marginTop:0.02 * height
+      }
 })

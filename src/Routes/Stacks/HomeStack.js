@@ -9,6 +9,7 @@ import AuthorProfile from '../../Screens/AuthorProfile/AuthorProfile';
 import AddBookComment from '../../Screens/AddBookComment/AddBookComment';
 import BookComments from '../../Screens/BookComments/BookComments';
 import UserProfile from '../../Screens/UserProfile/UserProfile';
+import Followers from '../../Screens/Followers/Followers';
 
 const Stack = createStackNavigator();
 
@@ -57,9 +58,14 @@ export default class HomeStack extends Component {
           component={AuthorProfile}
           options={{headerTitle: null, headerShown: false}}
         />
-        <Stack.Screen 
+        <Stack.Screen
           name="UserProfile"
           component={UserProfile}
+          options={{headerTitle: null, headerShown: false}}
+        />
+        <Stack.Screen
+          name="UserFollowers"
+          component={Followers}
           options={{headerTitle: null, headerShown: false}}
         />
       </Stack.Navigator>

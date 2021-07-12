@@ -82,4 +82,5 @@ export default {
   seeMore:"المزيد",
   latestArticles:"أخر المقالات",
   latestAddedBooks:"أخر الكتب المضافة",
+  noPostsOrBooks:"لايوجد اي كتب او مقالات بعد"
 };

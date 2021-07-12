@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StatusBar, ScrollView} from 'react-native';
+import {RefreshControl, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {logout} from '../../actions/auth';
 
@@ -16,6 +16,8 @@ import LangsModal from '../../Components/LangsModal/LangsModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {client} from '../../queries/queryClient';
 import {updateUserLangMutation, updateUserMutation} from '../../mutations/user';
+import { getUserPriefData } from '../../queries/user';
+import { mainColor } from '../../configs/global';
 
 class Me extends Component {
   constructor(props) {
@@ -29,13 +31,6 @@ class Me extends Component {
           iconType: 'AntDesign',
           action: () => this.goToScreen('FavBooks'),
         },
-        // {
-        //   id: 1,
-        //   text: I18n.t('addedBooks'),
-        //   iconName: 'add-circle-outline',
-        //   iconType: 'MaterialIcons',
-        //   action: () => this.goToScreen('AddedBooks'),
-        // },
         {
           id: 2,
           text: I18n.t('yourFavAuthors'),
@@ -67,12 +62,20 @@ class Me extends Component {
         },
       ],
       langModal: false,
+      user:{
+        id:'',
+        name:'',
+        photo:'',
+        quote:'',
+        reads:[], 
+        followers:0
+      }, 
+      refreshing:false
     };
-    // console.log('me Props : ', this.props);
   }
 
   componentDidMount() {
-    // console.log('Active Theme : ', getTheme());
+    this.getUserData();
   }
 
   toggleLangModal = () => {
@@ -87,9 +90,27 @@ class Me extends Component {
     this.updateUserLang(newLang)
   };  
 
+  getUserData = async () => {
+    this.setState({
+      refreshing:true
+    })
+    await client.query({
+      query:getUserPriefData,
+      variables:{
+        userID: this.props.userData.id
+      },
+      fetchPolicy:'no-cache'
+    }).then(({data})=> {
+      let {user} = data; 
+      this.setState({
+        user, 
+        refreshing:false
+      })
+    })
+  }
+
   updateUserLang = async (newLang) => {
     let {userData} = this.props;
-
     await client.mutate({
       mutation: updateUserLangMutation,
       variables: {
@@ -132,7 +153,7 @@ class Me extends Component {
   }
 
   render() {
-    let {menuItems, langModal} = this.state;
+    let {menuItems, langModal , user , refreshing} = this.state;
     let {navigation, userData} = this.props;
 
     let style = {
@@ -146,10 +167,14 @@ class Me extends Component {
    
 
     return (
-      <ScrollView style={[style.container]}>
+      <ScrollView style={[style.container]} refreshControl={<RefreshControl
+        onRefresh={this.getUserData}
+        refreshing={refreshing}
+        colors = {[mainColor]}
+      />}>
         <ActionHeader action={() => this.goToScreen('EditProfile')} />
-        <UserHead user={userData} navigate={this.showMyProfile} />
-        <UserRecords />
+        <UserHead user={user} navigate={this.showMyProfile} />
+        <UserRecords reads={user.reads.length} followers={user?.followers} />
         <SettingList items={menuItems} />
         <LangsModal
           visible={langModal}
